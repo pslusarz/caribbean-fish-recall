@@ -33,7 +33,25 @@ WRONG_REQUEUE = 10 * 60  # bring a missed card back soon regardless of level
 DECAY_GAP = {1: 12 * 3600, 2: 24 * 3600, 3: 2 * 24 * 3600, 4: 3 * 24 * 3600}
 
 PRIOR = {1: 0.90, 2: 0.65, 3: 0.50, 4: 0.35}
-X = 2
+
+# Consecutive-correct/-wrong answers needed to climb/drop a level. Promotion
+# threshold is eased at low levels (one correct answer takes a brand-new fish
+# from 0->1, in the same lesson -- no more waiting on REVIEW_GAP[1] for a
+# second touch) and tightened near mastery, so early progress feels almost
+# immediate while the top of the ladder stays rigorous. Demotion threshold
+# stays flat -- easing promotion at level 0 without also flattening demotion
+# there would make a freshly-promoted level-1 fish droppable on a single
+# mistake, undoing the "early positive feedback" this is meant to create.
+PROMOTE_THRESHOLD = {0: 1, 1: 1, 2: 2, 3: 2, 4: 3}
+DEMOTE_THRESHOLD = 2
+
+# Score contribution of each level, as a percent of one fish's max (100 at
+# level 4). Front-loaded on purpose -- reaching level 1 already banks half
+# of a fish's possible score, with diminishing gains after that -- so the
+# overall score visibly jumps on a fish's first promotion instead of the old
+# flat level/4 curve, which buried an early win under 57 still-untouched
+# species. Overall score is just the average of this across all fish.
+LEVEL_SCORE_WEIGHT = {0: 0, 1: 50, 2: 75, 3: 90, 4: 100}
 LESSON_SIZE = 15
 TARGET_RATE = 0.70
 
@@ -121,8 +139,11 @@ class SrsEngine:
         return changed
 
     def _compute_score(self, conn, user_id):
+        weight_case = "CASE level " + " ".join(
+            f"WHEN {lvl} THEN {w}" for lvl, w in LEVEL_SCORE_WEIGHT.items()
+        ) + " ELSE 0 END"
         total = conn.execute(
-            text("SELECT SUM(level) FROM progress WHERE user_id=:uid"), {"uid": user_id}
+            text(f"SELECT SUM({weight_case}) FROM progress WHERE user_id=:uid"), {"uid": user_id}
         ).scalar() or 0
         count = conn.execute(
             text("SELECT COUNT(*) FROM progress WHERE user_id=:uid"), {"uid": user_id}
@@ -131,7 +152,7 @@ class SrsEngine:
             text("SELECT COUNT(*) FROM progress WHERE user_id=:uid AND mastered=1"),
             {"uid": user_id},
         ).scalar()
-        score = round(100.0 * total / (count * 4), 1) if count else 0.0
+        score = round(1.0 * total / count, 1) if count else 0.0
         return score, mastered
 
     def _blended_accuracy(self, conn, user_id, level):
@@ -462,7 +483,8 @@ class SrsEngine:
                 "question_type": q["question_type"], "choices": q["choices"], "scaffold": q["scaffold"],
                 "hint": hint, "remaining_in_lesson": remaining,
                 "streak_success": fish["streak_success"], "streak_fail": fish["streak_fail"],
-                "mastered": bool(fish["mastered"]), "promote_threshold": X,
+                "mastered": bool(fish["mastered"]),
+                "promote_threshold": PROMOTE_THRESHOLD.get(fish["level"], DEMOTE_THRESHOLD),
             }
 
     def submit(self, item_id, answer, user_id):
@@ -553,7 +575,7 @@ class SrsEngine:
                     correct_count += 1
                     streak_success += 1
                     streak_fail = 0
-                    if streak_success >= X:
+                    if streak_success >= PROMOTE_THRESHOLD.get(level, DEMOTE_THRESHOLD):
                         if level < 4:
                             level = min(level + 1, 4)
                         else:
@@ -566,7 +588,7 @@ class SrsEngine:
                     streak_success = 0
                     if fish["wrong_count"] + 1 >= 2:
                         mnemonic_reveal = fish["mnemonic"]
-                    if streak_fail >= X:
+                    if streak_fail >= DEMOTE_THRESHOLD:
                         level = max(0, level - 1)
                         streak_fail = 0
                         mastered = 0

@@ -10,6 +10,8 @@ preserved.
 
 from sqlalchemy import text
 
+from app.implementation.srs_engine import PROMOTE_THRESHOLD
+
 
 def _rig_lesson_item(store, user_id, fish_id, level_at_plan, is_retry=0, is_reinforce=0):
     """Directly insert a lessons/lesson_items row pointing at `fish_id` for
@@ -148,10 +150,15 @@ def test_reinforce_item_is_mc_easy_with_the_correct_fish_among_choices(client):
 # ---------- promotion / demotion / mastery ----------
 
 
-def test_promotion_on_second_consecutive_correct_answer(client, store, user_id):
+def test_promotion_on_first_correct_answer_at_level_zero(client, store, user_id):
+    """Level 0 has PROMOTE_THRESHOLD=1 -- a brand-new fish's reinforce card
+    promotes it immediately, in the same lesson, instead of needing a second
+    encounter after REVIEW_GAP[1]. This is the fix for early lessons showing
+    no visible progress at all (see planning/ for the before/after)."""
     fish_id = "banded-butterflyfish"
-    _set_progress(store, user_id, fish_id, level=0, streak_success=1, streak_fail=0)
-    lesson_id, item_id = _rig_lesson_item(store, user_id, fish_id, level_at_plan=1)
+    assert PROMOTE_THRESHOLD[0] == 1
+    _set_progress(store, user_id, fish_id, level=0, streak_success=0, streak_fail=0)
+    lesson_id, item_id = _rig_lesson_item(store, user_id, fish_id, level_at_plan=1, is_reinforce=1)
 
     resp = client.post("/lesson/submit", json={"item_id": item_id, "answer": fish_id})
     data = resp.json()
@@ -164,6 +171,28 @@ def test_promotion_on_second_consecutive_correct_answer(client, store, user_id):
 
     fish = _get_fish(store, user_id, fish_id)
     assert fish["level"] == 1
+    assert fish["streak_success"] == 0
+
+
+def test_promotion_on_second_consecutive_correct_answer_above_level_zero(client, store, user_id):
+    """Levels >=2 keep PROMOTE_THRESHOLD=2 -- still a genuine "second
+    consecutive correct" requirement, unlike the eased level-0 case above."""
+    fish_id = "banded-butterflyfish"
+    assert PROMOTE_THRESHOLD[2] == 2
+    _set_progress(store, user_id, fish_id, level=2, streak_success=1, streak_fail=0)
+    lesson_id, item_id = _rig_lesson_item(store, user_id, fish_id, level_at_plan=2)
+
+    resp = client.post("/lesson/submit", json={"item_id": item_id, "answer": fish_id})
+    data = resp.json()
+
+    assert data["ok"] is True
+    assert data["correct"] is True
+    assert data["promoted"] is True
+    assert data["new_level"] == 3
+    assert data["streak"] == 0  # resets after promotion
+
+    fish = _get_fish(store, user_id, fish_id)
+    assert fish["level"] == 3
     assert fish["streak_success"] == 0
 
 
@@ -195,9 +224,35 @@ def test_demotion_on_second_consecutive_wrong_answer(client, store, user_id):
     assert weight >= 1  # confusion weight bumped (or created) from the miss
 
 
-def test_mastery_on_second_consecutive_correct_at_level_four(client, store, user_id):
+def test_single_wrong_answer_does_not_demote_a_freshly_promoted_level_one_fish(client, store, user_id):
+    """DEMOTE_THRESHOLD stays flat at 2 even though PROMOTE_THRESHOLD[0] was
+    eased to 1 -- otherwise a fish that just promoted on one correct answer
+    could immediately drop back to 0 on a single mistake, undoing the early
+    positive feedback the eased promotion is meant to create."""
     fish_id = "banded-butterflyfish"
-    _set_progress(store, user_id, fish_id, level=4, streak_success=1, mastered=0)
+    _set_progress(store, user_id, fish_id, level=1, streak_success=0, streak_fail=0)
+    lesson_id, item_id = _rig_lesson_item(store, user_id, fish_id, level_at_plan=1)
+
+    resp = client.post("/lesson/submit", json={"item_id": item_id, "answer": "not-a-real-species-id"})
+    data = resp.json()
+
+    assert data["ok"] is True
+    assert data["correct"] is False
+    assert data["demoted"] is False
+    assert data["new_level"] == 1
+
+    fish = _get_fish(store, user_id, fish_id)
+    assert fish["level"] == 1
+    assert fish["streak_fail"] == 1
+
+
+def test_mastery_on_reaching_promote_threshold_at_level_four(client, store, user_id):
+    """Level 4 has PROMOTE_THRESHOLD=3 -- stricter than the flat 2 every
+    level used before, so mastery still takes real, repeated demonstration
+    even though early levels were eased."""
+    fish_id = "banded-butterflyfish"
+    assert PROMOTE_THRESHOLD[4] == 3
+    _set_progress(store, user_id, fish_id, level=4, streak_success=PROMOTE_THRESHOLD[4] - 1, mastered=0)
     lesson_id, item_id = _rig_lesson_item(store, user_id, fish_id, level_at_plan=4)
 
     resp = client.post("/lesson/submit", json={"item_id": item_id, "answer": "Banded Butterflyfish"})
