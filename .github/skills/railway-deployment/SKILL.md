@@ -3,9 +3,27 @@ name: railway-deployment
 description: When interacting with Railway, deploying the app, or when user asks for checking something on the remote.
 ---
 
-**Status: fully configured.** GitHub repo, Railway project, both environments, Postgres,
-and public domains are all live as of 2026-07-02. Repo:
+**Status: fully configured, EXCEPT auto-deploy-on-push may not be wired up — verify before
+trusting a `git push` to deploy anything.** GitHub repo, Railway project, both environments,
+Postgres, and public domains are all live as of 2026-07-02. Repo:
 https://github.com/pslusarz/caribbean-fish-recall (public, default branch `main`).
+
+**Known gap (found 2026-07-02):** the Railway GitHub App had zero access to this repo —
+confirmed via `gh api repos/pslusarz/caribbean-fish-recall/deployments` returning `[]`
+(compare barobeaver, which has 13 deployment records created by `railway-app[bot]`). This
+meant pushing to `main`/`staging` silently deployed nothing; a push looked successful on
+the GitHub side but no Railway build ever started. Before assuming a push will auto-deploy,
+check that endpoint returns non-empty `railway-app[bot]` records. If it doesn't, the fix is
+in GitHub's UI, not the CLI: https://github.com/settings/installations → Railway →
+Configure → add this repo to its access list. This cannot be done via `gh`/`railway` CLI or
+API — it requires a human clicking through GitHub's installation-access UI.
+
+**Manual deploy workaround** (used once already to ship a change before the App-access gap
+was fixed): re-running `railway service source connect --repo <repo> --branch <branch>
+--service <service> --environment <env>` on an already-connected service forces a fresh
+build of the branch's current HEAD, even though the CLI reports `error: ServiceInstance not
+found` (see CLI quirks below — that error doesn't mean it failed). This is not a substitute
+for real auto-deploy; use it only if push-triggered deploys are confirmed broken again.
 
 You will mostly use the `railway` CLI via the Bash tool to achieve goals here. Auth is
 already set up — `railway login` was run once via browser (GitHub OAuth), and the session
