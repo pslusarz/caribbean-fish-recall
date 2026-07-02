@@ -4,6 +4,10 @@ A lesson-based spaced-repetition trainer for identifying 58 Caribbean reef fish
 species, migrated from a lustereczko/Cowork prototype into a standalone
 FastAPI + FastHTML web app deployable on Railway.
 
+**Live app:**
+- Production: https://caribbean-fish-recall-production.up.railway.app
+- Staging: https://caribbean-fish-recall-staging-staging.up.railway.app
+
 See `planning/` for the migration plan and step-by-step log, and
 `.github/skills/` (once added) for operational runbooks. Project layout
 mirrors the `barobeaver` project:

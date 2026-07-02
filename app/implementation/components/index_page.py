@@ -69,6 +69,9 @@ INDEX_BODY = """
     <div id="stats-body" style="font-size:14px; line-height:1.6;"></div>
     <div id="stats-levelbars"></div>
     <div id="stats-chart"></div>
+    <div style="margin-top:14px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.12); font-size:12px; opacity:0.75; line-height:1.5;">
+      <b>Your goal:</b> move every fish from Level 0 up to full mastery (Level 4). A fish advances a level each time you answer a recall question about it correctly in a lesson &mdash; keep practicing to level them all up.
+    </div>
   </div>
 
   <div id="panel-browse" class="panel" style="flex:1; overflow-y:auto; padding:14px; display:none; flex-direction:column; gap:10px;">
@@ -89,6 +92,14 @@ INDEX_BODY = """
     <div id="browse-list" style="display:flex; flex-wrap:wrap; gap:6px;"></div>
   </div>
 
+  <div style="padding:8px 14px; background:#072b3d; font-size:11px; text-align:center; opacity:0.75; border-top:1px solid rgba(255,255,255,0.08);">
+    Fish photos &amp; species data: <a href="https://www.reef.org/species/galleries/caribbean" target="_blank" rel="noopener" style="color:#eaf6fb;">REEF.org</a>
+    &nbsp;&middot;&nbsp;
+    <a href="https://github.com/pslusarz/caribbean-fish-recall" target="_blank" rel="noopener" style="color:#eaf6fb;">GitHub</a>
+    &nbsp;&middot;&nbsp;
+    <a href="https://www.linkedin.com/in/paul-slusarz-365933124/" target="_blank" rel="noopener" style="color:#eaf6fb;">LinkedIn</a>
+  </div>
+
 </div>
 
 <script>
@@ -96,6 +107,7 @@ INDEX_BODY = """
   var currentItem = null;
   var currentLessonId = null;
   var allFish = [];
+  var selectedFishId = null;
   var LEVEL_COLORS = { 0: '#4a5568', 1: '#c05621', 2: '#b7791f', 3: '#2b6cb0', 4: '#2f9e6e' };
 
   function fetchApi(method, path, body) {
@@ -443,16 +455,22 @@ INDEX_BODY = """
     var list = document.getElementById('browse-list');
     list.innerHTML = '';
     allFish.forEach(function(f) {
+      var selected = f.id === selectedFishId;
       var chip = document.createElement('div');
       chip.textContent = f.name + (f.mastered ? ' \\u2605' : '');
       chip.style.cssText = 'padding:6px 10px; border-radius:16px; font-size:12px; cursor:pointer; background:' +
-        LEVEL_COLORS[f.level] + '; color:#eaf6fb;';
+        LEVEL_COLORS[f.level] + '; color:#eaf6fb; transition:transform 0.12s, box-shadow 0.12s;' +
+        (selected
+          ? ' transform:scale(1.12); box-shadow:0 0 0 2px #fff, 0 3px 10px rgba(0,0,0,0.5); font-weight:700;'
+          : ' box-shadow:none;');
       chip.addEventListener('click', function() { showBrowseDetail(f); });
       list.appendChild(chip);
     });
   }
 
   function showBrowseDetail(f) {
+    selectedFishId = f.id;
+    renderBrowseList();
     var detail = document.getElementById('browse-detail');
     detail.style.display = 'block';
     document.getElementById('browse-name').textContent = f.name;
