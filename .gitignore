@@ -16,3 +16,6 @@ data/
 
 .env
 .DS_Store
+
+# Personal/machine-specific Claude Code settings, not shared team config
+.claude/settings.local.json
