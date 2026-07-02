@@ -575,7 +575,7 @@ class SrsEngine:
                         conn.execute(
                             text(
                                 "INSERT INTO confusion (fish_id, other_id, weight) VALUES (:fid, :oid, 1) "
-                                "ON CONFLICT (fish_id, other_id) DO UPDATE SET weight = weight + 1"
+                                "ON CONFLICT (fish_id, other_id) DO UPDATE SET weight = confusion.weight + 1"
                             ),
                             {"fid": fish["id"], "oid": matched_other["id"]},
                         )
