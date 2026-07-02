@@ -85,6 +85,21 @@ across two environments, it doesn't work.
   ones (delete the unwanted environment's instance, then `railway add` a fresh
   differently-named service there).
 
+## Diagnosing "the app feels slow"
+
+Don't assume it's app code. First check `railway metrics --service X --environment Y`:
+if CPU/memory are near-idle (seen: 0% CPU, 3% memory) but `railway logs --http` shows wild
+latency swings on the *exact same static content* (e.g. `GET /` ranging 8ms to 30000ms for
+an unchanged page, or `GET /photos/*.jpg` ranging 11ms to 11500ms for plain file reads),
+that combination points to a bad container/host, not a code regression — no application
+code path is shared between static file serving and DB-backed routes, so if both are
+equally erratic, the app isn't the variable.
+
+Confirmed fix (2026-07-02, production): `railway service restart --service X --environment
+Y --yes` dropped latency from 6-30s to a steady 0.4-1.0s across page/photo/API requests
+immediately. Try this before spending time auditing recent commits for a "regression" that the
+static-content evidence already rules out.
+
 ## Critical Workflows
 
 ### Fetching Remote Logs (Non-Interactive)
