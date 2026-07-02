@@ -1,0 +1,692 @@
+{
+  "fish": [
+    {
+      "id": "banded-butterflyfish",
+      "name": "Banded Butterflyfish",
+      "scientific_name": "Chaetodon striatus",
+      "size": "3-5 in. max. 6 in",
+      "features": "Two wide, black midbody bands.",
+      "photo_file": "banded-butterflyfish.jpg",
+      "mnemonic": "Two thick black bands like warning tape across a butterfly body."
+    },
+    {
+      "id": "bandtail-puffer",
+      "name": "Bandtail Puffer",
+      "scientific_name": "Sphoeroides spengleri",
+      "size": "Up to 12\" (30cm)",
+      "features": "1. Smooth skin | 2. Long body shape | 3. Dark area above, light with black dots below | 4. Banded tail",
+      "photo_file": "bandtail-puffer.jpg",
+      "mnemonic": "Puffer with a banded tail: dark on top, light and speckled below, ring around the tail."
+    },
+    {
+      "id": "bar-jack",
+      "name": "Bar Jack",
+      "scientific_name": "Caranx ruber",
+      "size": "8-14 in. max 2 ft.",
+      "features": "1. Bright blue-and-black border on back runs along dorsal fin and onto lower tail fin.",
+      "photo_file": "bar-jack.jpg",
+      "mnemonic": "The 'bar' is an electric blue-black stripe running along its back onto the lower tail."
+    },
+    {
+      "id": "belted-sandfish",
+      "name": "Belted Sandfish",
+      "scientific_name": "Serranus subligarius",
+      "size": "",
+      "features": "",
+      "photo_file": "belted-sandfish.jpg",
+      "mnemonic": "Small sand-dweller with body bars, like a plainer cousin of the Harlequin Bass."
+    },
+    {
+      "id": "bermuda-chub-yellow-chub",
+      "name": "Bermuda Chub/Yellow Chub",
+      "scientific_name": "Kyphosus sectatrix/incisor",
+      "size": "1-2 ft. max. 2 1/2 ft.",
+      "features": "Gray to silver. \"Football-shaped\" body. (Note: Reliably distinguishing between these two species visually while underwater is considered impossible.)",
+      "photo_file": "bermuda-chub-yellow-chub.jpg",
+      "mnemonic": "Two chub species, basically impossible to tell apart underwater: silver, football-shaped body."
+    },
+    {
+      "id": "bicolor-damselfish",
+      "name": "Bicolor Damselfish",
+      "scientific_name": "Stegastes partitus",
+      "size": "2 - 3 1/2 in. max. 4 in.",
+      "features": "Black and white. 1. Forebody is usually black.",
+      "photo_file": "bicolor-damselfish.jpg",
+      "mnemonic": "BI-color = two colors, black front half, pale back half."
+    },
+    {
+      "id": "black-grouper",
+      "name": "Black Grouper",
+      "scientific_name": "Mycteroperca bonaci",
+      "size": "Up to 4' (122cm)",
+      "features": "1. Long, stout body | 2. Series of dark, rectangular patterns under dorsal fin | 3. Back of dorsal fin, back of tail fin, back of anal fin are black",
+      "photo_file": "black-grouper.jpg",
+      "mnemonic": "Big stout grouper with dark rectangle patches and black-edged fins, the 'goth' grouper."
+    },
+    {
+      "id": "black-jack",
+      "name": "Black Jack",
+      "scientific_name": "Caranx lugubris",
+      "size": "Up to 3' (91 cm)",
+      "features": "1. Steep forehead | 2. Tall, stout body | 3. Dorsal and anal fins fairly long | 4. Row of black scutes extend from halfway on body to tail",
+      "photo_file": "black-jack.jpg",
+      "mnemonic": "Steepest forehead of the jacks, tall stout body, scutes run halfway to the tail."
+    },
+    {
+      "id": "black-margate",
+      "name": "Black Margate",
+      "scientific_name": "Anisotremus surinamensis",
+      "size": "Up to 24\" (61 cm)",
+      "features": "1. Silvery body with wide, dark black bar behind pectoral fin | 2. Black fins all around",
+      "photo_file": "black-margate.jpg",
+      "mnemonic": "Black bar behind the pectoral fin plus black fins all around, like black gloves and socks."
+    },
+    {
+      "id": "blue-chromis",
+      "name": "Blue Chromis",
+      "scientific_name": "Chromis cyanea",
+      "size": "3 - 4 in. max. 5 in.",
+      "features": "Brilliant blue.  | 1. Slender, deeply forked tail with dark borders.",
+      "photo_file": "blue-chromis.jpg",
+      "mnemonic": "Electric blue with a deeply forked, dark-bordered tail, the brightest chromis."
+    },
+    {
+      "id": "bluehead",
+      "name": "Bluehead",
+      "scientific_name": "Thalassoma bifasciatum",
+      "size": "4-5 in. max 6 in.",
+      "features": "1. Blue head.  | 2. Two dark bars behind head, separated by white bar.",
+      "photo_file": "bluehead.jpg",
+      "mnemonic": "Exactly what it says: blue head, with two dark bars separated by a white bar just behind it."
+    },
+    {
+      "id": "bluestriped-grunt",
+      "name": "Bluestriped Grunt",
+      "scientific_name": "Haemulon sciurus",
+      "size": "8-14 in. max. 18 in.",
+      "features": "1. Dark tail and rear dorsal fin.  | 2. Blue stripes.",
+      "photo_file": "bluestriped-grunt.jpg",
+      "mnemonic": "Blue stripes plus a dark tail and rear dorsal fin, the 'blue' grunt."
+    },
+    {
+      "id": "brown-chromis",
+      "name": "Brown Chromis",
+      "scientific_name": "Chromis multilineata",
+      "size": "3 - 5 1/2 in. max 6 1/2 in.",
+      "features": "Brown.  | 1. Border of dorsal fin and tips of tail fin yellow.  | 2. Dark spot around base of pectoral fin.",
+      "photo_file": "brown-chromis.jpg",
+      "mnemonic": "Brown body, yellow-tipped dorsal and tail edges, dark smudge at the pectoral base, the plain chromis."
+    },
+    {
+      "id": "colon-goby",
+      "name": "Colon Goby",
+      "scientific_name": "Coryphopterus dicrus",
+      "size": "Up to 2\" (5 cm)",
+      "features": "1. Body covered with small black/white specks | 2. Two vertical spots (like a colon) at base of tail | 3. Body translucent",
+      "photo_file": "colon-goby.jpg",
+      "mnemonic": "Tiny and speckled, named for two dots like a colon punctuation mark at the base of its tail."
+    },
+    {
+      "id": "creole-wrasse",
+      "name": "Creole Wrasse",
+      "scientific_name": "Bodianus parrae",
+      "size": "",
+      "features": "1. Overall purple coloration | 2. Sometimes black lips and yellow blotches | 3. Often seen in large schools rapidly swimming on the reef",
+      "photo_file": "creole-wrasse.jpg",
+      "mnemonic": "Striking purple schooling wrasse, often seen racing over the reef in big groups."
+    },
+    {
+      "id": "crevalle-jack",
+      "name": "Crevalle Jack",
+      "scientific_name": "Caranx hippos",
+      "size": "Up to 3.5' / 106 cm",
+      "features": "1. Long, curved, silvery body | 2. Black dot on edge of upper gill cover | 3. Black spot on pectoral fin | 4. Curved dorsal and anal fins",
+      "photo_file": "crevalle-jack.jpg",
+      "mnemonic": "Black spot on the gill cover AND another on the pectoral fin, the double-black-dot jack."
+    },
+    {
+      "id": "doctorfish",
+      "name": "Doctorfish",
+      "scientific_name": "Acanthurus chirurgus",
+      "size": "6-12 in. max. 14 in",
+      "features": "1. Always have body bars (10-12), although they may be quite faint.",
+      "photo_file": "doctorfish.jpg",
+      "mnemonic": "Always has body bars, unlike the Ocean Surgeonfish which never does. Doctor checks every bar."
+    },
+    {
+      "id": "dog-snapper",
+      "name": "Dog Snapper",
+      "scientific_name": "Lutjanus jocu",
+      "size": "Up to 3' (91 cm)",
+      "features": "1. Triangular white patch under eye | 2. Snapper body, usually white to cream colored",
+      "photo_file": "dog-snapper.jpg",
+      "mnemonic": "White triangle patch under the eye, like a dog's white muzzle marking."
+    },
+    {
+      "id": "fairy-basslet",
+      "name": "Fairy Basslet",
+      "scientific_name": "Gramma loreto",
+      "size": "1 1/2 - 2 1/2 in. max. 3 in.",
+      "features": "1. Bicolored \u2013 purple to violet front and yellow to gold rear.  | 2. Dark spot on dorsal fin.",
+      "photo_file": "fairy-basslet.jpg",
+      "mnemonic": "Tiny bicolor fish, purple front and gold back, with a dark spot on the dorsal fin."
+    },
+    {
+      "id": "foureye-butterflyfish",
+      "name": "Foureye Butterflyfish",
+      "scientific_name": "Chaetodon capistratus",
+      "size": "3-4 in. max. 6 in",
+      "features": "Black spot, ringed in white, on rear body near upper base of tail.",
+      "photo_file": "foureye-butterflyfish.jpg",
+      "mnemonic": "A fake fourth eye, a black spot ringed in white near the tail, fools predators about which end is the head."
+    },
+    {
+      "id": "french-angelfish",
+      "name": "French Angelfish",
+      "scientific_name": "Pomacanthus paru",
+      "size": "0-14 in. max. 18 in",
+      "features": "Black with bright yellow rims on scales. 1. Tail rounded.",
+      "photo_file": "french-angelfish.jpg",
+      "mnemonic": "Black scales edged in bright yellow rims like gold French filigree, tail is rounded."
+    },
+    {
+      "id": "french-grunt",
+      "name": "French Grunt",
+      "scientific_name": "Haemulon flavolineatum",
+      "size": "6-10 in. max 1 ft.",
+      "features": "1. Yellow stripes below lateral line set on diagonal.",
+      "photo_file": "french-grunt.jpg",
+      "mnemonic": "Yellow stripes running on a diagonal below the lateral line."
+    },
+    {
+      "id": "gag",
+      "name": "Gag",
+      "scientific_name": "Mycteroperca microlepis",
+      "size": "Up to 3' (91 cm)",
+      "features": "1. Lines radiate from eyes | 2. Dusky dark to olive gray coloration | 3. Scrawled markings over body",
+      "photo_file": "gag.jpg",
+      "mnemonic": "Radiating sunburst lines from the eye plus a dusky olive scrawled body."
+    },
+    {
+      "id": "goldentail-moray",
+      "name": "Goldentail Moray",
+      "scientific_name": "Gymnothorax miliaris",
+      "size": "Up to 2 ft (61 cm)",
+      "features": "1. Brown body covered with small yellow speckles | 2. Yellow ring around eye",
+      "photo_file": "goldentail-moray.jpg",
+      "mnemonic": "Golden-yellow speckles all over the body plus a yellow ring around the eye."
+    },
+    {
+      "id": "gray-angelfish",
+      "name": "Gray Angelfish",
+      "scientific_name": "Pomacanthus arcuatus",
+      "size": "10-18 in. max 2 ft.",
+      "features": "Gray body.  | 1. Yellow inner face of pectoral fin.  | 2. Square-cut tail.",
+      "photo_file": "gray-angelfish.jpg",
+      "mnemonic": "Plain gray body, but the inside of the pectoral fin flashes yellow and the tail is squared off, not rounded like French Angelfish."
+    },
+    {
+      "id": "great-barracuda",
+      "name": "Great Barracuda",
+      "scientific_name": "Sphyraena barracuda",
+      "size": "1 1/2 - 3 ft. max. 6 ft.",
+      "features": "Silver. Long, cylindrical body. 1. Large underslung jaw, pointed teeth often obvious.",
+      "photo_file": "great-barracuda.jpg",
+      "mnemonic": "Silver torpedo body with a huge underslung jaw full of teeth."
+    },
+    {
+      "id": "harlequin-bass",
+      "name": "Harlequin Bass",
+      "scientific_name": "Serranus tigrinus",
+      "size": "2 1/2 - 3 1/2 in. max. 3 in.",
+      "features": "1. Dark, tiger-like bars.",
+      "photo_file": "harlequin-bass.jpg",
+      "mnemonic": "Dark tiger-like bars, a blocky harlequin pattern."
+    },
+    {
+      "id": "honeycomb-cowfish",
+      "name": "Honeycomb Cowfish",
+      "scientific_name": "Acanthostracion polygonius",
+      "size": "Up to 18\" (46 cm)",
+      "features": "1. Triangular shaped body | 2. Numerous honeycomb-shaped patterns on body | 3. Background color is yellowish to cream to bluish | 4. Two 'horns' protrude out from forehead | 5. Long, narrow base of tail (caudal peduncle)",
+      "photo_file": "honeycomb-cowfish.jpg",
+      "mnemonic": "Triangular boxy body covered in honeycomb hexagon patterns, with two horns on the forehead like a cow."
+    },
+    {
+      "id": "horse-eye-jack",
+      "name": "Horse-eye Jack",
+      "scientific_name": "Caranx latus",
+      "size": "Up to 2.5 ft (76 cm)",
+      "features": "1. Large eye | 2. Usually schooling in midwater | 3. Yellow tail | 4. Dark dorsal fin | 5. Dark scutes along body",
+      "photo_file": "horse-eye-jack.jpg",
+      "mnemonic": "Big horse-like eye, yellow tail, dark dorsal fin, usually schooling in midwater."
+    },
+    {
+      "id": "jackknife-fish",
+      "name": "Jackknife-Fish",
+      "scientific_name": "Eques lanceolatus",
+      "size": "Up to 9\" (23 cm)",
+      "features": "1. White with a few black stripes | 2. Dorsal fin often held at about a 90 degree angle to body | 3. Thick black stripe from dorsal to tail outlined in thin white stripes | 4. Younger individuals have more of a yellowish tint",
+      "photo_file": "jackknife-fish.jpg",
+      "mnemonic": "Dorsal fin snaps up at a sharp angle like an open jackknife blade, thick black diagonal stripe."
+    },
+    {
+      "id": "leopard-toadfish",
+      "name": "Leopard Toadfish",
+      "scientific_name": "Opsanus pardus",
+      "size": "Up to 15\" (38cm)",
+      "features": "1. Large cirri under chin and around face | 2. Smaller spots on front, larger spots and patterns on back | 3. Pectoral, dorsal, and tail fins have dark edge with thin white line",
+      "photo_file": "leopard-toadfish.jpg",
+      "mnemonic": "Leopard-spotted skin plus chin whiskers (cirri) like a catfish or toad."
+    },
+    {
+      "id": "longsnout-butterflyfish",
+      "name": "Longsnout Butterflyfish",
+      "scientific_name": "Chaetodon aculeatus",
+      "size": "Up to 3.5\" (9cm)",
+      "features": "1. Long, pointed snout | 2. Yellowish orange - darker on top, lighter on bottom | 3. Often swims upside down under ledges | 4. Usually found in deeper water",
+      "photo_file": "longsnout-butterflyfish.jpg",
+      "mnemonic": "Long pointy snout for picking food from crevices, often swims upside down under ledges."
+    },
+    {
+      "id": "ocean-surgeonfish",
+      "name": "Ocean Surgeonfish",
+      "scientific_name": "Acanthurus bahianus",
+      "size": "6-12 in. max. 15 in",
+      "features": "Uniform color with no body bars.",
+      "photo_file": "ocean-surgeonfish.jpg",
+      "mnemonic": "No body bars, ever, the blank surgeonfish, opposite of the Doctorfish."
+    },
+    {
+      "id": "orangespotted-filefish",
+      "name": "Orangespotted Filefish",
+      "scientific_name": "Cantherhines pullus",
+      "size": "Up to 8.5\" (21.6 cm)",
+      "features": "1. White spot on upper tail base | 2. Small orange spots cover body | 3. Dull cream colored stripes extend to tail",
+      "photo_file": "orangespotted-filefish.jpg",
+      "mnemonic": "Small orange spots scattered over the body plus a white spot at the top of the tail base."
+    },
+    {
+      "id": "pinfish",
+      "name": "Pinfish",
+      "scientific_name": "Lagodon rhomboides",
+      "size": "Up to 14\" / 35.5 cm",
+      "features": "1. Gold and blue stripes along the body | 2. Dusky spot centered on lateral line | 3. May have dusky bars | 4. Not in Caribbean or Bahamas",
+      "photo_file": "pinfish.jpg",
+      "mnemonic": "Gold-and-blue pinstripes with a dusky spot on the lateral line."
+    },
+    {
+      "id": "porcupinefish",
+      "name": "Porcupinefish",
+      "scientific_name": "Diodon hystrix",
+      "size": "Up to 3' (91 cm)",
+      "features": "1. Elongated, rectangular shape | 2. Spines all over body, usually laying flat | 3. Black dots cover body AND fins | 4. Large black eyes",
+      "photo_file": "porcupinefish.jpg",
+      "mnemonic": "Spines lying flat like a porcupine, black dots cover both body AND fins, big black eyes."
+    },
+    {
+      "id": "queen-angelfish",
+      "name": "Queen Angelfish",
+      "scientific_name": "Holacanthus ciliaris",
+      "size": "8-14 in. max. 18 in",
+      "features": "1. Dark blue spot on forehead, speckled and ringed with brilliant blue, forms the \"crown.\"  | 2. Tail yellow.",
+      "photo_file": "queen-angelfish.jpg",
+      "mnemonic": "Blue-ringed crown spot on the forehead plus a yellow tail, royalty gets a crown."
+    },
+    {
+      "id": "redband-parrotfish",
+      "name": "Redband Parrotfish",
+      "scientific_name": "Sparisoma aurofrenatum",
+      "size": "6-10 in. max. 11 in.",
+      "features": "1. Small yellow blotch with two or more small black spots on upper forebody.  | 2. Usually salmon to orange or yellow band from corner of mouth to below eye.",
+      "photo_file": "redband-parrotfish.jpg",
+      "mnemonic": "Small yellow forebody blotch with black spots, plus a salmon or orange band from mouth to eye, the red band on the face."
+    },
+    {
+      "id": "reef-croaker",
+      "name": "Reef Croaker",
+      "scientific_name": "Odontoscion dentex",
+      "size": "Up to 8\" (20 cm)",
+      "features": "1. Overall brown coloration with faintly darker broken stripes | 2. Likely hiding in a dark space | 3. Brown dot on pec fin base | 4. Tail yellowish",
+      "photo_file": "reef-croaker.jpg",
+      "mnemonic": "Plain brown with faint broken stripes, usually hiding in a dark crevice, yellowish tail."
+    },
+    {
+      "id": "rock-beauty",
+      "name": "Rock Beauty",
+      "scientific_name": "Holacanthus tricolor",
+      "size": "5-8 in. max 12 in",
+      "features": "1. Yellow to yellow-orange forebode and tail. 2. Mid and rear body black.",
+      "photo_file": "rock-beauty.jpg",
+      "mnemonic": "Split exactly in half: yellow-orange front, black rear, a dramatic two-tone beauty."
+    },
+    {
+      "id": "sand-diver",
+      "name": "Sand Diver",
+      "scientific_name": "Synodus intermedius",
+      "size": "Up to 18\" (46 cm)",
+      "features": "1. Long, slender, tubular shaped body | 2. Usually resting on the bottom | 3. Broken stripes of gold and blue | 4. Several dark vertical bars | 5. Black dot on upper gill cover",
+      "photo_file": "sand-diver.jpg",
+      "mnemonic": "A lizardfish that dives into the sand to rest, gold and blue broken stripes, dark bars, black dot on the gill cover."
+    },
+    {
+      "id": "saucereye-porgy",
+      "name": "Saucereye Porgy",
+      "scientific_name": "Calamus calamus",
+      "size": "Up to 16\" (40cm)",
+      "features": "1. Silver background | 2. Forked tail | 3. Strange swimming pattern - swims forward than abruptly stops in place | 4. Often a yellow wash over face",
+      "photo_file": "saucereye-porgy.jpg",
+      "mnemonic": "Swims forward then abruptly freezes in place, silvery with a forked tail and often a yellow wash on the face."
+    },
+    {
+      "id": "sergeant-major",
+      "name": "Sergeant Major",
+      "scientific_name": "Abudefduf saxatilis",
+      "size": "4 - 6 in. max. 7 in.",
+      "features": "1. Five black body bars.  | 2. Upper lip does not overhang lower.",
+      "photo_file": "sergeant-major.jpg",
+      "mnemonic": "Five black bars like sergeant's stripes on a uniform sleeve."
+    },
+    {
+      "id": "spanish-grunt",
+      "name": "Spanish Grunt",
+      "scientific_name": "Haemulon macrostoma",
+      "size": "Up to 17\" (43 cm)",
+      "features": "1. Hefty body and lips | 2. Silver body with black stripes and yellow on most fins | 3. Usually found near areas without much light (under ledges, overhangs, wrecks)",
+      "photo_file": "spanish-grunt.jpg",
+      "mnemonic": "Heftier lips and body than other grunts, black stripes with yellow fins, hides in dark ledges or wrecks."
+    },
+    {
+      "id": "spotfin-butterflyfish",
+      "name": "Spotfin Butterflyfish",
+      "scientific_name": "Chaetodon ocellatus",
+      "size": "3-6 in. max. 8 in",
+      "features": "1. Fins (except pectoral) bright yellow.  | 2. Black dot on outer edge of rear dorsal fin.",
+      "photo_file": "spotfin-butterflyfish.jpg",
+      "mnemonic": "All fins except the pectoral glow bright yellow, with one black dot on the rear dorsal fin."
+    },
+    {
+      "id": "spotted-goatfish",
+      "name": "Spotted Goatfish",
+      "scientific_name": "Pseudupeneus maculatus",
+      "size": "5-8 in. max 11 in.",
+      "features": "1. A row of three dark, rectangular body blotches is normally visible when fish are active (when resting, change to blotched or mottled reddish brown).  | 2. Two barbels under tip of chin.",
+      "photo_file": "spotted-goatfish.jpg",
+      "mnemonic": "Three dark rectangle blotches down the side when active, plus chin barbels like a goat's beard."
+    },
+    {
+      "id": "spotted-trunkfish",
+      "name": "Spotted Trunkfish",
+      "scientific_name": "Lactophrys bicaudalis",
+      "size": "Up to 16\" (40cm)",
+      "features": "1. White background with black dots | 2. White around mouth | 3. Odd, triangular shaped fish | 4. Spine near anal fin",
+      "photo_file": "spotted-trunkfish.jpg",
+      "mnemonic": "White body covered in black polka dots, boxy triangular trunk shape, spine near the anal fin."
+    },
+    {
+      "id": "stoplight-parrotfish",
+      "name": "Stoplight Parrotfish",
+      "scientific_name": "Sparisoma viride",
+      "size": "1 - 1 1/2 ft. max. 2 ft.",
+      "features": "1. Bright yellow spot at upper corner of gill cover.  | 2. Yellow area at base of tail.  | 3. Salmon to yellow crescent on tail.",
+      "photo_file": "stoplight-parrotfish.jpg",
+      "mnemonic": "Yellow spot at the gill cover like a stoplight, yellow tail base, salmon crescent tail."
+    },
+    {
+      "id": "striped-parrotfish",
+      "name": "Striped Parrotfish",
+      "scientific_name": "Scarus iseri",
+      "size": "Up to 10\" (25 cm)",
+      "features": "1. Blue edges on squared off tail | 2. Dark stripe along side, yellow near pectoral fin | 3. IP / Juv: No dark borders on tail (Princess Parrotfish has dark borders) | 4. IP / Juv: Yellow can be often seen on nose",
+      "photo_file": "striped-parrotfish.jpg",
+      "mnemonic": "Blue-edged squared-off tail, dark side stripe, yellow near the pectoral fin."
+    },
+    {
+      "id": "sunshinefish",
+      "name": "Sunshinefish",
+      "scientific_name": "Chromis insolata",
+      "size": "Up to 4\" (10 cm)",
+      "features": "1. Juveniles: Yellow wash on top, purple below | 2. Adults: Brown with white lower body and fins. Purple wash over eye | 3. Both Juv and Adult usually found deeper",
+      "photo_file": "sunshinefish.jpg",
+      "mnemonic": "Juveniles glow sunshine yellow on top, adults turn brown with a purple eye-wash, usually found deep."
+    },
+    {
+      "id": "townsend-angelfish-hybrid-queen-blue",
+      "name": "Townsend Angelfish (Hybrid Queen/Blue)",
+      "scientific_name": "Holacanthus sp. (Hybrid)",
+      "size": "Up to 18\" (46 cm)",
+      "features": "1. Having some markings from both Queen and Blue Angelfishes, which occasionally interbreed, resulting in this hybrid. | 2. Not found in Caribbean",
+      "photo_file": "townsend-angelfish-hybrid-queen-blue.jpg",
+      "mnemonic": "A Queen x Blue Angelfish hybrid, mixed markings from both parents, not a pure species."
+    },
+    {
+      "id": "trumpetfish",
+      "name": "Trumpetfish",
+      "scientific_name": "Aulostomus maculatus",
+      "size": "1 1/2 - 2 1/2 ft. max. 3 ft.",
+      "features": "Long, thin body.  | 1. Trumpet-like mouth.",
+      "photo_file": "trumpetfish.jpg",
+      "mnemonic": "Long thin body ending in a literal trumpet-shaped mouth."
+    },
+    {
+      "id": "unidentified-silvery-fish-silversides-anchovies-herrings",
+      "name": "Unidentified Silvery Fish (Silversides / Anchovies / Herrings)",
+      "scientific_name": "Atheriniformes sp./ Clupeiformes sp.",
+      "size": "Varies",
+      "features": "1. Any unidentified silvery swimmer",
+      "photo_file": "unidentified-silvery-fish-silversides-anchovies-herrings.jpg",
+      "mnemonic": "Catch-all for schools of silvery little fish you cannot ID down to species: silversides, anchovies, herring."
+    },
+    {
+      "id": "yellow-goatfish",
+      "name": "Yellow Goatfish",
+      "scientific_name": "Mulloidichthys martinicus",
+      "size": "6-12 in. max. 15 1/2 in.",
+      "features": "1. Yellow tail and midbody stripe.  | 2. Two barbels under tip of chin.",
+      "photo_file": "yellow-goatfish.jpg",
+      "mnemonic": "Yellow stripe down the body into the tail, plus chin barbels."
+    },
+    {
+      "id": "yellowhead-wrasse",
+      "name": "Yellowhead Wrasse",
+      "scientific_name": "Halichoeres garnoti",
+      "size": "5-6 in. max 8 in.",
+      "features": "1. Yellow head and forebody.  | 2. Dark midbody bar.",
+      "photo_file": "yellowhead-wrasse.jpg",
+      "mnemonic": "Yellow head and front half, with a dark bar splitting it from the paler rear body."
+    },
+    {
+      "id": "yellowtail-redfin-parrotfish",
+      "name": "Yellowtail (Redfin) Parrotfish",
+      "scientific_name": "Sparisoma rubripinne",
+      "size": "Up to 18\" (46 cm)",
+      "features": "1. TP overall blue-green body color with yellow tail | 2. Initial phase overall gray color with obvious scales and yellow squared-off tail",
+      "photo_file": "yellowtail-redfin-parrotfish.jpg",
+      "mnemonic": "Yellow squared-off tail on an otherwise blue-green or gray body."
+    },
+    {
+      "id": "yellowtail-damselfish",
+      "name": "Yellowtail Damselfish",
+      "scientific_name": "Microspathodon chrysurus",
+      "size": "4 - 6 1/2 in. max. 7 1/2 in.",
+      "features": "Dark body. 1. Yellow tail.",
+      "photo_file": "yellowtail-damselfish.jpg",
+      "mnemonic": "Dark body, bright yellow tail, the name says it all."
+    },
+    {
+      "id": "yellowtail-snapper",
+      "name": "Yellowtail Snapper",
+      "scientific_name": "Ocyurus chrysurus",
+      "size": "1-2 ft. max. 2 1/2 ft.",
+      "features": "1. Brilliant yellow midbody stripe and tail.",
+      "photo_file": "yellowtail-snapper.jpg",
+      "mnemonic": "Brilliant yellow stripe running the length of the body straight into the tail."
+    }
+  ],
+  "confusion_pairs": [
+    [
+      "french-angelfish",
+      "gray-angelfish"
+    ],
+    [
+      "french-angelfish",
+      "rock-beauty"
+    ],
+    [
+      "french-angelfish",
+      "queen-angelfish"
+    ],
+    [
+      "gray-angelfish",
+      "queen-angelfish"
+    ],
+    [
+      "gray-angelfish",
+      "rock-beauty"
+    ],
+    [
+      "queen-angelfish",
+      "rock-beauty"
+    ],
+    [
+      "queen-angelfish",
+      "townsend-angelfish-hybrid-queen-blue"
+    ],
+    [
+      "banded-butterflyfish",
+      "foureye-butterflyfish"
+    ],
+    [
+      "banded-butterflyfish",
+      "spotfin-butterflyfish"
+    ],
+    [
+      "foureye-butterflyfish",
+      "spotfin-butterflyfish"
+    ],
+    [
+      "longsnout-butterflyfish",
+      "foureye-butterflyfish"
+    ],
+    [
+      "blue-chromis",
+      "brown-chromis"
+    ],
+    [
+      "blue-chromis",
+      "sunshinefish"
+    ],
+    [
+      "brown-chromis",
+      "sunshinefish"
+    ],
+    [
+      "bicolor-damselfish",
+      "yellowtail-damselfish"
+    ],
+    [
+      "bicolor-damselfish",
+      "sergeant-major"
+    ],
+    [
+      "bar-jack",
+      "black-jack"
+    ],
+    [
+      "bar-jack",
+      "crevalle-jack"
+    ],
+    [
+      "bar-jack",
+      "horse-eye-jack"
+    ],
+    [
+      "black-jack",
+      "crevalle-jack"
+    ],
+    [
+      "black-jack",
+      "horse-eye-jack"
+    ],
+    [
+      "crevalle-jack",
+      "horse-eye-jack"
+    ],
+    [
+      "redband-parrotfish",
+      "stoplight-parrotfish"
+    ],
+    [
+      "redband-parrotfish",
+      "striped-parrotfish"
+    ],
+    [
+      "stoplight-parrotfish",
+      "yellowtail-redfin-parrotfish"
+    ],
+    [
+      "striped-parrotfish",
+      "yellowtail-redfin-parrotfish"
+    ],
+    [
+      "bluestriped-grunt",
+      "french-grunt"
+    ],
+    [
+      "bluestriped-grunt",
+      "spanish-grunt"
+    ],
+    [
+      "french-grunt",
+      "spanish-grunt"
+    ],
+    [
+      "black-margate",
+      "spanish-grunt"
+    ],
+    [
+      "black-grouper",
+      "gag"
+    ],
+    [
+      "harlequin-bass",
+      "belted-sandfish"
+    ],
+    [
+      "yellow-goatfish",
+      "spotted-goatfish"
+    ],
+    [
+      "bluehead",
+      "yellowhead-wrasse"
+    ],
+    [
+      "bluehead",
+      "creole-wrasse"
+    ],
+    [
+      "yellowhead-wrasse",
+      "creole-wrasse"
+    ],
+    [
+      "doctorfish",
+      "ocean-surgeonfish"
+    ],
+    [
+      "porcupinefish",
+      "honeycomb-cowfish"
+    ],
+    [
+      "spotted-trunkfish",
+      "honeycomb-cowfish"
+    ],
+    [
+      "dog-snapper",
+      "yellowtail-snapper"
+    ],
+    [
+      "bermuda-chub-yellow-chub",
+      "great-barracuda"
+    ]
+  ]
+}
