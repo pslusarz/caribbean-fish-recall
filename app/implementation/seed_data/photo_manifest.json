@@ -4,16 +4,16 @@
     "name": "Black Grouper",
     "photos": [
       {
-        "file": "black-grouper_1.jpg",
+        "file": "black-grouper_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/blackgrouper2_jnichols.jpg",
-        "web_file": "black-grouper_1.jpg"
+        "web_file": "black-grouper_1.webp"
       },
       {
-        "file": "black-grouper_2.jpg",
+        "file": "black-grouper_2.webp",
         "credit": "Photo by Amy Wenzel",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/blackgrouper_amywenzel.jpg",
-        "web_file": "black-grouper_2.jpg"
+        "web_file": "black-grouper_2.webp"
       }
     ]
   },
@@ -22,16 +22,16 @@
     "name": "Saucereye Porgy",
     "photos": [
       {
-        "file": "saucereye-porgy_1.jpg",
+        "file": "saucereye-porgy_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/saucereyeporgy2_jnichols.jpg",
-        "web_file": "saucereye-porgy_1.jpg"
+        "web_file": "saucereye-porgy_1.webp"
       },
       {
-        "file": "saucereye-porgy_2.jpg",
+        "file": "saucereye-porgy_2.webp",
         "credit": "Photo by Carol Cox",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/saucereyeporgy_ccox.jpg",
-        "web_file": "saucereye-porgy_2.jpg"
+        "web_file": "saucereye-porgy_2.webp"
       }
     ]
   },
@@ -40,16 +40,16 @@
     "name": "Townsend Angelfish (Hybrid Queen/Blue)",
     "photos": [
       {
-        "file": "townsend-angelfish-hybrid-queen-blue_1.jpg",
+        "file": "townsend-angelfish-hybrid-queen-blue_1.webp",
         "credit": "Carol Cox",
         "orig_url": "https://www.reef.org/sites/default/files/townsendangelfish_ccox_2.jpg",
-        "web_file": "townsend-angelfish-hybrid-queen-blue_1.jpg"
+        "web_file": "townsend-angelfish-hybrid-queen-blue_1.webp"
       },
       {
-        "file": "townsend-angelfish-hybrid-queen-blue_2.jpg",
+        "file": "townsend-angelfish-hybrid-queen-blue_2.webp",
         "credit": "Photo by Daryl Duda",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/townsendangel_darylduda.jpg",
-        "web_file": "townsend-angelfish-hybrid-queen-blue_2.jpg"
+        "web_file": "townsend-angelfish-hybrid-queen-blue_2.webp"
       }
     ]
   },
@@ -58,16 +58,16 @@
     "name": "Bandtail Puffer",
     "photos": [
       {
-        "file": "bandtail-puffer_1.jpg",
+        "file": "bandtail-puffer_1.webp",
         "credit": "Carol Cox",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/bandtailpuffer_ccox_4.jpg",
-        "web_file": "bandtail-puffer_1.jpg"
+        "web_file": "bandtail-puffer_1.webp"
       },
       {
-        "file": "bandtail-puffer_2.jpg",
+        "file": "bandtail-puffer_2.webp",
         "credit": "Photo by Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/bandtailpuffer_jnichols.jpg",
-        "web_file": "bandtail-puffer_2.jpg"
+        "web_file": "bandtail-puffer_2.webp"
       }
     ]
   },
@@ -76,10 +76,10 @@
     "name": "Creole Wrasse",
     "photos": [
       {
-        "file": "creole-wrasse_1.jpg",
+        "file": "creole-wrasse_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/creolewrasse_jnichols_2.jpg",
-        "web_file": "creole-wrasse_1.jpg"
+        "web_file": "creole-wrasse_1.webp"
       }
     ]
   },
@@ -88,16 +88,16 @@
     "name": "Porcupinefish",
     "photos": [
       {
-        "file": "porcupinefish_1.jpg",
+        "file": "porcupinefish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/porcupinefish4_jnichols.jpg",
-        "web_file": "porcupinefish_1.jpg"
+        "web_file": "porcupinefish_1.webp"
       },
       {
-        "file": "porcupinefish_2.jpg",
+        "file": "porcupinefish_2.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/porcupinefish2_jnichols.jpg",
-        "web_file": "porcupinefish_2.jpg"
+        "web_file": "porcupinefish_2.webp"
       }
     ]
   },
@@ -106,16 +106,16 @@
     "name": "Gag",
     "photos": [
       {
-        "file": "gag_1.jpg",
+        "file": "gag_1.webp",
         "credit": "Frank Krasovec",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/gag_frankkrasovec.jpg",
-        "web_file": "gag_1.jpg"
+        "web_file": "gag_1.webp"
       },
       {
-        "file": "gag_2.jpg",
+        "file": "gag_2.webp",
         "credit": "Photo by Carol Cox",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/gag_ccox1_0.jpg",
-        "web_file": "gag_2.jpg"
+        "web_file": "gag_2.webp"
       }
     ]
   },
@@ -124,16 +124,16 @@
     "name": "Goldentail Moray",
     "photos": [
       {
-        "file": "goldentail-moray_1.jpg",
+        "file": "goldentail-moray_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/goldentail_jnichols.jpg",
-        "web_file": "goldentail-moray_1.jpg"
+        "web_file": "goldentail-moray_1.webp"
       },
       {
-        "file": "goldentail-moray_2.jpg",
+        "file": "goldentail-moray_2.webp",
         "credit": "Photo by Jeff Haines",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/goldentailmoray_jeffhaines-1.jpg",
-        "web_file": "goldentail-moray_2.jpg"
+        "web_file": "goldentail-moray_2.webp"
       }
     ]
   },
@@ -142,16 +142,16 @@
     "name": "Dog Snapper",
     "photos": [
       {
-        "file": "dog-snapper_1.jpg",
+        "file": "dog-snapper_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/dogsnapper2_jnichols.jpg",
-        "web_file": "dog-snapper_1.jpg"
+        "web_file": "dog-snapper_1.webp"
       },
       {
-        "file": "dog-snapper_2.jpg",
+        "file": "dog-snapper_2.webp",
         "credit": "Photo by Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/dogsnapper3_jnichols.jpg",
-        "web_file": "dog-snapper_2.jpg"
+        "web_file": "dog-snapper_2.webp"
       }
     ]
   },
@@ -160,16 +160,16 @@
     "name": "Leopard Toadfish",
     "photos": [
       {
-        "file": "leopard-toadfish_1.jpg",
+        "file": "leopard-toadfish_1.webp",
         "credit": "Carol Cox",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/leopardtoadfish_ccox_3.jpg",
-        "web_file": "leopard-toadfish_1.jpg"
+        "web_file": "leopard-toadfish_1.webp"
       },
       {
-        "file": "leopard-toadfish_2.jpg",
+        "file": "leopard-toadfish_2.webp",
         "credit": "Photo by Carol Cox",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/leopardtoadfish_ccox_copy.jpg",
-        "web_file": "leopard-toadfish_2.jpg"
+        "web_file": "leopard-toadfish_2.webp"
       }
     ]
   },
@@ -178,10 +178,10 @@
     "name": "Horse-eye Jack",
     "photos": [
       {
-        "file": "horse-eye-jack_1.jpg",
+        "file": "horse-eye-jack_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/horseeye1_jnichols.jpg",
-        "web_file": "horse-eye-jack_1.jpg"
+        "web_file": "horse-eye-jack_1.webp"
       }
     ]
   },
@@ -190,22 +190,22 @@
     "name": "Sand Diver",
     "photos": [
       {
-        "file": "sand-diver_1.jpg",
+        "file": "sand-diver_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/sanddiver_jannanichols.jpg",
-        "web_file": "sand-diver_1.jpg"
+        "web_file": "sand-diver_1.webp"
       },
       {
-        "file": "sand-diver_2.jpg",
+        "file": "sand-diver_2.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/sanddiver_jnichols.jpg",
-        "web_file": "sand-diver_2.jpg"
+        "web_file": "sand-diver_2.webp"
       },
       {
-        "file": "sand-diver_3.jpg",
+        "file": "sand-diver_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/sanddiver4_jannanichols.jpg",
-        "web_file": "sand-diver_3.jpg"
+        "web_file": "sand-diver_3.webp"
       }
     ]
   },
@@ -214,10 +214,10 @@
     "name": "Longsnout Butterflyfish",
     "photos": [
       {
-        "file": "longsnout-butterflyfish_1.jpg",
+        "file": "longsnout-butterflyfish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/longsnoutbff2_jnichols.jpg",
-        "web_file": "longsnout-butterflyfish_1.jpg"
+        "web_file": "longsnout-butterflyfish_1.webp"
       }
     ]
   },
@@ -226,16 +226,16 @@
     "name": "Spotted Trunkfish",
     "photos": [
       {
-        "file": "spotted-trunkfish_1.jpg",
+        "file": "spotted-trunkfish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/spottedtrunkfish_jnichols.jpg",
-        "web_file": "spotted-trunkfish_1.jpg"
+        "web_file": "spotted-trunkfish_1.webp"
       },
       {
-        "file": "spotted-trunkfish_2.jpg",
+        "file": "spotted-trunkfish_2.webp",
         "credit": "Photo by Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/spottedtrunk2_jnichols.jpg",
-        "web_file": "spotted-trunkfish_2.jpg"
+        "web_file": "spotted-trunkfish_2.webp"
       }
     ]
   },
@@ -244,16 +244,16 @@
     "name": "Black Jack",
     "photos": [
       {
-        "file": "black-jack_1.jpg",
+        "file": "black-jack_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/blackjack2_jnichols.jpg",
-        "web_file": "black-jack_1.jpg"
+        "web_file": "black-jack_1.webp"
       },
       {
-        "file": "black-jack_2.jpg",
+        "file": "black-jack_2.webp",
         "credit": "Photo by David Ehlert",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/blackjack_davidehlert.jpg",
-        "web_file": "black-jack_2.jpg"
+        "web_file": "black-jack_2.webp"
       }
     ]
   },
@@ -262,16 +262,16 @@
     "name": "Pinfish",
     "photos": [
       {
-        "file": "pinfish_1.jpg",
+        "file": "pinfish_1.webp",
         "credit": "Carol Cox",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/pinfish_ccox_2.jpg",
-        "web_file": "pinfish_1.jpg"
+        "web_file": "pinfish_1.webp"
       },
       {
-        "file": "pinfish_2.jpg",
+        "file": "pinfish_2.webp",
         "credit": "Photo by Carol Cox",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/pinfish_ccox.jpg",
-        "web_file": "pinfish_2.jpg"
+        "web_file": "pinfish_2.webp"
       }
     ]
   },
@@ -280,16 +280,16 @@
     "name": "Black Margate",
     "photos": [
       {
-        "file": "black-margate_1.jpg",
+        "file": "black-margate_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/blackmargate2_jnichols.jpg",
-        "web_file": "black-margate_1.jpg"
+        "web_file": "black-margate_1.webp"
       },
       {
-        "file": "black-margate_2.jpg",
+        "file": "black-margate_2.webp",
         "credit": "Photo by Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/blackmargate3_jnichols.jpg",
-        "web_file": "black-margate_2.jpg"
+        "web_file": "black-margate_2.webp"
       }
     ]
   },
@@ -298,10 +298,10 @@
     "name": "Unidentified Silvery Fish (Silversides / Anchovies / Herrings)",
     "photos": [
       {
-        "file": "unidentified-silvery-fish-silversides-anchovies-herrings_1.jpg",
+        "file": "unidentified-silvery-fish-silversides-anchovies-herrings_1.webp",
         "credit": "Carol Cox",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/anchovies1_carolcox.jpg",
-        "web_file": "unidentified-silvery-fish-silversides-anchovies-herrings_1.jpg"
+        "web_file": "unidentified-silvery-fish-silversides-anchovies-herrings_1.webp"
       }
     ]
   },
@@ -310,16 +310,16 @@
     "name": "Jackknife-Fish",
     "photos": [
       {
-        "file": "jackknife-fish_1.jpg",
+        "file": "jackknife-fish_1.webp",
         "credit": "Carol Cox",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/jackknifefish_carolcox.jpg",
-        "web_file": "jackknife-fish_1.jpg"
+        "web_file": "jackknife-fish_1.webp"
       },
       {
-        "file": "jackknife-fish_2.jpg",
+        "file": "jackknife-fish_2.webp",
         "credit": "Photo by Carol Cox",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/jackknifefish_ccox_3.jpg",
-        "web_file": "jackknife-fish_2.jpg"
+        "web_file": "jackknife-fish_2.webp"
       }
     ]
   },
@@ -328,16 +328,16 @@
     "name": "Crevalle Jack",
     "photos": [
       {
-        "file": "crevalle-jack_1.jpg",
+        "file": "crevalle-jack_1.webp",
         "credit": "Carol Cox",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/crevallejack2_ccox.jpg",
-        "web_file": "crevalle-jack_1.jpg"
+        "web_file": "crevalle-jack_1.webp"
       },
       {
-        "file": "crevalle-jack_2.jpg",
+        "file": "crevalle-jack_2.webp",
         "credit": "Photo by Carol Cox",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/crevalle_ccox_3.jpg",
-        "web_file": "crevalle-jack_2.jpg"
+        "web_file": "crevalle-jack_2.webp"
       }
     ]
   },
@@ -346,16 +346,16 @@
     "name": "Sunshinefish",
     "photos": [
       {
-        "file": "sunshinefish_1.jpg",
+        "file": "sunshinefish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/sunshinefish_jnichols.jpg",
-        "web_file": "sunshinefish_1.jpg"
+        "web_file": "sunshinefish_1.webp"
       },
       {
-        "file": "sunshinefish_2.jpg",
+        "file": "sunshinefish_2.webp",
         "credit": "Jeff Haines",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/sunshinefish_jeffhaines-1_0.jpg",
-        "web_file": "sunshinefish_2.jpg"
+        "web_file": "sunshinefish_2.webp"
       }
     ]
   },
@@ -364,16 +364,16 @@
     "name": "Striped Parrotfish",
     "photos": [
       {
-        "file": "striped-parrotfish_1.jpg",
+        "file": "striped-parrotfish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/stripedparrot_jnichols.jpg",
-        "web_file": "striped-parrotfish_1.jpg"
+        "web_file": "striped-parrotfish_1.webp"
       },
       {
-        "file": "striped-parrotfish_2.jpg",
+        "file": "striped-parrotfish_2.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/stripedparrot2_jnichols.jpg",
-        "web_file": "striped-parrotfish_2.jpg"
+        "web_file": "striped-parrotfish_2.webp"
       }
     ]
   },
@@ -382,16 +382,16 @@
     "name": "Yellowtail (Redfin) Parrotfish",
     "photos": [
       {
-        "file": "yellowtail-redfin-parrotfish_1.jpg",
+        "file": "yellowtail-redfin-parrotfish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/yellowtailparrot_jnichols_0.jpg",
-        "web_file": "yellowtail-redfin-parrotfish_1.jpg"
+        "web_file": "yellowtail-redfin-parrotfish_1.webp"
       },
       {
-        "file": "yellowtail-redfin-parrotfish_2.jpg",
+        "file": "yellowtail-redfin-parrotfish_2.webp",
         "credit": "Photo by Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/yellowtailparrot_jannanicho.jpg",
-        "web_file": "yellowtail-redfin-parrotfish_2.jpg"
+        "web_file": "yellowtail-redfin-parrotfish_2.webp"
       }
     ]
   },
@@ -400,16 +400,16 @@
     "name": "Honeycomb Cowfish",
     "photos": [
       {
-        "file": "honeycomb-cowfish_1.jpg",
+        "file": "honeycomb-cowfish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/honeycombcow5_jnichols.jpg",
-        "web_file": "honeycomb-cowfish_1.jpg"
+        "web_file": "honeycomb-cowfish_1.webp"
       },
       {
-        "file": "honeycomb-cowfish_2.jpg",
+        "file": "honeycomb-cowfish_2.webp",
         "credit": "Photo by Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/honeycombcow4_jnichols.jpg",
-        "web_file": "honeycomb-cowfish_2.jpg"
+        "web_file": "honeycomb-cowfish_2.webp"
       }
     ]
   },
@@ -418,16 +418,16 @@
     "name": "Reef Croaker",
     "photos": [
       {
-        "file": "reef-croaker_1.jpg",
+        "file": "reef-croaker_1.webp",
         "credit": "Jonathan Lavan",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/reefcroaker2_jlavan.jpg",
-        "web_file": "reef-croaker_1.jpg"
+        "web_file": "reef-croaker_1.webp"
       },
       {
-        "file": "reef-croaker_2.jpg",
+        "file": "reef-croaker_2.webp",
         "credit": "Photo by Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/reefcroaker_jnichols.jpg",
-        "web_file": "reef-croaker_2.jpg"
+        "web_file": "reef-croaker_2.webp"
       }
     ]
   },
@@ -436,22 +436,22 @@
     "name": "Yellow Goatfish",
     "photos": [
       {
-        "file": "yellow-goatfish_1.png",
+        "file": "yellow-goatfish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/yellow_goatfish_jnichols_2.png",
-        "web_file": "yellow-goatfish_1.jpg"
+        "web_file": "yellow-goatfish_1.webp"
       },
       {
-        "file": "yellow-goatfish_2.png",
+        "file": "yellow-goatfish_2.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/yellow_goatfish_jnichols.png",
-        "web_file": "yellow-goatfish_2.jpg"
+        "web_file": "yellow-goatfish_2.webp"
       },
       {
-        "file": "yellow-goatfish_3.png",
+        "file": "yellow-goatfish_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/yellow_goatfish_jnichols_1.png",
-        "web_file": "yellow-goatfish_3.jpg"
+        "web_file": "yellow-goatfish_3.webp"
       }
     ]
   },
@@ -460,22 +460,22 @@
     "name": "Spotted Goatfish",
     "photos": [
       {
-        "file": "spotted-goatfish_1.png",
+        "file": "spotted-goatfish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/spotted_goatfish_jnichols_0.png",
-        "web_file": "spotted-goatfish_1.jpg"
+        "web_file": "spotted-goatfish_1.webp"
       },
       {
-        "file": "spotted-goatfish_2.png",
+        "file": "spotted-goatfish_2.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/spotted_goatfish_jnichols_2.png",
-        "web_file": "spotted-goatfish_2.jpg"
+        "web_file": "spotted-goatfish_2.webp"
       },
       {
-        "file": "spotted-goatfish_3.png",
+        "file": "spotted-goatfish_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/spotted_goatfish_jnichols_3.png",
-        "web_file": "spotted-goatfish_3.jpg"
+        "web_file": "spotted-goatfish_3.webp"
       }
     ]
   },
@@ -484,10 +484,10 @@
     "name": "Belted Sandfish",
     "photos": [
       {
-        "file": "belted-sandfish_1.jpg",
+        "file": "belted-sandfish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/beltedsand_jannanichols.jpg",
-        "web_file": "belted-sandfish_1.jpg"
+        "web_file": "belted-sandfish_1.webp"
       }
     ]
   },
@@ -496,22 +496,22 @@
     "name": "Trumpetfish",
     "photos": [
       {
-        "file": "trumpetfish_1.png",
+        "file": "trumpetfish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/trumpetfish_jnichols_0.png",
-        "web_file": "trumpetfish_1.jpg"
+        "web_file": "trumpetfish_1.webp"
       },
       {
-        "file": "trumpetfish_2.png",
+        "file": "trumpetfish_2.webp",
         "credit": "Daryl Duda",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/trumpetfish_dduda_0.png",
-        "web_file": "trumpetfish_2.jpg"
+        "web_file": "trumpetfish_2.webp"
       },
       {
-        "file": "trumpetfish_3.png",
+        "file": "trumpetfish_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/trumpetfish_dduda.png",
-        "web_file": "trumpetfish_3.jpg"
+        "web_file": "trumpetfish_3.webp"
       }
     ]
   },
@@ -520,16 +520,16 @@
     "name": "Colon Goby",
     "photos": [
       {
-        "file": "colon-goby_1.jpg",
+        "file": "colon-goby_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/colongoby_jnichols.jpg",
-        "web_file": "colon-goby_1.jpg"
+        "web_file": "colon-goby_1.webp"
       },
       {
-        "file": "colon-goby_2.jpg",
+        "file": "colon-goby_2.webp",
         "credit": "Photo by Jonathan Lavan",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/colongoby5_jonathan_lavan.jpg",
-        "web_file": "colon-goby_2.jpg"
+        "web_file": "colon-goby_2.webp"
       }
     ]
   },
@@ -538,16 +538,16 @@
     "name": "Orangespotted Filefish",
     "photos": [
       {
-        "file": "orangespotted-filefish_1.jpg",
+        "file": "orangespotted-filefish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/orangespottedfile_jnichols.jpg",
-        "web_file": "orangespotted-filefish_1.jpg"
+        "web_file": "orangespotted-filefish_1.webp"
       },
       {
-        "file": "orangespotted-filefish_2.jpg",
+        "file": "orangespotted-filefish_2.webp",
         "credit": "Photo by Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/orangespotted2_jnichols.jpg",
-        "web_file": "orangespotted-filefish_2.jpg"
+        "web_file": "orangespotted-filefish_2.webp"
       }
     ]
   },
@@ -556,16 +556,16 @@
     "name": "Spanish Grunt",
     "photos": [
       {
-        "file": "spanish-grunt_1.jpg",
+        "file": "spanish-grunt_1.webp",
         "credit": "Jeff Haines",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/spanishgrunt_jeffreyhaines.jpg",
-        "web_file": "spanish-grunt_1.jpg"
+        "web_file": "spanish-grunt_1.webp"
       },
       {
-        "file": "spanish-grunt_2.jpg",
+        "file": "spanish-grunt_2.webp",
         "credit": "Photo by Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/spanishgrunt_jnichols.jpg",
-        "web_file": "spanish-grunt_2.jpg"
+        "web_file": "spanish-grunt_2.webp"
       }
     ]
   },
@@ -574,22 +574,22 @@
     "name": "Bluehead",
     "photos": [
       {
-        "file": "bluehead_1.png",
+        "file": "bluehead_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/bluehead_wrasse_jnichols_0.png",
-        "web_file": "bluehead_1.jpg"
+        "web_file": "bluehead_1.webp"
       },
       {
-        "file": "bluehead_2.png",
+        "file": "bluehead_2.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/bluehead_wrasse_jnichols_2_0.png",
-        "web_file": "bluehead_2.jpg"
+        "web_file": "bluehead_2.webp"
       },
       {
-        "file": "bluehead_3.png",
+        "file": "bluehead_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/bluehead_wrasse_jnichols.png",
-        "web_file": "bluehead_3.jpg"
+        "web_file": "bluehead_3.webp"
       }
     ]
   },
@@ -598,22 +598,22 @@
     "name": "Yellowhead Wrasse",
     "photos": [
       {
-        "file": "yellowhead-wrasse_1.png",
+        "file": "yellowhead-wrasse_1.webp",
         "credit": "Frank Krasovec",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/yellowhead_wrasse_fkrasovec_0.png",
-        "web_file": "yellowhead-wrasse_1.jpg"
+        "web_file": "yellowhead-wrasse_1.webp"
       },
       {
-        "file": "yellowhead-wrasse_2.png",
+        "file": "yellowhead-wrasse_2.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/yellowhead_wrasse_jnichols_0.png",
-        "web_file": "yellowhead-wrasse_2.jpg"
+        "web_file": "yellowhead-wrasse_2.webp"
       },
       {
-        "file": "yellowhead-wrasse_3.png",
+        "file": "yellowhead-wrasse_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/yellowhead_wrasse_jnichols_1.png",
-        "web_file": "yellowhead-wrasse_3.jpg"
+        "web_file": "yellowhead-wrasse_3.webp"
       }
     ]
   },
@@ -622,22 +622,22 @@
     "name": "Redband Parrotfish",
     "photos": [
       {
-        "file": "redband-parrotfish_1.png",
+        "file": "redband-parrotfish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/redband_parrotfish_jnichols_1.png",
-        "web_file": "redband-parrotfish_1.jpg"
+        "web_file": "redband-parrotfish_1.webp"
       },
       {
-        "file": "redband-parrotfish_2.png",
+        "file": "redband-parrotfish_2.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/redband_parrotfish_jnichols_2_0.png",
-        "web_file": "redband-parrotfish_2.jpg"
+        "web_file": "redband-parrotfish_2.webp"
       },
       {
-        "file": "redband-parrotfish_3.png",
+        "file": "redband-parrotfish_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/redband_parrotfish_jnichols.png",
-        "web_file": "redband-parrotfish_3.jpg"
+        "web_file": "redband-parrotfish_3.webp"
       }
     ]
   },
@@ -646,22 +646,22 @@
     "name": "Stoplight Parrotfish",
     "photos": [
       {
-        "file": "stoplight-parrotfish_1.png",
+        "file": "stoplight-parrotfish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/stoplight_parrotfish_jnichols_1.png",
-        "web_file": "stoplight-parrotfish_1.jpg"
+        "web_file": "stoplight-parrotfish_1.webp"
       },
       {
-        "file": "stoplight-parrotfish_2.png",
+        "file": "stoplight-parrotfish_2.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/stoplight_parrotfish_jnichols_2.png",
-        "web_file": "stoplight-parrotfish_2.jpg"
+        "web_file": "stoplight-parrotfish_2.webp"
       },
       {
-        "file": "stoplight-parrotfish_3.png",
+        "file": "stoplight-parrotfish_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/stoplight_parrotfish_jnichols.png",
-        "web_file": "stoplight-parrotfish_3.jpg"
+        "web_file": "stoplight-parrotfish_3.webp"
       }
     ]
   },
@@ -670,22 +670,22 @@
     "name": "Blue Chromis",
     "photos": [
       {
-        "file": "blue-chromis_1.png",
+        "file": "blue-chromis_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/blue_chromis_jnichols_3.png",
-        "web_file": "blue-chromis_1.jpg"
+        "web_file": "blue-chromis_1.webp"
       },
       {
-        "file": "blue-chromis_2.png",
+        "file": "blue-chromis_2.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/blue_chromis_jnichols_2_0.png",
-        "web_file": "blue-chromis_2.jpg"
+        "web_file": "blue-chromis_2.webp"
       },
       {
-        "file": "blue-chromis_3.png",
+        "file": "blue-chromis_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/blue_chromis_jnichols_1.png",
-        "web_file": "blue-chromis_3.jpg"
+        "web_file": "blue-chromis_3.webp"
       }
     ]
   },
@@ -694,22 +694,22 @@
     "name": "Harlequin Bass",
     "photos": [
       {
-        "file": "harlequin-bass_1.png",
+        "file": "harlequin-bass_1.webp",
         "credit": "Jonathon Lavan",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/harlequin_bass_jlavan_0.png",
-        "web_file": "harlequin-bass_1.jpg"
+        "web_file": "harlequin-bass_1.webp"
       },
       {
-        "file": "harlequin-bass_2.png",
+        "file": "harlequin-bass_2.webp",
         "credit": "Jeff Haines",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/harlequin_bass_jhaines_0.png",
-        "web_file": "harlequin-bass_2.jpg"
+        "web_file": "harlequin-bass_2.webp"
       },
       {
-        "file": "harlequin-bass_3.png",
+        "file": "harlequin-bass_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/harlequin_bass_jlavan_1.png",
-        "web_file": "harlequin-bass_3.jpg"
+        "web_file": "harlequin-bass_3.webp"
       }
     ]
   },
@@ -718,22 +718,22 @@
     "name": "Brown Chromis",
     "photos": [
       {
-        "file": "brown-chromis_1.png",
+        "file": "brown-chromis_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/brown_chromis_jnichols_0.png",
-        "web_file": "brown-chromis_1.jpg"
+        "web_file": "brown-chromis_1.webp"
       },
       {
-        "file": "brown-chromis_2.png",
+        "file": "brown-chromis_2.webp",
         "credit": "Griffin",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/brown_chromis_agriffin_0.png",
-        "web_file": "brown-chromis_2.jpg"
+        "web_file": "brown-chromis_2.webp"
       },
       {
-        "file": "brown-chromis_3.png",
+        "file": "brown-chromis_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/brown_chromis_jnichols.png",
-        "web_file": "brown-chromis_3.jpg"
+        "web_file": "brown-chromis_3.webp"
       }
     ]
   },
@@ -742,22 +742,22 @@
     "name": "Fairy Basslet",
     "photos": [
       {
-        "file": "fairy-basslet_1.png",
+        "file": "fairy-basslet_1.webp",
         "credit": "Carol Cox",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/fairy_basslet_ccox_0.png",
-        "web_file": "fairy-basslet_1.jpg"
+        "web_file": "fairy-basslet_1.webp"
       },
       {
-        "file": "fairy-basslet_2.png",
+        "file": "fairy-basslet_2.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/fairy_basslet_jnichols_0.png",
-        "web_file": "fairy-basslet_2.jpg"
+        "web_file": "fairy-basslet_2.webp"
       },
       {
-        "file": "fairy-basslet_3.png",
+        "file": "fairy-basslet_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/fairy_basslet_jnichols.png",
-        "web_file": "fairy-basslet_3.jpg"
+        "web_file": "fairy-basslet_3.webp"
       }
     ]
   },
@@ -766,22 +766,22 @@
     "name": "Bicolor Damselfish",
     "photos": [
       {
-        "file": "bicolor-damselfish_1.png",
+        "file": "bicolor-damselfish_1.webp",
         "credit": "Jeff Haines",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/bicolor_damelfish_jhaines_0.png",
-        "web_file": "bicolor-damselfish_1.jpg"
+        "web_file": "bicolor-damselfish_1.webp"
       },
       {
-        "file": "bicolor-damselfish_2.png",
+        "file": "bicolor-damselfish_2.webp",
         "credit": "Carol Cox",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/bicolor_damselfish_ccox_0.png",
-        "web_file": "bicolor-damselfish_2.jpg"
+        "web_file": "bicolor-damselfish_2.webp"
       },
       {
-        "file": "bicolor-damselfish_3.png",
+        "file": "bicolor-damselfish_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/bicolor_damselfish_ccox.png",
-        "web_file": "bicolor-damselfish_3.jpg"
+        "web_file": "bicolor-damselfish_3.webp"
       }
     ]
   },
@@ -790,22 +790,22 @@
     "name": "Sergeant Major",
     "photos": [
       {
-        "file": "sergeant-major_1.png",
+        "file": "sergeant-major_1.webp",
         "credit": "Carol Cox",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/sergeant_major_ccox_1.png",
-        "web_file": "sergeant-major_1.jpg"
+        "web_file": "sergeant-major_1.webp"
       },
       {
-        "file": "sergeant-major_2.png",
+        "file": "sergeant-major_2.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/sergeant_major_jnichols_0.png",
-        "web_file": "sergeant-major_2.jpg"
+        "web_file": "sergeant-major_2.webp"
       },
       {
-        "file": "sergeant-major_3.png",
+        "file": "sergeant-major_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/sergeant_major_ccox.png",
-        "web_file": "sergeant-major_3.jpg"
+        "web_file": "sergeant-major_3.webp"
       }
     ]
   },
@@ -814,22 +814,22 @@
     "name": "Yellowtail Damselfish",
     "photos": [
       {
-        "file": "yellowtail-damselfish_1.png",
+        "file": "yellowtail-damselfish_1.webp",
         "credit": "Jeff Haines",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/yellowtail_damselfish_jhaines_0.png",
-        "web_file": "yellowtail-damselfish_1.jpg"
+        "web_file": "yellowtail-damselfish_1.webp"
       },
       {
-        "file": "yellowtail-damselfish_2.png",
+        "file": "yellowtail-damselfish_2.webp",
         "credit": "Griffin",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/yellowtail_damselfish_agriffin_0.png",
-        "web_file": "yellowtail-damselfish_2.jpg"
+        "web_file": "yellowtail-damselfish_2.webp"
       },
       {
-        "file": "yellowtail-damselfish_3.png",
+        "file": "yellowtail-damselfish_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/yellowtail_damselfish_jhaines_1.png",
-        "web_file": "yellowtail-damselfish_3.jpg"
+        "web_file": "yellowtail-damselfish_3.webp"
       }
     ]
   },
@@ -838,22 +838,22 @@
     "name": "Yellowtail Snapper",
     "photos": [
       {
-        "file": "yellowtail-snapper_1.png",
+        "file": "yellowtail-snapper_1.webp",
         "credit": "Daryl Duda",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/yellowtail_snapper_dduda_0.png",
-        "web_file": "yellowtail-snapper_1.jpg"
+        "web_file": "yellowtail-snapper_1.webp"
       },
       {
-        "file": "yellowtail-snapper_2.png",
+        "file": "yellowtail-snapper_2.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/yellowtail_snapper_jnichols_0.png",
-        "web_file": "yellowtail-snapper_2.jpg"
+        "web_file": "yellowtail-snapper_2.webp"
       },
       {
-        "file": "yellowtail-snapper_3.png",
+        "file": "yellowtail-snapper_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/yellowtail_snapper_jnichols.png",
-        "web_file": "yellowtail-snapper_3.jpg"
+        "web_file": "yellowtail-snapper_3.webp"
       }
     ]
   },
@@ -862,22 +862,22 @@
     "name": "French Grunt",
     "photos": [
       {
-        "file": "french-grunt_1.png",
+        "file": "french-grunt_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/french_grunt_jnichols_1.png",
-        "web_file": "french-grunt_1.jpg"
+        "web_file": "french-grunt_1.webp"
       },
       {
-        "file": "french-grunt_2.png",
+        "file": "french-grunt_2.webp",
         "credit": "Ellie Splian",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/french_grunt_esplain_0.png",
-        "web_file": "french-grunt_2.jpg"
+        "web_file": "french-grunt_2.webp"
       },
       {
-        "file": "french-grunt_3.png",
+        "file": "french-grunt_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/french_grunt_jnichols_0.png",
-        "web_file": "french-grunt_3.jpg"
+        "web_file": "french-grunt_3.webp"
       }
     ]
   },
@@ -886,22 +886,22 @@
     "name": "Bluestriped Grunt",
     "photos": [
       {
-        "file": "bluestriped-grunt_1.png",
+        "file": "bluestriped-grunt_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/blue_striped_grunt_jnichols_1.png",
-        "web_file": "bluestriped-grunt_1.jpg"
+        "web_file": "bluestriped-grunt_1.webp"
       },
       {
-        "file": "bluestriped-grunt_2.png",
+        "file": "bluestriped-grunt_2.webp",
         "credit": "Griffin",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/blue_striped_grunt_agriffin_0.png",
-        "web_file": "bluestriped-grunt_2.jpg"
+        "web_file": "bluestriped-grunt_2.webp"
       },
       {
-        "file": "bluestriped-grunt_3.png",
+        "file": "bluestriped-grunt_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/blue_striped_grunt_jnichols_0.png",
-        "web_file": "bluestriped-grunt_3.jpg"
+        "web_file": "bluestriped-grunt_3.webp"
       }
     ]
   },
@@ -910,22 +910,22 @@
     "name": "Bermuda Chub/Yellow Chub",
     "photos": [
       {
-        "file": "bermuda-chub-yellow-chub_1.png",
+        "file": "bermuda-chub-yellow-chub_1.webp",
         "credit": "Jeff Haines",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/bermudachub_jhaines_2_1.png",
-        "web_file": "bermuda-chub-yellow-chub_1.jpg"
+        "web_file": "bermuda-chub-yellow-chub_1.webp"
       },
       {
-        "file": "bermuda-chub-yellow-chub_2.png",
+        "file": "bermuda-chub-yellow-chub_2.webp",
         "credit": "Jeff Haines",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/bermudachub_jhaines_0.png",
-        "web_file": "bermuda-chub-yellow-chub_2.jpg"
+        "web_file": "bermuda-chub-yellow-chub_2.webp"
       },
       {
-        "file": "bermuda-chub-yellow-chub_3.png",
+        "file": "bermuda-chub-yellow-chub_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/bermudachub_jhaines_2_0.png",
-        "web_file": "bermuda-chub-yellow-chub_3.jpg"
+        "web_file": "bermuda-chub-yellow-chub_3.webp"
       }
     ]
   },
@@ -934,22 +934,22 @@
     "name": "Great Barracuda",
     "photos": [
       {
-        "file": "great-barracuda_1.png",
+        "file": "great-barracuda_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/great_barracuda_jnichols_1.png",
-        "web_file": "great-barracuda_1.jpg"
+        "web_file": "great-barracuda_1.webp"
       },
       {
-        "file": "great-barracuda_2.png",
+        "file": "great-barracuda_2.webp",
         "credit": "Carol Cox",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/great_barracuda_ccox.png",
-        "web_file": "great-barracuda_2.jpg"
+        "web_file": "great-barracuda_2.webp"
       },
       {
-        "file": "great-barracuda_3.png",
+        "file": "great-barracuda_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/great_barracuda_jnichols_0.png",
-        "web_file": "great-barracuda_3.jpg"
+        "web_file": "great-barracuda_3.webp"
       }
     ]
   },
@@ -958,22 +958,22 @@
     "name": "Doctorfish",
     "photos": [
       {
-        "file": "doctorfish_1.png",
+        "file": "doctorfish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/doctorfish_jnichols_1.png",
-        "web_file": "doctorfish_1.jpg"
+        "web_file": "doctorfish_1.webp"
       },
       {
-        "file": "doctorfish_2.png",
+        "file": "doctorfish_2.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/doctorfish_jnichols_2_0.png",
-        "web_file": "doctorfish_2.jpg"
+        "web_file": "doctorfish_2.webp"
       },
       {
-        "file": "doctorfish_3.png",
+        "file": "doctorfish_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/doctorfish_jnichols_0.png",
-        "web_file": "doctorfish_3.jpg"
+        "web_file": "doctorfish_3.webp"
       }
     ]
   },
@@ -982,22 +982,22 @@
     "name": "Bar Jack",
     "photos": [
       {
-        "file": "bar-jack_1.png",
+        "file": "bar-jack_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/bar_jack_jnichols_1.png",
-        "web_file": "bar-jack_1.jpg"
+        "web_file": "bar-jack_1.webp"
       },
       {
-        "file": "bar-jack_2.png",
+        "file": "bar-jack_2.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/bar_jack_jnichols_2_0.png",
-        "web_file": "bar-jack_2.jpg"
+        "web_file": "bar-jack_2.webp"
       },
       {
-        "file": "bar-jack_3.png",
+        "file": "bar-jack_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/bar_jack_jnichols_0.png",
-        "web_file": "bar-jack_3.jpg"
+        "web_file": "bar-jack_3.webp"
       }
     ]
   },
@@ -1006,22 +1006,22 @@
     "name": "Spotfin Butterflyfish",
     "photos": [
       {
-        "file": "spotfin-butterflyfish_1.png",
+        "file": "spotfin-butterflyfish_1.webp",
         "credit": "Carol Cox",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/spotfin_butterflyfish_ccox_2_0.png",
-        "web_file": "spotfin-butterflyfish_1.jpg"
+        "web_file": "spotfin-butterflyfish_1.webp"
       },
       {
-        "file": "spotfin-butterflyfish_2.png",
+        "file": "spotfin-butterflyfish_2.webp",
         "credit": "Carol Cox",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/spotfin_butterflyfish_ccox_1.png",
-        "web_file": "spotfin-butterflyfish_2.jpg"
+        "web_file": "spotfin-butterflyfish_2.webp"
       },
       {
-        "file": "spotfin-butterflyfish_3.png",
+        "file": "spotfin-butterflyfish_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/spotfin_butterflyfish_ccox_0.png",
-        "web_file": "spotfin-butterflyfish_3.jpg"
+        "web_file": "spotfin-butterflyfish_3.webp"
       }
     ]
   },
@@ -1030,22 +1030,22 @@
     "name": "Queen Angelfish",
     "photos": [
       {
-        "file": "queen-angelfish_1.png",
+        "file": "queen-angelfish_1.webp",
         "credit": "Daryl Duda",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/queen_angelfish_dduda_1.png",
-        "web_file": "queen-angelfish_1.jpg"
+        "web_file": "queen-angelfish_1.webp"
       },
       {
-        "file": "queen-angelfish_2.png",
+        "file": "queen-angelfish_2.webp",
         "credit": "Daryl Duda",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/queen_angelfish_dduda_2_0.png",
-        "web_file": "queen-angelfish_2.jpg"
+        "web_file": "queen-angelfish_2.webp"
       },
       {
-        "file": "queen-angelfish_3.png",
+        "file": "queen-angelfish_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/queen_angelfish_dduda_0.png",
-        "web_file": "queen-angelfish_3.jpg"
+        "web_file": "queen-angelfish_3.webp"
       }
     ]
   },
@@ -1054,22 +1054,22 @@
     "name": "Rock Beauty",
     "photos": [
       {
-        "file": "rock-beauty_1.png",
+        "file": "rock-beauty_1.webp",
         "credit": "Ellie Splian",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/rock_beauty_esplain_1.png",
-        "web_file": "rock-beauty_1.jpg"
+        "web_file": "rock-beauty_1.webp"
       },
       {
-        "file": "rock-beauty_2.png",
+        "file": "rock-beauty_2.webp",
         "credit": "Daryl Duda",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/rock_beauty_dduda_0.png",
-        "web_file": "rock-beauty_2.jpg"
+        "web_file": "rock-beauty_2.webp"
       },
       {
-        "file": "rock-beauty_3.png",
+        "file": "rock-beauty_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/rock_beauty_esplain_0.png",
-        "web_file": "rock-beauty_3.jpg"
+        "web_file": "rock-beauty_3.webp"
       }
     ]
   },
@@ -1078,22 +1078,22 @@
     "name": "Ocean Surgeonfish",
     "photos": [
       {
-        "file": "ocean-surgeonfish_1.png",
+        "file": "ocean-surgeonfish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/ocean_surgeonfish_jnichols_2_1.png",
-        "web_file": "ocean-surgeonfish_1.jpg"
+        "web_file": "ocean-surgeonfish_1.webp"
       },
       {
-        "file": "ocean-surgeonfish_2.png",
+        "file": "ocean-surgeonfish_2.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/ocean_surgeonfish_jnichols_0.png",
-        "web_file": "ocean-surgeonfish_2.jpg"
+        "web_file": "ocean-surgeonfish_2.webp"
       },
       {
-        "file": "ocean-surgeonfish_3.png",
+        "file": "ocean-surgeonfish_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/ocean_surgeonfish_jnichols_2_0.png",
-        "web_file": "ocean-surgeonfish_3.jpg"
+        "web_file": "ocean-surgeonfish_3.webp"
       }
     ]
   },
@@ -1102,22 +1102,22 @@
     "name": "Gray Angelfish",
     "photos": [
       {
-        "file": "gray-angelfish_1.png",
+        "file": "gray-angelfish_1.webp",
         "credit": "Daryl Duda",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/gray_angelfish_dduda_0.png",
-        "web_file": "gray-angelfish_1.jpg"
+        "web_file": "gray-angelfish_1.webp"
       },
       {
-        "file": "gray-angelfish_2.png",
+        "file": "gray-angelfish_2.webp",
         "credit": "Griffin",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/gray_angelfish_agriffin_1.png",
-        "web_file": "gray-angelfish_2.jpg"
+        "web_file": "gray-angelfish_2.webp"
       },
       {
-        "file": "gray-angelfish_3.png",
+        "file": "gray-angelfish_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/gray_angelfish_agriffin_0.png",
-        "web_file": "gray-angelfish_3.jpg"
+        "web_file": "gray-angelfish_3.webp"
       }
     ]
   },
@@ -1126,22 +1126,22 @@
     "name": "French Angelfish",
     "photos": [
       {
-        "file": "french-angelfish_1.png",
+        "file": "french-angelfish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/french_angelfish_jnichols_0.png",
-        "web_file": "french-angelfish_1.jpg"
+        "web_file": "french-angelfish_1.webp"
       },
       {
-        "file": "french-angelfish_2.png",
+        "file": "french-angelfish_2.webp",
         "credit": "Jeff Haines",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/french_angelfish_jhaines_0.png",
-        "web_file": "french-angelfish_2.jpg"
+        "web_file": "french-angelfish_2.webp"
       },
       {
-        "file": "french-angelfish_3.png",
+        "file": "french-angelfish_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/french_angelfish_jhaines.png",
-        "web_file": "french-angelfish_3.jpg"
+        "web_file": "french-angelfish_3.webp"
       }
     ]
   },
@@ -1150,22 +1150,22 @@
     "name": "Foureye Butterflyfish",
     "photos": [
       {
-        "file": "foureye-butterflyfish_1.png",
+        "file": "foureye-butterflyfish_1.webp",
         "credit": "Jonathon Lavan",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/foureye_butterflyfish_nlavan_0.png",
-        "web_file": "foureye-butterflyfish_1.jpg"
+        "web_file": "foureye-butterflyfish_1.webp"
       },
       {
-        "file": "foureye-butterflyfish_2.png",
+        "file": "foureye-butterflyfish_2.webp",
         "credit": "Carol Cox",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/foureye_butterflyfish_ccox_1.png",
-        "web_file": "foureye-butterflyfish_2.jpg"
+        "web_file": "foureye-butterflyfish_2.webp"
       },
       {
-        "file": "foureye-butterflyfish_3.png",
+        "file": "foureye-butterflyfish_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/foureye_butterflyfish_ccox.png",
-        "web_file": "foureye-butterflyfish_3.jpg"
+        "web_file": "foureye-butterflyfish_3.webp"
       }
     ]
   },
@@ -1174,22 +1174,22 @@
     "name": "Banded Butterflyfish",
     "photos": [
       {
-        "file": "banded-butterflyfish_1.png",
+        "file": "banded-butterflyfish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/banded_butterflyfish_jnichols_0.png",
-        "web_file": "banded-butterflyfish_1.jpg"
+        "web_file": "banded-butterflyfish_1.webp"
       },
       {
-        "file": "banded-butterflyfish_2.png",
+        "file": "banded-butterflyfish_2.webp",
         "credit": "Jonathon Lavan",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/banded_butterflyfish_nlavan_1.png",
-        "web_file": "banded-butterflyfish_2.jpg"
+        "web_file": "banded-butterflyfish_2.webp"
       },
       {
-        "file": "banded-butterflyfish_3.png",
+        "file": "banded-butterflyfish_3.webp",
         "credit": "",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/banded_butterflyfish_nlavan_0.png",
-        "web_file": "banded-butterflyfish_3.jpg"
+        "web_file": "banded-butterflyfish_3.webp"
       }
     ]
   },
@@ -1198,16 +1198,16 @@
     "name": "Common Snook",
     "photos": [
       {
-        "file": "common-snook_1.jpg",
+        "file": "common-snook_1.webp",
         "credit": "Daryl Duda",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/common-snook-1_darylduda.jpg",
-        "web_file": "common-snook_1.jpg"
+        "web_file": "common-snook_1.webp"
       },
       {
-        "file": "common-snook_2.jpg",
+        "file": "common-snook_2.webp",
         "credit": "Daryl Duda",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/common-snook-2_darylduda.jpg",
-        "web_file": "common-snook_2.jpg"
+        "web_file": "common-snook_2.webp"
       }
     ]
   },
@@ -1216,16 +1216,16 @@
     "name": "Dusky Damselfish",
     "photos": [
       {
-        "file": "dusky-damselfish_1.jpg",
+        "file": "dusky-damselfish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/duskydamsel_jnichols.jpg",
-        "web_file": "dusky-damselfish_1.jpg"
+        "web_file": "dusky-damselfish_1.webp"
       },
       {
-        "file": "dusky-damselfish_2.jpg",
+        "file": "dusky-damselfish_2.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/duskeydamsel_jnichols.jpg",
-        "web_file": "dusky-damselfish_2.jpg"
+        "web_file": "dusky-damselfish_2.webp"
       }
     ]
   },
@@ -1234,16 +1234,16 @@
     "name": "Greenblotch Parrotfish",
     "photos": [
       {
-        "file": "greenblotch-parrotfish_1.jpg",
+        "file": "greenblotch-parrotfish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/greenblotch_jnichols.jpg",
-        "web_file": "greenblotch-parrotfish_1.jpg"
+        "web_file": "greenblotch-parrotfish_1.webp"
       },
       {
-        "file": "greenblotch-parrotfish_2.jpg",
+        "file": "greenblotch-parrotfish_2.webp",
         "credit": "Christy Semmens",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/greenblotch_parrotfish_-_sparisoma_atomarium_-_147-christysemmens2018_cuba_copy.jpg",
-        "web_file": "greenblotch-parrotfish_2.jpg"
+        "web_file": "greenblotch-parrotfish_2.webp"
       }
     ]
   },
@@ -1252,16 +1252,16 @@
     "name": "Longfin Damselfish",
     "photos": [
       {
-        "file": "longfin-damselfish_1.jpg",
+        "file": "longfin-damselfish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/longfindamsel_jnichols.jpg",
-        "web_file": "longfin-damselfish_1.jpg"
+        "web_file": "longfin-damselfish_1.webp"
       },
       {
-        "file": "longfin-damselfish_2.jpg",
+        "file": "longfin-damselfish_2.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/longfindamsel2_jnichols.jpg",
-        "web_file": "longfin-damselfish_2.jpg"
+        "web_file": "longfin-damselfish_2.webp"
       }
     ]
   },
@@ -1270,16 +1270,16 @@
     "name": "Sand Tilefish",
     "photos": [
       {
-        "file": "sand-tilefish_1.jpg",
+        "file": "sand-tilefish_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/sandtilefish2_jnichols.jpg",
-        "web_file": "sand-tilefish_1.jpg"
+        "web_file": "sand-tilefish_1.webp"
       },
       {
-        "file": "sand-tilefish_2.jpg",
+        "file": "sand-tilefish_2.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/sandtilefish_jnichols_2.jpg",
-        "web_file": "sand-tilefish_2.jpg"
+        "web_file": "sand-tilefish_2.webp"
       }
     ]
   },
@@ -1288,16 +1288,16 @@
     "name": "Yellow Jack",
     "photos": [
       {
-        "file": "yellow-jack_1.jpg",
+        "file": "yellow-jack_1.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/yellowjack_jnichols.jpg",
-        "web_file": "yellow-jack_1.jpg"
+        "web_file": "yellow-jack_1.webp"
       },
       {
-        "file": "yellow-jack_2.jpg",
+        "file": "yellow-jack_2.webp",
         "credit": "Janna Nichols",
         "orig_url": "https://www.reef.org/sites/default/files/species_images/yellowjacks_jnichols.jpg",
-        "web_file": "yellow-jack_2.jpg"
+        "web_file": "yellow-jack_2.webp"
       }
     ]
   }
