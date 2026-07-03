@@ -3,27 +3,25 @@ name: railway-deployment
 description: When interacting with Railway, deploying the app, or when user asks for checking something on the remote.
 ---
 
-**Status: fully configured, EXCEPT auto-deploy-on-push may not be wired up — verify before
-trusting a `git push` to deploy anything.** GitHub repo, Railway project, both environments,
-Postgres, and public domains are all live as of 2026-07-02. Repo:
-https://github.com/pslusarz/caribbean-fish-recall (public, default branch `main`).
+**Status: fully configured. Auto-deploy-on-push is confirmed working as of 2026-07-03.**
+GitHub repo, Railway project, both environments, Postgres, and public domains are all live.
+Repo: https://github.com/pslusarz/caribbean-fish-recall (public, default branch `main`).
+Deploying code is just `git push origin main` (production) / `git push origin staging`
+(staging) — Railway's GitHub App builds and deploys automatically, no manual step needed.
 
-**Known gap (found 2026-07-02):** the Railway GitHub App had zero access to this repo —
-confirmed via `gh api repos/pslusarz/caribbean-fish-recall/deployments` returning `[]`
-(compare barobeaver, which has 13 deployment records created by `railway-app[bot]`). This
-meant pushing to `main`/`staging` silently deployed nothing; a push looked successful on
-the GitHub side but no Railway build ever started. Before assuming a push will auto-deploy,
-check that endpoint returns non-empty `railway-app[bot]` records. If it doesn't, the fix is
-in GitHub's UI, not the CLI: https://github.com/settings/installations → Railway →
-Configure → add this repo to its access list. This cannot be done via `gh`/`railway` CLI or
-API — it requires a human clicking through GitHub's installation-access UI.
+**Historical gap, now fixed:** earlier the Railway GitHub App had zero access to this repo
+(confirmed via `gh api repos/pslusarz/caribbean-fish-recall/deployments` returning `[]`,
+vs. barobeaver's 13 records from `railway-app[bot]`), so pushes silently deployed nothing.
+Fixed via GitHub's installation-access UI (https://github.com/settings/installations).
+If auto-deploy ever seems to stop working again, re-check that `deployments` endpoint
+before assuming it's still fine — it went silently broken once already. The manual
+workaround below still works as a fallback if it breaks again.
 
-**Manual deploy workaround** (used once already to ship a change before the App-access gap
-was fixed): re-running `railway service source connect --repo <repo> --branch <branch>
---service <service> --environment <env>` on an already-connected service forces a fresh
-build of the branch's current HEAD, even though the CLI reports `error: ServiceInstance not
-found` (see CLI quirks below — that error doesn't mean it failed). This is not a substitute
-for real auto-deploy; use it only if push-triggered deploys are confirmed broken again.
+**Manual deploy workaround** (not needed under normal operation): re-running `railway
+service source connect --repo <repo> --branch <branch> --service <service> --environment
+<env>` on an already-connected service forces a fresh build of the branch's current HEAD,
+even though the CLI reports `error: ServiceInstance not found` (see CLI quirks below — that
+error doesn't mean it failed).
 
 You will mostly use the `railway` CLI via the Bash tool to achieve goals here. Auth is
 already set up — `railway login` was run once via browser (GitHub OAuth), and the session
@@ -131,10 +129,46 @@ railway variable set 'KEY=value' --service <service> --environment <env> --skip-
 ```
 
 ## Seeding data
-Species/photos seed automatically on first request (`seed_if_empty`) — both live
-deployments already returned `"total":58` on `/api/stats` immediately after their first
-deploy, so no manual `scripts/reset_db.py` run against production was needed. Re-run it
-only if you need to force a reseed.
+Species/photos seed automatically on first request (`seed_if_empty`) when the `species`
+table is empty — both live deployments seeded themselves on first request after their
+initial deploy, so no manual `scripts/reset_db.py` run against production was needed. That
+script only helps for a full wipe+reseed; see below for adding data to an already-seeded DB.
+
+## Data migrations (there is no Railway feature for this)
+
+Railway has no migration-runner (unlike e.g. Heroku's release phase), and this project has
+no schema-migration tool either (`metadata.create_all()` only creates missing tables, never
+alters existing ones — see CLAUDE.md's known-footguns section). Two different situations:
+
+- **Schema changes** (new column/table): not yet safely automated at all. Either hand-write
+  the `ALTER TABLE` and run it the same way as below, or adopt Alembic before it's actually
+  needed (CLAUDE.md already flags this as coming due once real Postgres data matters).
+- **Data changes to already-existing tables** (e.g. adding new seed rows): write a plain,
+  idempotent Python script under `scripts/` — `scripts/add_missing_species.py` is a working
+  template (adds any seed_data rows not yet present, backfills a zeroed `progress` row per
+  existing user for the new rows only, safe to rerun any number of times).
+
+**How to actually run a script like that against a live environment:**
+
+```bash
+# railway run injects that environment's variables but executes LOCALLY -- and
+# DATABASE_URL there is the *internal* railway.internal hostname, which only
+# resolves from inside Railway's own network. This will fail with a DNS error:
+railway run --service caribbean-fish-recall --environment production uv run python scripts/foo.py
+
+# Instead, fetch that environment's Postgres's PUBLIC proxy URL and point the
+# script at it directly. Capture into a shell variable and never echo it --
+# DATABASE_PUBLIC_URL is a live credential, and printing it gets blocked by
+# the auto-mode classifier (rightly) if you try:
+DB_URL=$(railway variables --service Postgres-vCvC --environment production --kv 2>/dev/null | grep '^DATABASE_PUBLIC_URL=' | cut -d= -f2-)
+DATABASE_URL="$DB_URL" uv run python scripts/foo.py
+unset DB_URL
+```
+
+Postgres service names differ per environment: `Postgres-vCvC` for production,
+`Postgres` for staging (see Project Configuration above). Always dry-run against local
+SQLite first, and re-run the same script a second time against the target DB to confirm
+it's actually idempotent before trusting it against production.
 
 ## Railway documentation
 Consult latest documentation via web search when something isn't working or when setting
