@@ -14,7 +14,17 @@ stats bar chart, rank-over-time SVG) is unchanged.
 """
 
 INDEX_BODY = """
-<div style="max-width:640px; margin:24px auto; height:920px; display:flex; flex-direction:column; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:#0b3d55; color:#eaf6fb; border-radius:10px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.35);">
+<style>
+@keyframes fr-spin { to { transform: rotate(360deg); } }
+.fr-spinner {
+  display: inline-block; width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff;
+  border-radius: 50%; animation: fr-spin 0.7s linear infinite; vertical-align: middle;
+}
+.fr-spinner-lg { width: 28px; height: 28px; border-width: 3px; }
+</style>
+
+<div style="max-width:640px; margin:24px auto; height:920px; display:flex; flex-direction:column; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:#0b3d55; color:#eaf6fb; border-radius:10px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.35); position:relative;">
 
   <div style="display:flex; gap:4px; padding:10px 10px 0 10px; background:#072b3d;">
     <button class="tabbtn" data-tab="lesson" style="flex:1; padding:10px; border:none; border-radius:8px 8px 0 0; background:#0b3d55; color:#eaf6fb; font-weight:600; cursor:pointer;">Lesson</button>
@@ -38,6 +48,7 @@ INDEX_BODY = """
 
       <div id="lesson-img-wrap" style="position:relative; width:100%; height:420px; background:#04202e; border-radius:8px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
         <img id="lesson-img" style="max-width:100%; max-height:100%; object-fit:contain; transition:opacity 0.15s;" />
+        <div id="lesson-img-spinner" style="display:none; position:absolute; inset:0; background:rgba(4,32,46,0.55); align-items:center; justify-content:center; border-radius:8px;"><div class="fr-spinner fr-spinner-lg"></div></div>
         <div id="lesson-img-credit" style="position:absolute; bottom:6px; right:10px; font-size:10px; color:rgba(255,255,255,0.75); background:rgba(0,0,0,0.45); padding:2px 7px; border-radius:5px;"></div>
         <div id="lesson-img-dots" style="position:absolute; bottom:8px; left:50%; transform:translateX(-50%); display:flex; gap:6px;"></div>
         <button id="lesson-img-prev" style="display:none; position:absolute; left:6px; top:50%; transform:translateY(-50%); width:32px; height:32px; border:none; border-radius:50%; background:rgba(0,0,0,0.4); color:#fff; font-size:16px; cursor:pointer; align-items:center; justify-content:center;">&#8249;</button>
@@ -54,6 +65,7 @@ INDEX_BODY = """
       </div>
       <div id="lesson-hint" style="display:none; font-size:13px; background:#123f56; border-left:3px solid #f4b942; padding:8px; border-radius:4px;"></div>
       <div id="lesson-question" style="display:flex; flex-direction:column; gap:8px;"></div>
+      <div id="lesson-submit-spinner" style="display:none; align-items:center; gap:8px; font-size:13px; opacity:0.85;"><span class="fr-spinner"></span> Checking...</div>
       <div id="lesson-feedback" style="display:none; padding:10px; border-radius:8px; font-size:14px; line-height:1.4;"></div>
       <button id="btn-lesson-next" style="display:none; padding:12px; border:none; border-radius:8px; background:#2f9e6e; color:white; font-weight:700; cursor:pointer; font-size:15px;">Continue &#8594;</button>
     </div>
@@ -66,6 +78,7 @@ INDEX_BODY = """
   </div>
 
   <div id="panel-stats" class="panel" style="flex:1; overflow-y:auto; padding:14px; display:none; flex-direction:column; gap:10px;">
+    <div id="stats-loading" style="display:none; align-items:center; justify-content:center; padding:40px 0;"><div class="fr-spinner fr-spinner-lg"></div></div>
     <div id="stats-body" style="font-size:14px; line-height:1.6;"></div>
     <div id="stats-levelbars"></div>
     <div id="stats-chart"></div>
@@ -78,6 +91,7 @@ INDEX_BODY = """
     <div id="browse-detail" style="display:none; background:#0e4a68; border-radius:10px; padding:12px;">
       <div id="browse-img-wrap" style="position:relative; width:100%; height:400px; background:#04202e; border-radius:8px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
         <img id="browse-img" style="max-width:100%; max-height:100%; object-fit:contain; transition:opacity 0.15s;" />
+        <div id="browse-img-spinner" style="display:none; position:absolute; inset:0; background:rgba(4,32,46,0.55); align-items:center; justify-content:center; border-radius:8px;"><div class="fr-spinner fr-spinner-lg"></div></div>
         <div id="browse-img-credit" style="position:absolute; bottom:6px; right:10px; font-size:10px; color:rgba(255,255,255,0.75); background:rgba(0,0,0,0.45); padding:2px 7px; border-radius:5px;"></div>
         <div id="browse-img-dots" style="position:absolute; bottom:8px; left:50%; transform:translateX(-50%); display:flex; gap:6px;"></div>
         <button id="browse-img-prev" style="display:none; position:absolute; left:6px; top:50%; transform:translateY(-50%); width:32px; height:32px; border:none; border-radius:50%; background:rgba(0,0,0,0.4); color:#fff; font-size:16px; cursor:pointer; align-items:center; justify-content:center;">&#8249;</button>
@@ -89,8 +103,11 @@ INDEX_BODY = """
       <div id="browse-features" style="margin-top:8px; font-size:13px; line-height:1.4;"></div>
       <div id="browse-mnemonic" style="margin-top:8px; font-size:13px; background:#123f56; border-left:3px solid #f4b942; padding:8px; border-radius:4px;"></div>
     </div>
+    <div id="browse-loading" style="display:none; align-items:center; justify-content:center; padding:40px 0; width:100%;"><div class="fr-spinner fr-spinner-lg"></div></div>
     <div id="browse-list" style="display:flex; flex-wrap:wrap; gap:6px;"></div>
   </div>
+
+  <div id="fr-error-toast" style="display:none; position:absolute; bottom:60px; left:50%; transform:translateX(-50%); background:#6b2b2b; color:#fff; padding:8px 14px; border-radius:8px; font-size:13px; box-shadow:0 4px 14px rgba(0,0,0,0.4); z-index:50; max-width:80%; text-align:center;"></div>
 
   <div style="padding:8px 14px; background:#072b3d; font-size:11px; text-align:center; opacity:0.75; border-top:1px solid rgba(255,255,255,0.08);">
     Fish photos &amp; species data: <a href="https://www.reef.org/species/galleries/caribbean" target="_blank" rel="noopener" style="color:#eaf6fb;">REEF.org</a>
@@ -110,13 +127,102 @@ INDEX_BODY = """
   var selectedFishId = null;
   var LEVEL_COLORS = { 0: '#4a5568', 1: '#c05621', 2: '#b7791f', 3: '#2b6cb0', 4: '#2f9e6e' };
 
+  // A stalled connection should never leave a button disabled or a spinner
+  // spinning forever -- every fetch gets aborted after FETCH_TIMEOUT_MS, and
+  // every busy/spinner helper below sets its own safety-net timeout on top
+  // of that as a second line of defense.
+  var FETCH_TIMEOUT_MS = 20000;
+  var IMG_LOAD_TIMEOUT_MS = 15000;
+
   function fetchApi(method, path, body) {
     var opts = { method: method, headers: {} };
     if (body !== undefined) {
       opts.headers['Content-Type'] = 'application/json';
       opts.body = JSON.stringify(body);
     }
-    return fetch('/api' + path, opts).then(function(r) { return r.json(); });
+    var controller = new AbortController();
+    var timer = setTimeout(function() { controller.abort(); }, FETCH_TIMEOUT_MS);
+    opts.signal = controller.signal;
+    return fetch('/api' + path, opts)
+      .then(function(r) {
+        // fetch() only rejects on network-level failures, never on 4xx/5xx --
+        // without this check, a server error would flow into the *success*
+        // path with an error-shaped body ({"detail": "..."}), rendering as
+        // broken/undefined content instead of tripping the error toast.
+        return r.json().then(function(data) {
+          if (!r.ok) { throw new Error(data.detail || 'Request failed'); }
+          return data;
+        });
+      })
+      .finally(function() { clearTimeout(timer); });
+  }
+
+  // ---------- ERROR TOAST ----------
+  var errorToastTimer = null;
+  function showErrorToast(msg) {
+    var el = document.getElementById('fr-error-toast');
+    el.textContent = msg || 'Connection issue \\u2014 please try again.';
+    el.style.display = 'block';
+    clearTimeout(errorToastTimer);
+    errorToastTimer = setTimeout(function() { el.style.display = 'none'; }, 4000);
+  }
+
+  // ---------- LOADING-INDICATOR HELPER (for tab-level fetches) ----------
+  // Shows indicatorEl for the lifetime of promise, with its own safety-net
+  // timeout so it can never outlive a hung request even if the underlying
+  // fetch's own abort somehow didn't fire. Swallows the rejection after
+  // surfacing an error toast, so callers don't need their own .catch().
+  function withLoadingIndicator(indicatorEl, promise, errorMsg) {
+    indicatorEl.style.display = 'flex';
+    var safety = setTimeout(function() { indicatorEl.style.display = 'none'; }, FETCH_TIMEOUT_MS + 3000);
+    return promise.then(function(v) {
+      clearTimeout(safety);
+      indicatorEl.style.display = 'none';
+      return v;
+    }, function(err) {
+      clearTimeout(safety);
+      indicatorEl.style.display = 'none';
+      showErrorToast(errorMsg);
+    });
+  }
+
+  // ---------- BUTTON BUSY/SPINNER HELPER ----------
+  function setButtonBusy(btn, busy) {
+    if (busy) {
+      if (btn._frOrigHtml === undefined) btn._frOrigHtml = btn.innerHTML;
+      btn.innerHTML = '<span class="fr-spinner"></span>';
+      btn.disabled = true;
+      btn.style.opacity = '0.7';
+      btn.style.cursor = 'default';
+    } else {
+      if (btn._frOrigHtml !== undefined) btn.innerHTML = btn._frOrigHtml;
+      btn.disabled = false;
+      btn.style.opacity = '';
+      btn.style.cursor = 'pointer';
+    }
+  }
+
+  // Disables btn + shows an in-button spinner for the lifetime of
+  // asyncFn()'s promise. Re-enables no matter what: success, failure, or
+  // (via the safety timer) a request that never settles at all. Ignores
+  // re-clicks while already busy instead of firing a second request.
+  function runBusy(btn, asyncFn) {
+    if (btn.disabled) return Promise.resolve();
+    setButtonBusy(btn, true);
+    var safety = setTimeout(function() { setButtonBusy(btn, false); }, FETCH_TIMEOUT_MS + 3000);
+    function finish() { clearTimeout(safety); setButtonBusy(btn, false); }
+    var p;
+    try {
+      p = asyncFn();
+    } catch (e) {
+      finish();
+      showErrorToast();
+      return Promise.resolve();
+    }
+    return p.then(function(v) { finish(); return v; }, function(err) {
+      finish();
+      showErrorToast();
+    });
   }
 
   // ---------- REUSABLE PHOTO GALLERY ----------
@@ -128,6 +234,25 @@ INDEX_BODY = """
     var dots = document.getElementById(prefix + '-img-dots');
     var prevBtn = document.getElementById(prefix + '-img-prev');
     var nextBtn = document.getElementById(prefix + '-img-next');
+    var spinner = document.getElementById(prefix + '-img-spinner');
+    var spinnerSafety = null;
+
+    // The old photo stays visible (dimmed under the spinner) while the new
+    // one loads instead of vanishing, so there's no layout flash -- but the
+    // spinner makes it obvious *something's* happening instead of it just
+    // looking like the click did nothing. Safety timeout guarantees this
+    // can't spin forever even if a load/error event somehow never fires.
+    function showImgSpinner() {
+      spinner.style.display = 'flex';
+      clearTimeout(spinnerSafety);
+      spinnerSafety = setTimeout(hideImgSpinner, IMG_LOAD_TIMEOUT_MS);
+    }
+    function hideImgSpinner() {
+      spinner.style.display = 'none';
+      clearTimeout(spinnerSafety);
+    }
+    img.addEventListener('load', hideImgSpinner);
+    img.addEventListener('error', hideImgSpinner);
 
     function renderDots() {
       dots.innerHTML = '';
@@ -145,6 +270,7 @@ INDEX_BODY = """
       if (!state.photos.length) return;
       state.idx = ((i % state.photos.length) + state.photos.length) % state.photos.length;
       var p = state.photos[state.idx];
+      showImgSpinner();
       img.src = '/photos/' + p.file;
       credit.textContent = p.credit ? ('Photo: ' + p.credit) : '';
       renderDots();
@@ -153,6 +279,7 @@ INDEX_BODY = """
     function setPhotos(photos) {
       state.photos = photos || [];
       state.idx = 0;
+      hideImgSpinner();
       img.src = '';
       credit.textContent = '';
       dots.innerHTML = '';
@@ -197,10 +324,12 @@ INDEX_BODY = """
   }
 
   document.getElementById('btn-start-lesson').addEventListener('click', function() {
-    fetchApi('POST', '/lesson/start').then(function(res) {
-      currentLessonId = res.lesson_id;
-      showLessonScreen('active');
-      loadNextItem();
+    runBusy(this, function() {
+      return fetchApi('POST', '/lesson/start').then(function(res) {
+        currentLessonId = res.lesson_id;
+        showLessonScreen('active');
+        return loadNextItem();
+      });
     });
   });
 
@@ -256,7 +385,7 @@ INDEX_BODY = """
     document.getElementById('lesson-badge').style.display = 'none';
     document.getElementById('lesson-question').innerHTML = '';
 
-    fetchApi('GET', '/lesson/next_item?lesson_id=' + currentLessonId).then(function(item) {
+    return fetchApi('GET', '/lesson/next_item?lesson_id=' + currentLessonId).then(function(item) {
       if (item.done) {
         var s = item.summary || {};
         document.getElementById('summary-body').innerHTML =
@@ -294,7 +423,7 @@ INDEX_BODY = """
   }
 
   document.getElementById('btn-intro-continue').addEventListener('click', function() {
-    submitAnswer(null);
+    runBusy(this, function() { return submitAnswer(null); });
   });
 
   function renderQuestion(item) {
@@ -305,7 +434,7 @@ INDEX_BODY = """
         var btn = document.createElement('button');
         btn.textContent = c.name;
         btn.style.cssText = 'padding:12px; border:none; border-radius:8px; background:#123f56; color:#eaf6fb; font-size:14px; cursor:pointer; text-align:left;';
-        btn.addEventListener('click', function() { submitAnswer(c.id); });
+        btn.addEventListener('click', function() { if (!btn.disabled) submitAnswer(c.id); });
         qdiv.appendChild(btn);
       });
     } else {
@@ -319,24 +448,39 @@ INDEX_BODY = """
       input.type = 'text';
       input.placeholder = 'e.g. Blue Chromis';
       input.style.cssText = 'padding:12px; border-radius:8px; border:none; font-size:15px;';
-      input.addEventListener('keydown', function(e) { if (e.key === 'Enter') submitAnswer(input.value); });
-      qdiv.appendChild(input);
       var btn = document.createElement('button');
       btn.textContent = 'Submit';
       btn.style.cssText = 'padding:12px; border:none; border-radius:8px; background:#2f9e6e; color:white; font-weight:700; cursor:pointer;';
-      btn.addEventListener('click', function() { submitAnswer(input.value); });
+      input.addEventListener('keydown', function(e) { if (e.key === 'Enter' && !btn.disabled) submitAnswer(input.value); });
+      qdiv.appendChild(input);
+      btn.addEventListener('click', function() { if (!btn.disabled) submitAnswer(input.value); });
       qdiv.appendChild(btn);
       setTimeout(function() { input.focus(); }, 50);
     }
   }
 
+  // Locks every control in the question (all MC choices, not just the one
+  // clicked, plus the spelling input/button) so a second click or an Enter
+  // keypress can't fire a second submit while the first is still in flight.
+  var submitSafety = null;
+  function setSubmitBusy(busy) {
+    var els = document.querySelectorAll('#lesson-question button, #lesson-question input, #btn-intro-continue');
+    els.forEach(function(el) { el.disabled = busy; el.style.opacity = busy ? '0.5' : ''; });
+    document.getElementById('lesson-submit-spinner').style.display = busy ? 'flex' : 'none';
+  }
+
   function submitAnswer(answer) {
-    if (!currentItem) return;
-    fetchApi('POST', '/lesson/submit', { item_id: currentItem.item_id, answer: answer }).then(function(res) {
-      currentItem = null;
+    if (!currentItem) return Promise.resolve();
+    var item = currentItem;
+    currentItem = null; // guard first, synchronously -- before the fetch even starts
+    setSubmitBusy(true);
+    clearTimeout(submitSafety);
+    submitSafety = setTimeout(function() { setSubmitBusy(false); }, FETCH_TIMEOUT_MS + 3000);
+    return fetchApi('POST', '/lesson/submit', { item_id: item.item_id, answer: answer }).then(function(res) {
+      clearTimeout(submitSafety);
+      setSubmitBusy(false);
       if (res.is_intro) {
-        loadNextItem();
-        return;
+        return loadNextItem();
       }
       var fb = document.getElementById('lesson-feedback');
       fb.style.display = 'block';
@@ -369,10 +513,16 @@ INDEX_BODY = """
       document.getElementById('lesson-intro-info').style.display = 'none';
       document.getElementById('lesson-hint').style.display = 'none';
       document.getElementById('btn-lesson-next').style.display = 'block';
+    }, function(err) {
+      clearTimeout(submitSafety);
+      setSubmitBusy(false);
+      showErrorToast();
     });
   }
 
-  document.getElementById('btn-lesson-next').addEventListener('click', loadNextItem);
+  document.getElementById('btn-lesson-next').addEventListener('click', function() {
+    runBusy(this, loadNextItem);
+  });
 
   // ---------- STATS TAB ----------
   function drawChart(history) {
@@ -415,7 +565,8 @@ INDEX_BODY = """
   }
 
   function loadStats() {
-    fetchApi('GET', '/stats').then(function(s) {
+    withLoadingIndicator(document.getElementById('stats-loading'), fetchApi('GET', '/stats'), 'Could not load stats.').then(function(s) {
+      if (!s) return;
       var html = '';
       html += '<div style="font-size:22px; font-weight:700;">' + s.score + '% rank</div>';
       html += '<div>Mastered: <b>' + s.mastered + ' / ' + s.total + '</b></div>';
@@ -445,7 +596,8 @@ INDEX_BODY = """
 
   // ---------- BROWSE TAB ----------
   function loadBrowseList() {
-    fetchApi('GET', '/browse').then(function(res) {
+    withLoadingIndicator(document.getElementById('browse-loading'), fetchApi('GET', '/browse'), 'Could not load fish list.').then(function(res) {
+      if (!res) return;
       allFish = res.fish;
       renderBrowseList();
     });
