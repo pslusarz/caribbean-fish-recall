@@ -521,6 +521,60 @@
       "features": "1. Brilliant yellow midbody stripe and tail.",
       "photo_file": "yellowtail-snapper.jpg",
       "mnemonic": "Brilliant yellow stripe running the length of the body straight into the tail."
+    },
+    {
+      "id": "common-snook",
+      "name": "Common Snook",
+      "scientific_name": "Centropomus undecimalis",
+      "size": "Up to 54\" (137cm)",
+      "features": "1. Usually in less than 35 ft. of water | 2. Silvery with prominent black lateral line | 3. Long, sloping forehead | 4. Yellowish fins | 5. Underslung jaw",
+      "photo_file": "common-snook.jpg",
+      "mnemonic": "A black racing stripe runs nose-to-tail along its silver side, jaw jutting out underneath like a bulldog's."
+    },
+    {
+      "id": "dusky-damselfish",
+      "name": "Dusky Damselfish",
+      "scientific_name": "Stegastes adustus",
+      "size": "Up to 5\" (13cm)",
+      "features": "1. Light to dark brown | 2. Narrow dark edge on anal fin | 3. Dorsal and anal fins do not extend past tail base | 4. Juveniles have a brilliant orange wash on top of the body",
+      "photo_file": "dusky-damselfish.jpg",
+      "mnemonic": "A plain brown damsel whose fins stop short of the tail -- juveniles wear a bright orange cap up top."
+    },
+    {
+      "id": "greenblotch-parrotfish",
+      "name": "Greenblotch Parrotfish",
+      "scientific_name": "Sparisoma atomarium",
+      "size": "Up to 4.5\" (11cm)",
+      "features": "1. Juveniles (most often seen) have a red upper body with red striping on the belly | 2. Often mingles with other fish species | 3. Terminal phase has a greenish-blue blotch on the upper gill cover",
+      "photo_file": "greenblotch-parrotfish.jpg",
+      "mnemonic": "Tiny parrotfish that's usually seen red and striped as a juvenile, with a green-blue smudge on the gill cover once grown."
+    },
+    {
+      "id": "longfin-damselfish",
+      "name": "Longfin Damselfish",
+      "scientific_name": "Stegastes diencaeus",
+      "size": "Up to 6\" (15cm)",
+      "features": "1. Long anal and dorsal fins extend past the tail base | 2. Anal fin has brilliant blue edging | 3. Juveniles are yellow with bright blue lines from head to back",
+      "photo_file": "longfin-damselfish.jpg",
+      "mnemonic": "LONG fins trail past the tail with a bright blue edge -- juveniles are yellow with blue racing lines from head to back."
+    },
+    {
+      "id": "sand-tilefish",
+      "name": "Sand Tilefish",
+      "scientific_name": "Malacanthus plumieri",
+      "size": "Up to 28\" (70cm)",
+      "features": "1. Long, tubular body | 2. Inhabits sandy areas, retreats into a nearby sand hole when threatened | 3. Dark marking on the upper tail fin",
+      "photo_file": "sand-tilefish.jpg",
+      "mnemonic": "A long eel-like body hovering over its own sand burrow, ready to dive in -- dark smudge on the upper tail."
+    },
+    {
+      "id": "yellow-jack",
+      "name": "Yellow Jack",
+      "scientific_name": "Caranx bartholomaei",
+      "size": "Up to 3' (91cm)",
+      "features": "1. Silver body | 2. All fins yellow",
+      "photo_file": "yellow-jack.jpg",
+      "mnemonic": "A jack that dipped every fin in yellow paint -- otherwise plain silver."
     }
   ],
   "confusion_pairs": [
@@ -687,6 +741,38 @@
     [
       "bermuda-chub-yellow-chub",
       "great-barracuda"
+    ],
+    [
+      "yellow-jack",
+      "bar-jack"
+    ],
+    [
+      "yellow-jack",
+      "black-jack"
+    ],
+    [
+      "yellow-jack",
+      "crevalle-jack"
+    ],
+    [
+      "yellow-jack",
+      "horse-eye-jack"
+    ],
+    [
+      "dusky-damselfish",
+      "longfin-damselfish"
+    ],
+    [
+      "dusky-damselfish",
+      "bicolor-damselfish"
+    ],
+    [
+      "longfin-damselfish",
+      "bicolor-damselfish"
+    ],
+    [
+      "greenblotch-parrotfish",
+      "redband-parrotfish"
     ]
   ]
 }

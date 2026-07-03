@@ -262,7 +262,7 @@ INDEX_BODY = """
         document.getElementById('summary-body').innerHTML =
           '<div>' + (s.correct || 0) + ' correct / ' + (s.wrong || 0) + ' missed this lesson</div>' +
           '<div style="margin-top:6px;">Rank: <b>' + s.score + '%</b></div>' +
-          '<div>Mastered: ' + s.mastered_count + ' / 58</div>' +
+          '<div>Mastered: ' + s.mastered_count + ' / ' + s.total + '</div>' +
           '<div style="opacity:0.7; font-size:12px; margin-top:6px;">Lessons completed: ' + s.lessons_completed + '</div>';
         showLessonScreen('summary');
         return;

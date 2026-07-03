@@ -1192,5 +1192,113 @@
         "web_file": "banded-butterflyfish_3.jpg"
       }
     ]
+  },
+  {
+    "id": "common-snook",
+    "name": "Common Snook",
+    "photos": [
+      {
+        "file": "common-snook_1.jpg",
+        "credit": "Daryl Duda",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/common-snook-1_darylduda.jpg",
+        "web_file": "common-snook_1.jpg"
+      },
+      {
+        "file": "common-snook_2.jpg",
+        "credit": "Daryl Duda",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/common-snook-2_darylduda.jpg",
+        "web_file": "common-snook_2.jpg"
+      }
+    ]
+  },
+  {
+    "id": "dusky-damselfish",
+    "name": "Dusky Damselfish",
+    "photos": [
+      {
+        "file": "dusky-damselfish_1.jpg",
+        "credit": "Janna Nichols",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/duskydamsel_jnichols.jpg",
+        "web_file": "dusky-damselfish_1.jpg"
+      },
+      {
+        "file": "dusky-damselfish_2.jpg",
+        "credit": "Janna Nichols",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/duskeydamsel_jnichols.jpg",
+        "web_file": "dusky-damselfish_2.jpg"
+      }
+    ]
+  },
+  {
+    "id": "greenblotch-parrotfish",
+    "name": "Greenblotch Parrotfish",
+    "photos": [
+      {
+        "file": "greenblotch-parrotfish_1.jpg",
+        "credit": "Janna Nichols",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/greenblotch_jnichols.jpg",
+        "web_file": "greenblotch-parrotfish_1.jpg"
+      },
+      {
+        "file": "greenblotch-parrotfish_2.jpg",
+        "credit": "Christy Semmens",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/greenblotch_parrotfish_-_sparisoma_atomarium_-_147-christysemmens2018_cuba_copy.jpg",
+        "web_file": "greenblotch-parrotfish_2.jpg"
+      }
+    ]
+  },
+  {
+    "id": "longfin-damselfish",
+    "name": "Longfin Damselfish",
+    "photos": [
+      {
+        "file": "longfin-damselfish_1.jpg",
+        "credit": "Janna Nichols",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/longfindamsel_jnichols.jpg",
+        "web_file": "longfin-damselfish_1.jpg"
+      },
+      {
+        "file": "longfin-damselfish_2.jpg",
+        "credit": "Janna Nichols",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/longfindamsel2_jnichols.jpg",
+        "web_file": "longfin-damselfish_2.jpg"
+      }
+    ]
+  },
+  {
+    "id": "sand-tilefish",
+    "name": "Sand Tilefish",
+    "photos": [
+      {
+        "file": "sand-tilefish_1.jpg",
+        "credit": "Janna Nichols",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/sandtilefish2_jnichols.jpg",
+        "web_file": "sand-tilefish_1.jpg"
+      },
+      {
+        "file": "sand-tilefish_2.jpg",
+        "credit": "Janna Nichols",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/sandtilefish_jnichols_2.jpg",
+        "web_file": "sand-tilefish_2.jpg"
+      }
+    ]
+  },
+  {
+    "id": "yellow-jack",
+    "name": "Yellow Jack",
+    "photos": [
+      {
+        "file": "yellow-jack_1.jpg",
+        "credit": "Janna Nichols",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/yellowjack_jnichols.jpg",
+        "web_file": "yellow-jack_1.jpg"
+      },
+      {
+        "file": "yellow-jack_2.jpg",
+        "credit": "Janna Nichols",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/yellowjacks_jnichols.jpg",
+        "web_file": "yellow-jack_2.jpg"
+      }
+    ]
   }
 ]

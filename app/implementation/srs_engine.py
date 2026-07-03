@@ -453,11 +453,15 @@ class SrsEngine:
                 lesson = conn.execute(
                     text("SELECT * FROM lessons WHERE id=:lid"), {"lid": lesson_id}
                 ).mappings().first()
+                total = conn.execute(
+                    text("SELECT COUNT(*) FROM progress WHERE user_id=:uid"), {"uid": user_id}
+                ).scalar()
                 return {
                     "ok": True, "done": True,
                     "summary": {
                         "correct": lesson["correct_count"], "wrong": lesson["wrong_count"],
-                        "score": score, "mastered_count": mastered, "lessons_completed": lessons_completed,
+                        "score": score, "mastered_count": mastered, "total": total,
+                        "lessons_completed": lessons_completed,
                     },
                 }
 

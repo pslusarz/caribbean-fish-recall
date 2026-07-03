@@ -393,9 +393,12 @@ def test_missed_item_gets_a_same_lesson_retry_that_does_not_affect_lesson_tally(
 
 
 def test_stats_reflect_completed_lesson_activity(client, store):
+    with store.engine.begin() as conn:
+        species_count = conn.execute(text("SELECT COUNT(*) FROM species")).scalar()
+
     before = client.get("/stats").json()
     assert before["lessons_completed"] == 0
-    assert before["total"] == 58
+    assert before["total"] == species_count
 
     start = client.post("/lesson/start").json()
     lesson_id = start["lesson_id"]
@@ -408,14 +411,17 @@ def test_stats_reflect_completed_lesson_activity(client, store):
     after = client.get("/stats").json()
     assert after["lessons_completed"] == 1
     assert after["total_seen"] > before["total_seen"]
-    assert sum(after["by_level"].values()) == 58
+    assert sum(after["by_level"].values()) == species_count
 
 
-def test_browse_returns_all_fish_with_photos(client):
+def test_browse_returns_all_fish_with_photos(client, store):
+    with store.engine.begin() as conn:
+        species_count = conn.execute(text("SELECT COUNT(*) FROM species")).scalar()
+
     resp = client.get("/browse")
     data = resp.json()
     assert data["ok"] is True
-    assert len(data["fish"]) == 58
+    assert len(data["fish"]) == species_count
     for fish in data["fish"]:
         assert 1 <= len(fish["photos"]) <= 3
         assert fish["photos"][0]["file"]
