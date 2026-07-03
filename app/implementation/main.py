@@ -1,5 +1,6 @@
 from fasthtml.common import fast_app, serve, Title, NotStr, Div
 from dotenv import load_dotenv
+from starlette.middleware.base import BaseHTTPMiddleware
 import os
 
 from app.implementation.components.index_page import INDEX_BODY
@@ -19,6 +20,25 @@ app, rt = fast_app(static_path="public")
 # Mount the FastAPI JSON API (the migrated lustereczko custom tools) under /api.
 # FastHTML's app is Starlette-based, same as FastAPI, so a plain ASGI mount works.
 app.mount("/api", api)
+
+
+class PhotoCacheMiddleware(BaseHTTPMiddleware):
+    """FastHTML's static_path serving (a per-file FileResponse route, not a
+    StaticFiles mount) sets ETag/Last-Modified but no Cache-Control, so
+    browsers revalidate every photo over the network on every view instead
+    of serving straight from disk. Photo content is immutable once added
+    (a changed image gets a new filename/seq, per seed_data conventions) --
+    unlike "/", which changes with every UI deploy and must stay
+    uncached, so this only touches /photos/*."""
+
+    async def dispatch(self, request, call_next):
+        response = await call_next(request)
+        if request.url.path.startswith("/photos/"):
+            response.headers["Cache-Control"] = "public, max-age=2592000"
+        return response
+
+
+app.add_middleware(PhotoCacheMiddleware)
 
 
 @rt("/")
