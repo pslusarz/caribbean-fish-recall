@@ -85,6 +85,17 @@ INDEX_BODY = """
     <div style="margin-top:14px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.12); font-size:12px; opacity:0.75; line-height:1.5;">
       <b>Your goal:</b> move every fish from Level 0 up to full mastery (Level 4). A fish advances a level each time you answer a recall question about it correctly in a lesson &mdash; keep practicing to level them all up.
     </div>
+    <div style="margin-top:14px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.12);">
+      <div style="font-size:13px; font-weight:700; margin-bottom:6px;">Transfer progress to another device</div>
+      <button id="btn-transfer-link" style="padding:10px 16px; border:none; border-radius:8px; background:#123f56; color:#eaf6fb; font-weight:600; cursor:pointer; font-size:13px;">Get transfer link</button>
+      <div id="transfer-link-result" style="display:none; margin-top:10px; padding:10px; background:#123f56; border-radius:8px; font-size:12px;">
+        <div style="opacity:0.8; margin-bottom:6px;">Open this link on your other device (valid for 15 minutes):</div>
+        <div style="display:flex; gap:6px; align-items:center;">
+          <input id="transfer-link-url" type="text" readonly style="flex:1; padding:8px; border-radius:6px; border:none; font-size:12px; background:#04202e; color:#eaf6fb;" />
+          <button id="btn-copy-transfer-link" style="padding:8px 12px; border:none; border-radius:6px; background:#2f9e6e; color:white; font-weight:700; cursor:pointer; font-size:12px; white-space:nowrap;">Copy</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div id="panel-browse" class="panel" style="flex:1; overflow-y:auto; padding:14px; display:none; flex-direction:column; gap:10px;">
@@ -108,6 +119,12 @@ INDEX_BODY = """
   </div>
 
   <div id="fr-error-toast" style="display:none; position:absolute; bottom:60px; left:50%; transform:translateX(-50%); background:#6b2b2b; color:#fff; padding:8px 14px; border-radius:8px; font-size:13px; box-shadow:0 4px 14px rgba(0,0,0,0.4); z-index:50; max-width:80%; text-align:center;"></div>
+
+  <div id="fr-welcome-banner" style="display:none; position:absolute; top:60px; left:50%; transform:translateX(-50%); background:#1e5c3f; color:#fff; padding:10px 16px; border-radius:8px; font-size:13px; box-shadow:0 4px 14px rgba(0,0,0,0.4); z-index:50; max-width:85%; text-align:center; cursor:pointer;">Welcome! Your progress has been transferred to this device.</div>
+
+  <div id="fr-claim-overlay" style="display:none; position:fixed; inset:0; background:rgba(4,32,46,0.95); z-index:100; align-items:center; justify-content:center; padding:20px;">
+    <div id="fr-claim-content" style="max-width:380px; text-align:center; background:#0b3d55; padding:24px; border-radius:12px; box-shadow:0 8px 30px rgba(0,0,0,0.5); color:#eaf6fb;"></div>
+  </div>
 
   <div style="padding:8px 14px; background:#072b3d; font-size:11px; text-align:center; opacity:0.75; border-top:1px solid rgba(255,255,255,0.08);">
     Fish photos &amp; species data: <a href="https://www.reef.org/species/galleries/caribbean" target="_blank" rel="noopener" style="color:#eaf6fb;">REEF.org</a>
@@ -632,6 +649,111 @@ INDEX_BODY = """
     document.getElementById('browse-mnemonic').textContent = f.mnemonic ? ('\\ud83d\\udca1 ' + f.mnemonic) : '';
     browseGallery.setPhotos(f.photos);
   }
+
+  // ---------- CROSS-DEVICE TRANSFER LINKS ----------
+  function showClaimOverlay(html) {
+    document.getElementById('fr-claim-content').innerHTML = html;
+    document.getElementById('fr-claim-overlay').style.display = 'flex';
+  }
+
+  function goToApp() { window.location.href = '/'; }
+
+  // fetchApi *rejects* (throws) on network failure, timeout, or a non-OK
+  // HTTP status -- both branches below must be handled via .then()'s second
+  // argument, not a falsy-check on the resolved value, or an expired-token
+  // response (the main error case here) would silently leave the overlay
+  // stuck on its loading spinner forever instead of showing anything.
+  function confirmTransfer(token) {
+    showClaimOverlay('<div class="fr-spinner fr-spinner-lg"></div><div style="margin-top:12px; font-size:14px;">Setting up your account...</div>');
+    fetchApi('POST', '/account/transfer_confirm', { token: token }).then(function(res) {
+      window.location.href = '/?welcome=1';
+    }, function(err) {
+      showClaimOverlay(
+        '<div style="font-size:15px; font-weight:700; margin-bottom:10px;">Something went wrong</div>' +
+        '<div style="font-size:13px; opacity:0.85; margin-bottom:16px;">Please try the link again.</div>' +
+        '<button id="btn-claim-goapp2" style="padding:10px 18px; border:none; border-radius:8px; background:#2f9e6e; color:white; font-weight:700; cursor:pointer;">Go to app</button>'
+      );
+      document.getElementById('btn-claim-goapp2').addEventListener('click', goToApp);
+    });
+  }
+
+  function runClaimFlow(token) {
+    showClaimOverlay('<div class="fr-spinner fr-spinner-lg"></div><div style="margin-top:12px; font-size:14px;">Checking your link...</div>');
+    fetchApi('GET', '/account/transfer_preview?t=' + encodeURIComponent(token)).then(function(preview) {
+      if (preview.same_account) {
+        goToApp();
+        return;
+      }
+      if (preview.current_score === null) {
+        confirmTransfer(token);
+        return;
+      }
+      showClaimOverlay(
+        '<div style="font-size:15px; font-weight:700; margin-bottom:10px;">\\u26a0\\ufe0f You already have progress on this device</div>' +
+        '<div style="font-size:13px; line-height:1.6; margin-bottom:16px; text-align:left;">' +
+          'Your rank on <b>this device</b>: <b>' + preview.current_score + '%</b><br>' +
+          'Your incoming rank: <b>' + preview.incoming_score + '%</b><br><br>' +
+          'Continuing will replace this device\\u2019s progress with the incoming progress, with no way to undo it.' +
+        '</div>' +
+        '<div style="display:flex; gap:10px; justify-content:center;">' +
+          '<button id="btn-claim-cancel" style="padding:10px 18px; border:none; border-radius:8px; background:#6b2b2b; color:white; font-weight:700; cursor:pointer;">Cancel</button>' +
+          '<button id="btn-claim-continue" style="padding:10px 18px; border:none; border-radius:8px; background:#2f9e6e; color:white; font-weight:700; cursor:pointer;">Continue</button>' +
+        '</div>'
+      );
+      document.getElementById('btn-claim-cancel').addEventListener('click', goToApp);
+      document.getElementById('btn-claim-continue').addEventListener('click', function() { confirmTransfer(token); });
+    }, function(err) {
+      showClaimOverlay(
+        '<div style="font-size:15px; font-weight:700; margin-bottom:10px;">Link expired or invalid</div>' +
+        '<div style="font-size:13px; opacity:0.85; margin-bottom:16px;">Generate a new transfer link from your other device\\u2019s Stats tab.</div>' +
+        '<button id="btn-claim-goapp" style="padding:10px 18px; border:none; border-radius:8px; background:#2f9e6e; color:white; font-weight:700; cursor:pointer;">Go to app</button>'
+      );
+      document.getElementById('btn-claim-goapp').addEventListener('click', goToApp);
+    });
+  }
+
+  (function checkForClaimPath() {
+    var m = window.location.pathname.match(/^\\/claim\\/(.+)$/);
+    if (m) runClaimFlow(decodeURIComponent(m[1]));
+  })();
+
+  (function checkForWelcomeBanner() {
+    if (window.location.search.indexOf('welcome=1') === -1) return;
+    var banner = document.getElementById('fr-welcome-banner');
+    banner.style.display = 'block';
+    var dismiss = function() { banner.style.display = 'none'; };
+    banner.addEventListener('click', dismiss);
+    setTimeout(dismiss, 6000);
+    var url = new URL(window.location.href);
+    url.searchParams.delete('welcome');
+    window.history.replaceState({}, '', url.pathname + url.search);
+  })();
+
+  document.getElementById('btn-transfer-link').addEventListener('click', function() {
+    // A rejection here is handled by runBusy itself (generic error toast +
+    // button re-enable) -- no custom error UI needed for "couldn't generate
+    // a link", unlike the claim flow above.
+    runBusy(this, function() {
+      return fetchApi('POST', '/account/transfer_link').then(function(res) {
+        document.getElementById('transfer-link-url').value = window.location.origin + res.path;
+        document.getElementById('transfer-link-result').style.display = 'block';
+      });
+    });
+  });
+
+  document.getElementById('btn-copy-transfer-link').addEventListener('click', function() {
+    var input = document.getElementById('transfer-link-url');
+    input.select();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(input.value);
+    } else {
+      document.execCommand('copy');
+    }
+    var btn = this;
+    var orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = orig; }, 1500);
+  });
 
   showTab('lesson');
 })();

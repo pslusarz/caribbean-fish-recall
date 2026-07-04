@@ -49,5 +49,17 @@ def get():
     )
 
 
+@rt("/claim/{token}")
+def get_claim(token: str):
+    # Same page shell as "/" -- the transfer-link flow is entirely
+    # client-side (index_page.py's JS detects the /claim/ path itself and
+    # runs the preview/confirm flow), so the server doesn't need to look at
+    # `token` at all here; it's only read by the frontend from the URL.
+    return Title("Caribbean Fish Recall"), Div(
+        NotStr(INDEX_BODY),
+        style="background:#04202e; min-height:100vh; padding:1px 0;",
+    )
+
+
 if __name__ == "__main__":
     serve()

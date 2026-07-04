@@ -8,8 +8,10 @@ future changes: if these still pass, per-user behavior and isolation were
 preserved.
 """
 
+from fastapi.testclient import TestClient
 from sqlalchemy import text
 
+from app.implementation.api import create_api
 from app.implementation.srs_engine import PROMOTE_THRESHOLD
 
 
@@ -470,3 +472,75 @@ def test_starting_a_lesson_does_not_abandon_another_users_active_lesson(client, 
 
     lesson = _get_lesson(store, first["lesson_id"])
     assert lesson["status"] == "active"  # ...must not touch user_id's still-active lesson
+
+
+# ---------- cross-device transfer links ----------
+
+
+def _get_score(client):
+    return client.get("/stats").json()["score"]
+
+
+def test_transfer_link_returns_a_claim_path(client):
+    resp = client.post("/account/transfer_link").json()
+    assert resp["ok"] is True
+    assert resp["path"].startswith("/claim/")
+
+
+def test_transfer_preview_with_no_cookie_shows_null_current_score(client, store):
+    token = client.post("/account/transfer_link").json()["path"].removeprefix("/claim/")
+
+    bare_client = TestClient(create_api(store))  # deliberately no cookie set at all
+    preview = bare_client.get("/account/transfer_preview", params={"t": token}).json()
+    assert preview["ok"] is True
+    assert preview["current_score"] is None
+    assert preview["same_account"] is False
+
+
+def test_transfer_preview_same_account_when_visiting_your_own_link(client):
+    token = client.post("/account/transfer_link").json()["path"].removeprefix("/claim/")
+    preview = client.get("/account/transfer_preview", params={"t": token}).json()
+    assert preview["same_account"] is True
+    assert preview["current_score"] == preview["incoming_score"]
+
+
+def test_transfer_preview_shows_both_devices_distinct_scores_on_conflict(
+    client, second_client, store, user_id, second_user_id
+):
+    fish_id = "banded-butterflyfish"
+    _set_progress(store, user_id, fish_id, level=2)  # incoming: some progress
+    # second_user_id (the "current device" in this scenario) stays at its default all-level-0 state
+
+    token = client.post("/account/transfer_link").json()["path"].removeprefix("/claim/")
+    preview = second_client.get("/account/transfer_preview", params={"t": token}).json()
+
+    assert preview["same_account"] is False
+    assert preview["current_score"] == _get_score(second_client)
+    assert preview["incoming_score"] == _get_score(client)
+    assert preview["incoming_score"] != preview["current_score"]
+
+
+def test_transfer_confirm_replaces_the_devices_identity_with_the_incoming_account(
+    client, second_client, store, user_id, second_user_id
+):
+    fish_id = "banded-butterflyfish"
+    _set_progress(store, user_id, fish_id, level=3)  # give the source account some real, distinct progress
+    incoming_score = _get_score(client)
+    assert incoming_score != _get_score(second_client)  # sanity check they actually differ before confirming
+
+    token = client.post("/account/transfer_link").json()["path"].removeprefix("/claim/")
+    confirm = second_client.post("/account/transfer_confirm", json={"token": token})
+    assert confirm.json()["ok"] is True
+
+    # second_client's cookie now resolves to user_id's account/progress
+    assert _get_score(second_client) == incoming_score
+
+
+def test_transfer_preview_with_invalid_token_returns_400(client):
+    resp = client.get("/account/transfer_preview", params={"t": "not-a-real-token"})
+    assert resp.status_code == 400
+
+
+def test_transfer_confirm_with_invalid_token_returns_400(client):
+    resp = client.post("/account/transfer_confirm", json={"token": "not-a-real-token"})
+    assert resp.status_code == 400
