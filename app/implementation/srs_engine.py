@@ -114,29 +114,22 @@ class SrsEngine:
         return [{"file": r["file"], "credit": r["credit"]} for r in rows]
 
     def _decay_pass(self, conn, user_id, now):
-        rows = conn.execute(
+        # Single set-based UPDATE instead of a SELECT + per-row UPDATE loop --
+        # avoids up to 58 extra DB round trips per call (this runs on every
+        # /lesson/start and /stats). See DECAY_GAP for the per-level gaps.
+        gap_case = "CASE level " + " ".join(
+            f"WHEN {lvl} THEN {gap}" for lvl, gap in DECAY_GAP.items()
+        ) + f" ELSE {DECAY_GAP[4]} END"
+        result = conn.execute(
             text(
-                "SELECT fish_id, level, last_reviewed_at FROM progress "
-                "WHERE user_id=:uid AND last_reviewed_at>0"
+                "UPDATE progress SET level=level-1, streak_success=0, streak_fail=0, "
+                "mastered=0, next_due_at=:now "
+                "WHERE user_id=:uid AND level>0 AND last_reviewed_at>0 "
+                f"AND :now > last_reviewed_at + {gap_case}"
             ),
-            {"uid": user_id},
-        ).all()
-        changed = 0
-        for fid, level, last_reviewed_at in rows:
-            if level <= 0:
-                continue
-            gap = DECAY_GAP.get(level, DECAY_GAP[4])
-            if now > last_reviewed_at + gap:
-                new_level = max(0, level - 1)
-                conn.execute(
-                    text(
-                        "UPDATE progress SET level=:level, streak_success=0, streak_fail=0, "
-                        "mastered=0, next_due_at=:now WHERE user_id=:uid AND fish_id=:fid"
-                    ),
-                    {"level": new_level, "now": now, "uid": user_id, "fid": fid},
-                )
-                changed += 1
-        return changed
+            {"now": now, "uid": user_id},
+        )
+        return result.rowcount
 
     def _compute_score(self, conn, user_id):
         weight_case = "CASE level " + " ".join(
