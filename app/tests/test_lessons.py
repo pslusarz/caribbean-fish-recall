@@ -18,7 +18,7 @@ from app.implementation.srs_engine import PROMOTE_THRESHOLD
 from scripts.add_missing_species import add_missing_species
 
 
-def _rig_lesson_item(store, user_id, fish_id, level_at_plan, is_retry=0, is_reinforce=0):
+def _rig_lesson_item(store, user_id, fish_id, level_at_plan, is_retry=0):
     """Directly insert a lessons/lesson_items row pointing at `fish_id` for
     `user_id`, so a test can hit engine.submit() with a precise precondition
     (e.g. "this fish is already at streak_success=1") without having to
@@ -34,10 +34,10 @@ def _rig_lesson_item(store, user_id, fish_id, level_at_plan, is_retry=0, is_rein
         ).lastrowid
         item_id = conn.execute(
             text(
-                "INSERT INTO lesson_items (lesson_id, seq, fish_id, level_at_plan, is_retry, is_reinforce, status) "
-                "VALUES (:lid, 0, :fid, :lvl, :retry, :reinforce, 'pending')"
+                "INSERT INTO lesson_items (lesson_id, seq, fish_id, level_at_plan, is_retry, status) "
+                "VALUES (:lid, 0, :fid, :lvl, :retry, 'pending')"
             ),
-            {"lid": lesson_id, "fid": fish_id, "lvl": level_at_plan, "retry": is_retry, "reinforce": is_reinforce},
+            {"lid": lesson_id, "fid": fish_id, "lvl": level_at_plan, "retry": is_retry},
         ).lastrowid
         return lesson_id, item_id
 
@@ -58,7 +58,8 @@ def _get_fish(store, user_id, fish_id):
                 text(
                     "SELECT s.id AS id, s.name AS name, p.level AS level, "
                     "p.streak_success AS streak_success, p.streak_fail AS streak_fail, "
-                    "p.seen_count AS seen_count, p.mastered AS mastered, p.mastered_at AS mastered_at "
+                    "p.seen_count AS seen_count, p.mastered AS mastered, p.mastered_at AS mastered_at, "
+                    "p.next_due_at AS next_due_at "
                     "FROM species s JOIN progress p ON p.fish_id = s.id "
                     "WHERE s.id=:fid AND p.user_id=:uid"
                 ),
@@ -80,15 +81,15 @@ def _get_lesson(store, lesson_id):
 def test_start_lesson_on_fresh_db_is_all_new(client):
     """With every fish at level 0 and nothing ever reviewed, there's no due
     review pool, so the 70%-target algorithm should degenerate to an
-    all-new lesson: 15 new items plus one same-lesson reinforce clone per
-    new item (level_at_plan=1) inserted 4-8 slots later."""
+    all-new lesson: 15 new (intro) items, one per fish -- no reinforce
+    clones anymore, so planned_size matches n_new exactly."""
     resp = client.post("/lesson/start")
     assert resp.status_code == 200
     data = resp.json()
     assert data["ok"] is True
     assert data["n_new"] == 15
     assert data["n_review"] == 0
-    assert data["planned_size"] == 30  # 15 new + 15 reinforce clones
+    assert data["planned_size"] == 15
     assert data["fallback_used"] is False
 
 
@@ -105,10 +106,16 @@ def test_first_item_in_a_fresh_lesson_is_an_intro(client):
     assert item["scientific_name"] is not None
 
 
-def test_submitting_an_intro_item_is_always_correct_and_does_not_change_level(client, store, user_id):
+def test_submitting_an_intro_item_is_always_correct_and_promotes_straight_to_level_one(client, store, user_id):
+    """A fish's first-ever sighting (the intro card) is always correct and
+    immediately promotes it to level 1, in the same lesson -- no separate
+    reinforce quiz needed, and it counts toward the lesson's correct tally
+    just like any other graded answer (product decision: L0 exposure counts
+    toward score)."""
     resp = client.post("/lesson/start")
     lesson_id = resp.json()["lesson_id"]
     item = client.get("/lesson/next_item", params={"lesson_id": lesson_id}).json()
+    assert item["question_type"] == "intro"
 
     before = _get_fish(store, user_id, item["fish_id"])
     submit = client.post("/lesson/submit", json={"item_id": item["item_id"], "answer": None}).json()
@@ -116,74 +123,35 @@ def test_submitting_an_intro_item_is_always_correct_and_does_not_change_level(cl
     assert submit["ok"] is True
     assert submit["is_intro"] is True
     assert submit["correct"] is True
-    assert submit["promoted"] is False
+    assert submit["promoted"] is True
     assert submit["demoted"] is False
-    assert submit["new_level"] == 0
+    assert submit["new_level"] == 1
 
     after = _get_fish(store, user_id, item["fish_id"])
-    assert after["level"] == before["level"] == 0
+    assert before["level"] == 0
+    assert after["level"] == 1
     assert after["seen_count"] == before["seen_count"] + 1
+    # regression guard: next_due_at must actually get scheduled here, or this
+    # fish becomes permanently invisible to both new_pool (level=0 required)
+    # and due_review (next_due_at>0 required) -- confirmed by hand that a
+    # naive "level=1 with no next_due_at update" leaves it unreachable forever.
+    assert after["next_due_at"] > 0
 
-
-def test_reinforce_item_is_mc_easy_with_the_correct_fish_among_choices(client):
-    resp = client.post("/lesson/start")
-    lesson_id = resp.json()["lesson_id"]
-
-    reinforce_item = None
-    for _ in range(30):
-        item = client.get("/lesson/next_item", params={"lesson_id": lesson_id}).json()
-        if item["done"]:
-            break
-        if item["is_reinforce"]:
-            reinforce_item = item
-            break
-        # answer whatever we're given so the lesson keeps advancing
-        if item["question_type"] == "intro":
-            answer = None
-        else:
-            answer = item["fish_id"]
-        client.post("/lesson/submit", json={"item_id": item["item_id"], "answer": answer})
-
-    assert reinforce_item is not None, "expected a reinforce item within the first lesson"
-    assert reinforce_item["question_type"] == "mc_easy"
-    assert reinforce_item["level_at_plan"] == 1
-    choice_ids = [c["id"] for c in reinforce_item["choices"]]
-    assert reinforce_item["fish_id"] in choice_ids
-    assert len(reinforce_item["choices"]) == 4  # correct + 3 distractors
+    lesson = _get_lesson(store, lesson_id)
+    assert lesson["correct_count"] == 1
+    assert lesson["wrong_count"] == 0
 
 
 # ---------- promotion / demotion / mastery ----------
 
 
-def test_promotion_on_first_correct_answer_at_level_zero(client, store, user_id):
-    """Level 0 has PROMOTE_THRESHOLD=1 -- a brand-new fish's reinforce card
-    promotes it immediately, in the same lesson, instead of needing a second
-    encounter after REVIEW_GAP[1]. This is the fix for early lessons showing
-    no visible progress at all (see planning/ for the before/after)."""
-    fish_id = "banded-butterflyfish"
-    assert PROMOTE_THRESHOLD[0] == 1
-    _set_progress(store, user_id, fish_id, level=0, streak_success=0, streak_fail=0)
-    lesson_id, item_id = _rig_lesson_item(store, user_id, fish_id, level_at_plan=1, is_reinforce=1)
-
-    resp = client.post("/lesson/submit", json={"item_id": item_id, "answer": fish_id})
-    data = resp.json()
-
-    assert data["ok"] is True
-    assert data["correct"] is True
-    assert data["promoted"] is True
-    assert data["new_level"] == 1
-    assert data["streak"] == 0  # resets after promotion
-
-    fish = _get_fish(store, user_id, fish_id)
-    assert fish["level"] == 1
-    assert fish["streak_success"] == 0
-
-
 def test_promotion_on_second_consecutive_correct_answer_above_level_zero(client, store, user_id):
-    """Levels >=2 keep PROMOTE_THRESHOLD=2 -- still a genuine "second
-    consecutive correct" requirement, unlike the eased level-0 case above."""
+    """PROMOTE_THRESHOLD is a flat 2 for every real level (1-4 alike) --
+    genuinely needs a second consecutive correct answer to climb. Level 0
+    is the only exception, and it's not threshold-based at all -- see
+    test_submitting_an_intro_item_is_always_correct_and_promotes_straight_to_level_one."""
     fish_id = "banded-butterflyfish"
-    assert PROMOTE_THRESHOLD[2] == 2
+    assert PROMOTE_THRESHOLD == 2
     _set_progress(store, user_id, fish_id, level=2, streak_success=1, streak_fail=0)
     lesson_id, item_id = _rig_lesson_item(store, user_id, fish_id, level_at_plan=2)
 
@@ -230,10 +198,10 @@ def test_demotion_on_second_consecutive_wrong_answer(client, store, user_id):
 
 
 def test_single_wrong_answer_does_not_demote_a_freshly_promoted_level_one_fish(client, store, user_id):
-    """DEMOTE_THRESHOLD stays flat at 2 even though PROMOTE_THRESHOLD[0] was
-    eased to 1 -- otherwise a fish that just promoted on one correct answer
-    could immediately drop back to 0 on a single mistake, undoing the early
-    positive feedback the eased promotion is meant to create."""
+    """A single mistake should never immediately undo a fish's very first
+    promotion (the guaranteed level 0->1 win from its intro card) -- it
+    takes a genuine second consecutive wrong answer (DEMOTE_THRESHOLD=2) to
+    drop it back down."""
     fish_id = "banded-butterflyfish"
     _set_progress(store, user_id, fish_id, level=1, streak_success=0, streak_fail=0)
     lesson_id, item_id = _rig_lesson_item(store, user_id, fish_id, level_at_plan=1)
@@ -252,12 +220,11 @@ def test_single_wrong_answer_does_not_demote_a_freshly_promoted_level_one_fish(c
 
 
 def test_mastery_on_reaching_promote_threshold_at_level_four(client, store, user_id):
-    """Level 4 has PROMOTE_THRESHOLD=3 -- stricter than the flat 2 every
-    level used before, so mastery still takes real, repeated demonstration
-    even though early levels were eased."""
+    """Level 4 uses the same flat PROMOTE_THRESHOLD=2 as every other real
+    level -- two consecutive correct answers grants mastery instead of a
+    fifth level."""
     fish_id = "banded-butterflyfish"
-    assert PROMOTE_THRESHOLD[4] == 3
-    _set_progress(store, user_id, fish_id, level=4, streak_success=PROMOTE_THRESHOLD[4] - 1, mastered=0)
+    _set_progress(store, user_id, fish_id, level=4, streak_success=PROMOTE_THRESHOLD - 1, mastered=0)
     lesson_id, item_id = _rig_lesson_item(store, user_id, fish_id, level_at_plan=4)
 
     resp = client.post("/lesson/submit", json={"item_id": item_id, "answer": "Banded Butterflyfish"})
@@ -330,7 +297,7 @@ def test_full_lesson_completes_with_all_correct_answers(client, store):
 
     seen_items = 0
     summary = None
-    for _ in range(200):  # generous cap; a fresh lesson has 30 items
+    for _ in range(200):  # generous cap; a fresh lesson has 15 items
         item = client.get("/lesson/next_item", params={"lesson_id": lesson_id}).json()
         if item["done"]:
             summary = item.get("summary")
@@ -344,8 +311,8 @@ def test_full_lesson_completes_with_all_correct_answers(client, store):
     assert summary is not None, "lesson never reported done"
     assert seen_items == start["planned_size"]  # every answer was correct -> no retry batch
     assert summary["wrong"] == 0
-    # only non-intro, non-retry items count toward the tally -- in an
-    # all-new lesson that's exactly the one reinforce clone per new fish
+    # every non-retry item counts toward the tally now, intros included --
+    # in an all-new lesson that's exactly one per new fish
     assert summary["correct"] == start["n_new"]
     assert summary["lessons_completed"] == 1
 
@@ -353,37 +320,24 @@ def test_full_lesson_completes_with_all_correct_answers(client, store):
     assert lesson["status"] == "completed"
 
 
-def test_missed_item_gets_a_same_lesson_retry_that_does_not_affect_lesson_tally(client, store):
-    start = client.post("/lesson/start").json()
-    lesson_id = start["lesson_id"]
+def test_missed_item_gets_a_same_lesson_retry_that_does_not_affect_lesson_tally(client, store, user_id):
+    """A fresh all-new lesson is now nothing but intro cards (which can
+    never be "missed" -- they're always correct), so this rigs a genuine
+    graded item directly rather than relying on one to show up naturally."""
+    fish_id = "banded-butterflyfish"
+    lesson_id, item_id = _rig_lesson_item(store, user_id, fish_id, level_at_plan=1)
 
-    missed_fish_id = None
-    retry_item = None
-    for _ in range(200):
-        item = client.get("/lesson/next_item", params={"lesson_id": lesson_id}).json()
-        if item["done"]:
-            break
-        if item["is_retry"]:
-            retry_item = item
-            break
-        if missed_fish_id is None and item["question_type"] == "mc_easy":
-            # deliberately answer the first mc_easy item wrong
-            wrong_choice = next(c["id"] for c in item["choices"] if c["id"] != item["fish_id"])
-            client.post("/lesson/submit", json={"item_id": item["item_id"], "answer": wrong_choice})
-            missed_fish_id = item["fish_id"]
-        else:
-            client.post(
-                "/lesson/submit", json={"item_id": item["item_id"], "answer": _answer_for(item)}
-            )
+    item = client.get("/lesson/next_item", params={"lesson_id": lesson_id}).json()
+    wrong_choice = next(c["id"] for c in item["choices"] if c["id"] != item["fish_id"])
+    client.post("/lesson/submit", json={"item_id": item["item_id"], "answer": wrong_choice})
 
-    assert missed_fish_id is not None
-    assert retry_item is not None
-    assert retry_item["fish_id"] == missed_fish_id
+    retry_item = client.get("/lesson/next_item", params={"lesson_id": lesson_id}).json()
     assert retry_item["is_retry"] is True
+    assert retry_item["fish_id"] == fish_id
 
     lesson_before = _get_lesson(store, lesson_id)
     resp = client.post(
-        "/lesson/submit", json={"item_id": retry_item["item_id"], "answer": missed_fish_id}
+        "/lesson/submit", json={"item_id": retry_item["item_id"], "answer": fish_id}
     ).json()
     lesson_after = _get_lesson(store, lesson_id)
 
@@ -511,8 +465,8 @@ def test_brand_new_user_automatically_gets_a_species_added_after_other_users_sig
     new_client = TestClient(api)
     new_client.cookies.set(COOKIE_NAME, new_user_id)
 
-    _, item_id = _rig_lesson_item(store, new_user_id, fish_id, level_at_plan=1, is_reinforce=1)
-    data = new_client.post("/lesson/submit", json={"item_id": item_id, "answer": fish_id}).json()
+    _, item_id = _rig_lesson_item(store, new_user_id, fish_id, level_at_plan=0)
+    data = new_client.post("/lesson/submit", json={"item_id": item_id, "answer": None}).json()
     assert data["ok"] is True
     assert data["promoted"] is True
     assert data["new_level"] == 1
@@ -550,8 +504,8 @@ def test_existing_user_gets_a_new_species_only_after_add_missing_species_runs(
 
     # and it's fully quizzable through the real API -- no exception for a
     # fish that didn't exist when this user first signed up
-    _, item_id = _rig_lesson_item(store, user_id, fish_id, level_at_plan=1, is_reinforce=1)
-    data = client.post("/lesson/submit", json={"item_id": item_id, "answer": fish_id}).json()
+    _, item_id = _rig_lesson_item(store, user_id, fish_id, level_at_plan=0)
+    data = client.post("/lesson/submit", json={"item_id": item_id, "answer": None}).json()
     assert data["ok"] is True
     assert data["promoted"] is True
     assert data["new_level"] == 1

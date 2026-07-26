@@ -1,22 +1,6 @@
 """
 Lesson-based spaced-repetition engine.
 
-This is a direct port of the lustereczko `srs_lesson` custom tool (see
-planning/ for migration notes). All business logic -- Levenshtein spelling
-grading, confusion-weighted multiple-choice distractors, the
-REVIEW_GAP/DECAY_GAP split, 70%-target lesson seeding, promoted/demoted/
-mastered_now flags, rank score + history -- is unchanged from the prototype.
-The only structural difference is that queries go through a SQLAlchemy
-`Connection` (via `text()` with named params) instead of a raw sqlite3
-cursor, and methods return plain dicts instead of `json.dumps(...)` strings
-(FastAPI serializes dicts to JSON automatically).
-
-Multi-user note: every public method takes a `user_id` and every query is
-scoped by it. Species facts (name, scientific_name, mnemonic, ...) live in
-the global `species` table; everything SRS-related (level, streaks, due
-dates, mastery) lives in `progress`, keyed by (user_id, fish_id). `_get_fish`
-below joins the two so the rest of this file can keep treating "fish" as one
-merged row, exactly like the pre-multi-user version did.
 """
 
 import random
@@ -34,15 +18,15 @@ DECAY_GAP = {1: 12 * 3600, 2: 24 * 3600, 3: 2 * 24 * 3600, 4: 3 * 24 * 3600}
 
 PRIOR = {1: 0.90, 2: 0.65, 3: 0.50, 4: 0.35}
 
-# Consecutive-correct/-wrong answers needed to climb/drop a level. Promotion
-# threshold is eased at low levels (one correct answer takes a brand-new fish
-# from 0->1, in the same lesson -- no more waiting on REVIEW_GAP[1] for a
-# second touch) and tightened near mastery, so early progress feels almost
-# immediate while the top of the ladder stays rigorous. Demotion threshold
-# stays flat -- easing promotion at level 0 without also flattening demotion
-# there would make a freshly-promoted level-1 fish droppable on a single
-# mistake, undoing the "early positive feedback" this is meant to create.
-PROMOTE_THRESHOLD = {0: 1, 1: 1, 2: 2, 3: 2, 4: 3}
+# Consecutive-correct/-wrong answers needed to climb/drop a level. Flat
+# across every real level (1-4, including the promotion into mastery at 4)
+# -- no more per-level tuning. Level 0 isn't part of this at all: a fish's
+# first-ever encounter (the intro card) always counts as correct and always
+# promotes it straight to level 1 on the spot, unconditionally -- see the
+# is_intro branch in submit(). That single, guaranteed win on first sight is
+# what gives a brand-new user visible progress immediately, so levels 1-4
+# don't need their own easing to do the same job.
+PROMOTE_THRESHOLD = 2
 DEMOTE_THRESHOLD = 2
 
 # Score contribution of each level, as a percent of one fish's max (100 at
@@ -310,24 +294,13 @@ class SrsEngine:
             new_iter = iter(selected_new)
             review_iter = iter(selected_review)
             combined = []
-            key_counter = 0
             for t in tags:
                 if t == "new":
                     fid = next(new_iter)
-                    combined.append({"fish_id": fid, "level_at_plan": 0, "is_reinforce": 0, "key": float(key_counter)})
+                    combined.append({"fish_id": fid, "level_at_plan": 0})
                 else:
                     fid = next(review_iter)
-                    lvl = review_levels[fid]
-                    combined.append({"fish_id": fid, "level_at_plan": lvl, "is_reinforce": 0, "key": float(key_counter)})
-                key_counter += 1
-            max_key = max(key_counter - 1, 0)
-            for it in [x for x in combined if x["level_at_plan"] == 0]:
-                offset = random.randint(4, 8)
-                combined.append({
-                    "fish_id": it["fish_id"], "level_at_plan": 1, "is_reinforce": 1,
-                    "key": min(it["key"] + offset, max_key + 0.5)
-                })
-            combined.sort(key=lambda x: x["key"])
+                    combined.append({"fish_id": fid, "level_at_plan": review_levels[fid]})
 
             for i in range(len(combined) - 1):
                 a, b = combined[i]["fish_id"], combined[i + 1]["fish_id"]
@@ -358,12 +331,12 @@ class SrsEngine:
             for seq, it in enumerate(combined):
                 conn.execute(
                     text(
-                        "INSERT INTO lesson_items (lesson_id, seq, fish_id, level_at_plan, is_retry, is_reinforce, status) "
-                        "VALUES (:lesson_id, :seq, :fish_id, :level_at_plan, 0, :is_reinforce, 'pending')"
+                        "INSERT INTO lesson_items (lesson_id, seq, fish_id, level_at_plan, is_retry, status) "
+                        "VALUES (:lesson_id, :seq, :fish_id, :level_at_plan, 0, 'pending')"
                     ),
                     {
                         "lesson_id": lesson_id, "seq": seq, "fish_id": it["fish_id"],
-                        "level_at_plan": it["level_at_plan"], "is_reinforce": it["is_reinforce"],
+                        "level_at_plan": it["level_at_plan"],
                     },
                 )
 
@@ -417,8 +390,8 @@ class SrsEngine:
                         for i, m in enumerate(miss_list):
                             conn.execute(
                                 text(
-                                    "INSERT INTO lesson_items (lesson_id, seq, fish_id, level_at_plan, is_retry, is_reinforce, status) "
-                                    "VALUES (:lid, :seq, :fid, :lvl, 1, 0, 'pending')"
+                                    "INSERT INTO lesson_items (lesson_id, seq, fish_id, level_at_plan, is_retry, status) "
+                                    "VALUES (:lid, :seq, :fid, :lvl, 1, 'pending')"
                                 ),
                                 {"lid": lesson_id, "seq": max_seq + 1 + i, "fid": m["fish_id"], "lvl": m["level_at_plan"]},
                             )
@@ -476,12 +449,12 @@ class SrsEngine:
                 "features": fish["features"] if row["level_at_plan"] == 0 else None,
                 "mnemonic": fish["mnemonic"] if row["level_at_plan"] == 0 else None,
                 "level_at_plan": row["level_at_plan"],
-                "is_retry": bool(row["is_retry"]), "is_reinforce": bool(row["is_reinforce"]),
+                "is_retry": bool(row["is_retry"]),
                 "question_type": q["question_type"], "choices": q["choices"], "scaffold": q["scaffold"],
                 "hint": hint, "remaining_in_lesson": remaining,
                 "streak_success": fish["streak_success"], "streak_fail": fish["streak_fail"],
                 "mastered": bool(fish["mastered"]),
-                "promote_threshold": PROMOTE_THRESHOLD.get(fish["level"], DEMOTE_THRESHOLD),
+                "promote_threshold": PROMOTE_THRESHOLD,
             }
 
     def submit(self, item_id, answer, user_id):
@@ -538,7 +511,7 @@ class SrsEngine:
                 {"c": 1 if correct else 0, "iid": item["id"]},
             )
 
-            if not is_retry and not is_intro:
+            if not is_retry:
                 conn.execute(
                     text(
                         "UPDATE lessons SET correct_count = correct_count + :c, "
@@ -567,12 +540,18 @@ class SrsEngine:
                 next_due_at = fish["next_due_at"]
 
                 if is_intro:
-                    pass
+                    # First-ever sighting of this fish: always correct, always
+                    # promotes straight to level 1 on the spot -- no streak/
+                    # threshold check, unlike every other level.
+                    correct_count += 1
+                    level = 1
+                    streak_success = 0
+                    next_due_at = now + REVIEW_GAP[1]
                 elif correct:
                     correct_count += 1
                     streak_success += 1
                     streak_fail = 0
-                    if streak_success >= PROMOTE_THRESHOLD.get(level, DEMOTE_THRESHOLD):
+                    if streak_success >= PROMOTE_THRESHOLD:
                         if level < 4:
                             level = min(level + 1, 4)
                         else:
@@ -599,9 +578,9 @@ class SrsEngine:
                             {"fid": fish["id"], "oid": matched_other["id"]},
                         )
 
-                promoted = (not is_intro) and (level > old_level)
-                demoted = (not is_intro) and (level < old_level)
-                mastered_now = (not is_intro) and (mastered == 1 and old_mastered == 0)
+                promoted = level > old_level
+                demoted = level < old_level
+                mastered_now = (mastered == 1 and old_mastered == 0)
 
                 mastered_at = fish["mastered_at"]
                 if mastered_now:
