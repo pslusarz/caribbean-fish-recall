@@ -496,16 +496,12 @@ INDEX_BODY = """
       clearTimeout(submitSafety);
       setSubmitBusy(false);
       if (res.is_intro) {
-        // Facts were already shown on the intro screen pre-submit -- this is
-        // just the "you now know this fish" acknowledgment, not a re-quiz.
-        var introFb = document.getElementById('lesson-feedback');
-        introFb.style.display = 'block';
-        introFb.style.background = '#1e5c3f';
-        introFb.innerHTML = '<b>\\u2713 Learned!</b> <span style="opacity:0.85;">\\u2191 level up!</span>' +
-          '<div style="margin-top:6px; font-size:12px; opacity:0.7;">now level ' + res.new_level + '/4</div>';
-        document.getElementById('lesson-intro-info').style.display = 'none';
-        document.getElementById('btn-lesson-next').style.display = 'block';
-        return;
+        // The 0->1 promotion here is guaranteed, not earned -- showing a
+        // "level up!" screen for it is empty positive reinforcement and an
+        // extra click for nothing, so just move on. Every other promotion
+        // (1->2 and up) is a real correct answer and still gets the full
+        // feedback screen below.
+        return loadNextItem();
       }
       var fb = document.getElementById('lesson-feedback');
       fb.style.display = 'block';
