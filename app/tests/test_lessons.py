@@ -8,11 +8,14 @@ future changes: if these still pass, per-user behavior and isolation were
 preserved.
 """
 
+import json
+
 from fastapi.testclient import TestClient
 from sqlalchemy import text
 
-from app.implementation.api import create_api
+from app.implementation.api import COOKIE_NAME, create_api
 from app.implementation.srs_engine import PROMOTE_THRESHOLD
+from scripts.add_missing_species import add_missing_species
 
 
 def _rig_lesson_item(store, user_id, fish_id, level_at_plan, is_retry=0, is_reinforce=0):
@@ -427,6 +430,131 @@ def test_browse_returns_all_fish_with_photos(client, store):
     for fish in data["fish"]:
         assert 1 <= len(fish["photos"]) <= 3
         assert fish["photos"][0]["file"]
+
+
+# ---------- adding a species after users already exist ----------
+#
+# Covers the two halves of the add-new-species workflow (see the
+# add-new-species skill): a species inserted into `species` after some
+# users already exist must not silently break anything for either kind of
+# user, before or after scripts/add_missing_species.py runs.
+
+
+def _write_single_species_seed(tmp_path, fish_id):
+    """A minimal seed.json + photo_manifest.json containing exactly one
+    fish, so add_missing_species() can be exercised for real without
+    dragging in the actual (large) seed_data/."""
+    seed = {
+        "fish": [
+            {
+                "id": fish_id,
+                "name": "Test New Fish",
+                "scientific_name": "Testus novus",
+                "size": "1 in",
+                "features": "distinctly fictional",
+                "photo_file": f"{fish_id}.webp",
+                "mnemonic": "made up for a test",
+            }
+        ],
+        "confusion_pairs": [],
+    }
+    manifest = [
+        {
+            "id": fish_id,
+            "name": "Test New Fish",
+            "photos": [{"file": f"{fish_id}_1.webp", "credit": "Test", "web_file": f"{fish_id}_1.webp"}],
+        }
+    ]
+    seed_path = tmp_path / "extra_seed.json"
+    manifest_path = tmp_path / "extra_manifest.json"
+    seed_path.write_text(json.dumps(seed))
+    manifest_path.write_text(json.dumps(manifest))
+    return seed_path, manifest_path
+
+
+def test_brand_new_user_automatically_gets_a_species_added_after_other_users_signed_up(
+    client, store, user_id
+):
+    """ensure_user() reads the live `species` table at signup time, so a
+    species that shows up after other users already exist still reaches
+    anyone who signs up afterward with zero extra migration step -- while
+    `user_id` (already existing) stays untouched until one runs (next
+    test)."""
+    fish_id = "test-new-fish-a"
+    with store.engine.begin() as conn:
+        conn.execute(
+            text(
+                "INSERT INTO species (id, name, scientific_name, size, features, photo_file, mnemonic) "
+                "VALUES (:id, 'Test New Fish', 'Testus novus', '1 in', 'fictional', :photo, 'test mnemonic')"
+            ),
+            {"id": fish_id, "photo": f"{fish_id}.webp"},
+        )
+
+    new_user_id = "test-user-brand-new"
+    store.ensure_user(new_user_id)
+
+    def has_progress(uid):
+        with store.engine.begin() as conn:
+            return (
+                conn.execute(
+                    text("SELECT COUNT(*) FROM progress WHERE user_id=:uid AND fish_id=:fid"),
+                    {"uid": uid, "fid": fish_id},
+                ).scalar()
+                == 1
+            )
+
+    assert not has_progress(user_id)  # pre-existing user: untouched
+    assert has_progress(new_user_id)  # freshly signed-up user: has it automatically
+
+    # and it's actually quizzable for the new user, not just a bare DB row
+    api = create_api(store)
+    new_client = TestClient(api)
+    new_client.cookies.set(COOKIE_NAME, new_user_id)
+
+    _, item_id = _rig_lesson_item(store, new_user_id, fish_id, level_at_plan=1, is_reinforce=1)
+    data = new_client.post("/lesson/submit", json={"item_id": item_id, "answer": fish_id}).json()
+    assert data["ok"] is True
+    assert data["promoted"] is True
+    assert data["new_level"] == 1
+
+
+def test_existing_user_gets_a_new_species_only_after_add_missing_species_runs(
+    client, store, user_id, tmp_path
+):
+    """Mirrors an actual production event: a species gets added to
+    seed_data/ after real users already exist, and
+    scripts/add_missing_species.py backfills them. Runs the real migration
+    function (not a reimplementation) against a temp store and a throwaway
+    one-fish seed, so a regression in the actual migration path would be
+    caught here."""
+    fish_id = "test-new-fish-b"
+    seed_path, manifest_path = _write_single_species_seed(tmp_path, fish_id)
+
+    def has_progress():
+        with store.engine.begin() as conn:
+            return (
+                conn.execute(
+                    text("SELECT COUNT(*) FROM progress WHERE user_id=:uid AND fish_id=:fid"),
+                    {"uid": user_id, "fid": fish_id},
+                ).scalar()
+                == 1
+            )
+
+    assert not has_progress()  # existing user predates this species
+
+    result = add_missing_species(store=store, seed_path=seed_path, photo_manifest_path=manifest_path)
+    assert result["added_species"] == [fish_id]
+    assert result["backfilled_progress"] == 1  # just user_id, in this test's isolated store
+
+    assert has_progress()  # now backfilled
+
+    # and it's fully quizzable through the real API -- no exception for a
+    # fish that didn't exist when this user first signed up
+    _, item_id = _rig_lesson_item(store, user_id, fish_id, level_at_plan=1, is_reinforce=1)
+    data = client.post("/lesson/submit", json={"item_id": item_id, "answer": fish_id}).json()
+    assert data["ok"] is True
+    assert data["promoted"] is True
+    assert data["new_level"] == 1
 
 
 # ---------- multi-user isolation ----------

@@ -35,13 +35,19 @@ SEED_PATH = SEED_DIR / "seed.json"
 PHOTO_MANIFEST_PATH = SEED_DIR / "photo_manifest.json"
 
 
-def add_missing_species():
-    store = SrsStore()
+def add_missing_species(store=None, seed_path=None, photo_manifest_path=None):
+    """store/seed_path/photo_manifest_path are overridable so tests can run
+    this exact migration against a temp store + a small throwaway seed file
+    instead of the real local/production DB and the real seed_data/ -- see
+    app/tests/test_lessons.py's new-species tests."""
+    store = store or SrsStore()
+    seed_path = seed_path or SEED_PATH
+    photo_manifest_path = photo_manifest_path or PHOTO_MANIFEST_PATH
     print(f"Connected to: {store.engine.dialect.name}")
 
-    with open(SEED_PATH) as f:
+    with open(seed_path) as f:
         seed = json.load(f)
-    with open(PHOTO_MANIFEST_PATH) as f:
+    with open(photo_manifest_path) as f:
         manifest = json.load(f)
 
     with store.engine.begin() as conn:
@@ -108,6 +114,14 @@ def add_missing_species():
     print(f"Photo rows added (for new species): {added_photos}")
     print(f"Existing users backfilled: {len(user_ids)} users x {len(added_species)} new species "
           f"= {backfilled_progress} progress rows created")
+
+    return {
+        "added_species": added_species,
+        "added_confusion": added_confusion,
+        "added_photos": added_photos,
+        "backfilled_progress": backfilled_progress,
+        "user_count": len(user_ids),
+    }
 
 
 if __name__ == "__main__":
