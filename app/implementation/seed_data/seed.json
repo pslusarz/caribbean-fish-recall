@@ -575,9 +575,101 @@
       "features": "1. Silver body | 2. All fins yellow",
       "photo_file": "yellow-jack.webp",
       "mnemonic": "A jack that dipped every fin in yellow paint -- otherwise plain silver."
+    },
+    {
+      "id": "black-durgon",
+      "name": "Black Durgon",
+      "scientific_name": "Melichthys niger",
+      "size": "Up to 12\" (30cm)",
+      "features": "1. Black body | 2. Rounded football shape with rounded dorsal and anal fins opposite each other | 3. Thin, iridescent blue lines at base of dorsal and anal fin | 4. Tail curves inward | 5. Usually swims up in water column, where it appears as a silhouette to the diver",
+      "photo_file": "black-durgon.webp",
+      "mnemonic": "All-black, football-shaped body with thin blue piping at the fin bases -- often just a dark silhouette hovering up in the water column."
+    },
+    {
+      "id": "gray-snapper",
+      "name": "Gray Snapper",
+      "scientific_name": "Lutjanus griseus",
+      "size": "Up to 24\" (61cm)",
+      "features": "1. Overall silver gray color, with obvious scales | 2. Eye is yellow | 3. Likes to hang out in schools in dark places (under docks) | 4. Younger individuals can have dark diagonal stripe through eye",
+      "photo_file": "gray-snapper.webp",
+      "mnemonic": "Gray, scaly, yellow-eyed snapper loitering in schools under docks and other dark cover."
+    },
+    {
+      "id": "graysby",
+      "name": "Graysby",
+      "scientific_name": "Cephalopholis cruentata",
+      "size": "Up to 12\" (30cm)",
+      "features": "1. Overall color is brown to reddish brown | 2. Series of dark orange dots over the body and the fins | 3. Three black (or sometimes white) dots just under the dorsal fin | 4. Tail is rounded",
+      "photo_file": "graysby.webp",
+      "mnemonic": "Small reddish-brown grouper covered in orange dots, three black dots under the dorsal fin, rounded tail (Red Hind's is squared off)."
+    },
+    {
+      "id": "lane-snapper",
+      "name": "Lane Snapper",
+      "scientific_name": "Lutjanus synagris",
+      "size": "Up to 15\" (38cm)",
+      "features": "1. Silvery body with yellow stripes | 2. Fins often yellow | 3. Tail fin sometimes reddish | 4. Black spot often visible between top yellow lines",
+      "photo_file": "lane-snapper.webp",
+      "mnemonic": "Silvery snapper striped in yellow with a dark spot tucked between the top stripes; fins often yellow."
+    },
+    {
+      "id": "ocean-triggerfish",
+      "name": "Ocean Triggerfish",
+      "scientific_name": "Canthidermis sufflamen",
+      "size": "Up to 24\" (61cm)",
+      "features": "1. Evenly colored gray body | 2. Swims up in water column | 3. Dorsal and anal fins are pointed and tall | 4. Tail is concave (curves inward)",
+      "photo_file": "ocean-triggerfish.webp",
+      "mnemonic": "Plain gray triggerfish cruising up in the water column, tall pointed dorsal/anal fins, concave tail."
+    },
+    {
+      "id": "red-hind",
+      "name": "Red Hind",
+      "scientific_name": "Epinephelus guttatus",
+      "size": "Up to 2' (61cm)",
+      "features": "1. Overall red spots | 2. Tail is squared off (Graysby's is rounded) | 3. Dorsal, anal and tail fin have a dark margin with a thin light blue edge | 4. Usually found sitting on the reef",
+      "photo_file": "red-hind.webp",
+      "mnemonic": "Grouper covered in red spots, squared-off tail, dark blue-edged margin on dorsal/anal/tail fins (Graysby's tail is rounded, not squared)."
+    },
+    {
+      "id": "sailfin-blenny",
+      "name": "Sailfin Blenny",
+      "scientific_name": "Emblemaria pandionis",
+      "size": "Up to 2.5\" (6cm)",
+      "features": "1. Dark head (usually) | 2. Dorsal fin is large, like a sail | 3. Pupil has a notch at the top",
+      "photo_file": "sailfin-blenny.webp",
+      "mnemonic": "Tiny blenny peeking out of a burrow with an oversized sail-like dorsal fin and a notched pupil."
+    },
+    {
+      "id": "yellowmouth-grouper",
+      "name": "Yellowmouth Grouper",
+      "scientific_name": "Mycteroperca interstitialis",
+      "size": "Up to 2.5' (76cm)",
+      "features": "1. Corners of mouth are yellow | 2. Pectoral fins clear at base and on edges | 3. Tail appears raggedy on back edge",
+      "photo_file": "yellowmouth-grouper.webp",
+      "mnemonic": "Grouper with yellow corners on its mouth, clear-edged pectoral fins, and a ragged-looking tail edge."
     }
   ],
   "confusion_pairs": [
+    [
+      "graysby",
+      "red-hind"
+    ],
+    [
+      "gray-snapper",
+      "dog-snapper"
+    ],
+    [
+      "gray-snapper",
+      "lane-snapper"
+    ],
+    [
+      "yellowmouth-grouper",
+      "black-grouper"
+    ],
+    [
+      "yellowmouth-grouper",
+      "gag"
+    ],
     [
       "french-angelfish",
       "gray-angelfish"

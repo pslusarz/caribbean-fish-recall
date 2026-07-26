@@ -1132,5 +1132,113 @@
         "web_file": "yellow-jack_2.webp"
       }
     ]
+  },
+  {
+    "id": "black-durgon",
+    "name": "Black Durgon",
+    "photos": [
+      {
+        "file": "black-durgon_1.webp",
+        "credit": "Janna Nichols",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/blackdurgon2_jnichols.jpg",
+        "web_file": "black-durgon_1.webp"
+      },
+      {
+        "file": "black-durgon_2.webp",
+        "credit": "Janna Nichols",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/blackdurgon1_jnichols.jpg",
+        "web_file": "black-durgon_2.webp"
+      }
+    ]
+  },
+  {
+    "id": "gray-snapper",
+    "name": "Gray Snapper",
+    "photos": [
+      {
+        "file": "gray-snapper_1.webp",
+        "credit": "Janna Nichols",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/graysnapper3_jnichols.jpg",
+        "web_file": "gray-snapper_1.webp"
+      }
+    ]
+  },
+  {
+    "id": "graysby",
+    "name": "Graysby",
+    "photos": [
+      {
+        "file": "graysby_1.webp",
+        "credit": "Janna Nichols",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/graysby3_jnichols.jpg",
+        "web_file": "graysby_1.webp"
+      },
+      {
+        "file": "graysby_2.webp",
+        "credit": "Janna Nichols",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/graysby2_jnichols.jpg",
+        "web_file": "graysby_2.webp"
+      }
+    ]
+  },
+  {
+    "id": "lane-snapper",
+    "name": "Lane Snapper",
+    "photos": [
+      {
+        "file": "lane-snapper_1.webp",
+        "credit": "Janna Nichols",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/lanesnapper_jnichols.jpg",
+        "web_file": "lane-snapper_1.webp"
+      }
+    ]
+  },
+  {
+    "id": "ocean-triggerfish",
+    "name": "Ocean Triggerfish",
+    "photos": [
+      {
+        "file": "ocean-triggerfish_1.webp",
+        "credit": "Janna Nichols",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/oceantriggerfish_jnichols.jpg",
+        "web_file": "ocean-triggerfish_1.webp"
+      }
+    ]
+  },
+  {
+    "id": "red-hind",
+    "name": "Red Hind",
+    "photos": [
+      {
+        "file": "red-hind_1.webp",
+        "credit": "Janna Nichols",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/redhind2_jnichols.jpg",
+        "web_file": "red-hind_1.webp"
+      }
+    ]
+  },
+  {
+    "id": "sailfin-blenny",
+    "name": "Sailfin Blenny",
+    "photos": [
+      {
+        "file": "sailfin-blenny_1.webp",
+        "credit": "Janna Nichols",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/sailfinblenny4_jnichols.jpg",
+        "web_file": "sailfin-blenny_1.webp"
+      }
+    ]
+  },
+  {
+    "id": "yellowmouth-grouper",
+    "name": "Yellowmouth Grouper",
+    "photos": [
+      {
+        "file": "yellowmouth-grouper_1.webp",
+        "credit": "Janna Nichols",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/yellowmouth_jnichols_2.jpg",
+        "web_file": "yellowmouth-grouper_1.webp"
+      }
+    ]
   }
 ]

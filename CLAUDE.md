@@ -1,6 +1,8 @@
 # Caribbean Fish Recall
 
-A spaced-repetition trainer for identifying 58 Caribbean reef fish species. Originally
+A spaced-repetition trainer for identifying 72 Caribbean reef fish species (grows over
+time as gaps against REEF.org's gallery get found and filled -- check `SELECT COUNT(*)
+FROM species` for the current count rather than trusting this number). Originally
 built as a lustereczko/Cowork prototype (Python "custom tools" + a single HTML/JS blob,
 SQLite only, photos as base64 data URIs); migrated to a standalone FastAPI + FastHTML app
 intended for Railway deployment. See `planning/LUSTERECZKO-TO-RAILWAY-MIGRATION-GUIDE.md`

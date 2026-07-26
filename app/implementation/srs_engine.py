@@ -115,8 +115,8 @@ class SrsEngine:
 
     def _decay_pass(self, conn, user_id, now):
         # Single set-based UPDATE instead of a SELECT + per-row UPDATE loop --
-        # avoids up to 58 extra DB round trips per call (this runs on every
-        # /lesson/start and /stats). See DECAY_GAP for the per-level gaps.
+        # avoids up to one extra DB round trip per species per call (this runs
+        # on every /lesson/start and /stats). See DECAY_GAP for the per-level gaps.
         gap_case = "CASE level " + " ".join(
             f"WHEN {lvl} THEN {gap}" for lvl, gap in DECAY_GAP.items()
         ) + f" ELSE {DECAY_GAP[4]} END"

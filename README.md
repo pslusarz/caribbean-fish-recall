@@ -1,6 +1,6 @@
 # Caribbean Fish Recall
 
-A lesson-based spaced-repetition trainer for identifying 58 Caribbean reef fish
+A lesson-based spaced-repetition trainer for identifying 72 Caribbean reef fish
 species, migrated from a lustereczko/Cowork prototype into a standalone
 FastAPI + FastHTML web app deployable on Railway.
 
