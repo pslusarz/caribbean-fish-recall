@@ -35,7 +35,8 @@ INDEX_BODY = """
   <div id="panel-lesson" class="panel" style="flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:10px;">
     <div id="lesson-start-screen" style="display:flex; flex-direction:column; gap:12px; align-items:center; justify-content:center; height:100%; text-align:center;">
       <div style="font-size:16px; opacity:0.9;">Ready for a lesson?</div>
-      <div style="font-size:13px; opacity:0.7; max-width:320px;">~15 questions, a mix of new fish and review, tuned to keep you around 70% correct.</div>
+      <div style="font-size:13px; opacity:0.7; max-width:320px;">Learn to identify fish, one lesson at a time. There are 30 questions per lesson, approximately 7 minutes.</div>
+      <div style="font-size:13px; opacity:0.7; max-width:320px;">Questions will get increasingly difficult for each fish. Continue lessons until you have advanced your recall on all fish to level 4 (see Stats tab to view your progress). Then revisit periodically to maintain your score (it will decay over time, just like your memory).</div>
       <button id="btn-start-lesson" style="padding:14px 24px; border:none; border-radius:8px; background:#2f9e6e; color:white; font-weight:700; cursor:pointer; font-size:15px;">Start Lesson</button>
     </div>
 
