@@ -1240,5 +1240,65 @@
         "web_file": "yellowmouth-grouper_1.webp"
       }
     ]
+  },
+  {
+    "id": "almaco-jack",
+    "name": "Almaco Jack",
+    "photos": [
+      {
+        "file": "almaco-jack_1.webp",
+        "credit": "Carol Cox",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/almacojack_ccox.jpg",
+        "web_file": "almaco-jack_1.webp"
+      }
+    ]
+  },
+  {
+    "id": "arrow-blenny",
+    "name": "Arrow Blenny",
+    "photos": [
+      {
+        "file": "arrow-blenny_1.webp",
+        "credit": "Christy Semmens",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/arrow_blenny_-_lucayablennius_zingaro_-_13pc090498-christysemmens.jpg",
+        "web_file": "arrow-blenny_1.webp"
+      }
+    ]
+  },
+  {
+    "id": "atlantic-spadefish",
+    "name": "Atlantic Spadefish",
+    "photos": [
+      {
+        "file": "atlantic-spadefish_1.webp",
+        "credit": "Daryl Duda",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/atlantic-spadefish-2_darylduda.jpg",
+        "web_file": "atlantic-spadefish_1.webp"
+      }
+    ]
+  },
+  {
+    "id": "balloonfish",
+    "name": "Balloonfish",
+    "photos": [
+      {
+        "file": "balloonfish_1.webp",
+        "credit": "Daryl Duda",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/balloonfish_dduda.jpg",
+        "web_file": "balloonfish_1.webp"
+      }
+    ]
+  },
+  {
+    "id": "bank-sea-bass",
+    "name": "Bank Sea Bass",
+    "photos": [
+      {
+        "file": "bank-sea-bass_1.webp",
+        "credit": "Herb Segars",
+        "orig_url": "https://www.reef.org/sites/default/files/species_images/bankseabass_herbsegars.jpg",
+        "web_file": "bank-sea-bass_1.webp"
+      }
+    ]
   }
 ]

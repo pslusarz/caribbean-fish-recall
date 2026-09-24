@@ -647,6 +647,51 @@
       "features": "1. Corners of mouth are yellow | 2. Pectoral fins clear at base and on edges | 3. Tail appears raggedy on back edge",
       "photo_file": "yellowmouth-grouper.webp",
       "mnemonic": "Grouper with yellow corners on its mouth, clear-edged pectoral fins, and a ragged-looking tail edge."
+    },
+    {
+      "id": "almaco-jack",
+      "name": "Almaco Jack",
+      "scientific_name": "Seriola rivoliana",
+      "size": "Up to 3' (1m)",
+      "features": "1. Dark diagonal band runs from lip, across eye, to beginning of dorsal fin | 2. Long foredorsal fin | 3. High back profile",
+      "photo_file": "almaco-jack.webp",
+      "mnemonic": "Jack with a dark 'bandit' band slanting from lip through the eye up to the dorsal fin, and a tall, humped back."
+    },
+    {
+      "id": "arrow-blenny",
+      "name": "Arrow Blenny",
+      "scientific_name": "Lucayablennius zingaro",
+      "size": "1 - 1.5\"",
+      "features": "1. Reddish and elongate body | 2. Drifts with tail \"cocked\" | 3. Long, pointed mouth and snout",
+      "photo_file": "arrow-blenny.webp",
+      "mnemonic": "Tiny reddish arrow hovering with its tail cocked sideways like a drawn bow, pointed snout aimed at prey."
+    },
+    {
+      "id": "atlantic-spadefish",
+      "name": "Atlantic Spadefish",
+      "scientific_name": "Chaetodipterus faber",
+      "size": "1-1.5 ft",
+      "features": "1. Silver to gray in color | 2. Several dark bars | 3. Body shape resembles a \"spade\" on playing cards",
+      "photo_file": "atlantic-spadefish.webp",
+      "mnemonic": "Silver-gray disc with dark vertical bars, shaped like the spade on a playing card."
+    },
+    {
+      "id": "balloonfish",
+      "name": "Balloonfish",
+      "scientific_name": "Diodon holocanthus",
+      "size": "1-2 ft",
+      "features": "1. Olive to brown in color with small dark spots on body, no spots on fins | 2. Long spines on head | 3. Iris is yellow; pupil has iridescent blue-green specs",
+      "photo_file": "balloonfish.webp",
+      "mnemonic": "Spiny puffer with long head spines and spots on the body only -- fins are clear, unlike the Porcupinefish's spotted fins."
+    },
+    {
+      "id": "bank-sea-bass",
+      "name": "Bank Sea Bass",
+      "scientific_name": "Centropristis ocyurus",
+      "size": "5-9\"",
+      "features": "1. Six to seven dark bars on back | 2. Immediately below each bar is a rectangular blotch | 3. Bluish line markings between eyes and on snout",
+      "photo_file": "bank-sea-bass.webp",
+      "mnemonic": "Bottom-sitting bass with 6-7 dark saddle bars, each with a rectangular blotch hanging just below it, and blue lines on the snout."
     }
   ],
   "confusion_pairs": [
@@ -865,6 +910,22 @@
     [
       "greenblotch-parrotfish",
       "redband-parrotfish"
+    ],
+    [
+      "balloonfish",
+      "porcupinefish"
+    ],
+    [
+      "almaco-jack",
+      "bar-jack"
+    ],
+    [
+      "almaco-jack",
+      "crevalle-jack"
+    ],
+    [
+      "almaco-jack",
+      "horse-eye-jack"
     ]
   ]
 }
