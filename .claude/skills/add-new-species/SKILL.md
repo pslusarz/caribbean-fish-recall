@@ -7,14 +7,24 @@ description: Audit REEF.org's Caribbean gallery for species missing from the app
 
 Gallery: https://www.reef.org/species/galleries/caribbean
 
-**Pagination is not reliable — poll it carefully.** The bare URL (page 1, what a visitor
-actually lands on) is served from a stale Drupal page cache and can lag behind what pages
-2-8 show live: it has previously listed species that appeared nowhere in a live crawl of
-`?page=1` through `?page=7`. `?page=0` explicit is a *different*, separately-cached
-request from the bare URL — don't substitute one for the other. To get the true full set:
-`curl -A "Mozilla/5.0"` the bare URL plus `?page=1` through `?page=7` (8 requests total),
-extract `<a href="/species/SLUG">Name</a>`, and union+dedupe by slug (some slugs repeat
-across pages — a REEF Views bug, not a sign you're missing pages). Don't use WebFetch/
+**Pagination is not reliable — poll it carefully.** Two separate problems:
+
+1. **The default sort is unstable across pages.** Page boundaries shift between requests,
+   so one pass over every page returns the right number of *rows* but many duplicates and
+   silently misses species. As of 2026-09 a single pass returned 81 rows but only ~65
+   unique slugs. The fix: crawl every page under several explicit sort orders and take the
+   union. `?order=title&sort=asc|desc`, `?order=nid&sort=asc|desc` and
+   `?order=created&sort=asc` each give a different subset. You're done when the union's
+   unique count equals the per-crawl row total (10 per page × full pages + the last page).
+2. **The bare URL is served from a stale Drupal page cache** and can lag behind what
+   `?page=N` shows live. `?page=0` explicit is a *different*, separately-cached request
+   from the bare URL, so include both.
+
+Don't hardcode the page range. Read the last page from the `pager-last` link on page 0
+(it was `?page=8` as of 2026-09), and check that the page after it comes back empty.
+`items_per_page=All` appears in pager links, but REEF ignores it (still 10 per page).
+Use `curl -A "Mozilla/5.0"`, extract `<a href="/species/SLUG">Name</a>`, and sanity-check
+that the per-page link count matches the per-page `views-row` count. Don't use WebFetch/
 page-summary tools for this crawl — tried it first and it silently dropped or hallucinated
 entries across repeated fetches of the same page. Cross-check candidates against our
 `scientific_name`s too, not just display name, before calling something missing — a couple
@@ -32,6 +42,28 @@ it misses exact image URLs and credits):
 - Write your own `mnemonic` (REEF doesn't supply one) — short, keyed to the actual
   features, and naming the confusable neighbor if REEF's copy calls one out (e.g. "tail
   squared, not rounded like X's").
+
+## Skip species with incomplete REEF pages; don't fill the gaps yourself
+
+Only add a species when REEF's own page has **all** of: at least one real, credited photo
+at the `species_images/` URL; a Size; and Distinctive features. The gallery includes some
+that don't meet this bar. Leave those out and list them for the user with the reason. Don't
+write the facts from general knowledge or pull photos from elsewhere to make up the
+difference. The user confirmed this (2026-09): an ID trainer is only as good as its photos
+and facts, and REEF being the single source of truth is the point.
+
+Seen so far, and why skipped (expect these to still be missing on the next audit; check
+whether REEF has completed their pages, and don't re-report them as "new"):
+- **African Pompano** (`african-pompano`): facts present, but no photo on the page.
+- **Atlantic Wolffish** (`atlantic-wolffish-0`): a cold-water North Atlantic species that
+  looks misfiled in the Caribbean gallery. It has photos, but no size or features.
+- **Cherubfish** (`cherubfish`) and **Roughhead Blenny** (`roughhead-blenny`): legacy stub
+  pages. Each has a single uncredited 198×132 thumbnail (`species/TWA/NNN.jpg`, not
+  `species_images/`), and no size or features.
+
+The app's species count will therefore sit below REEF's gallery total (77 vs. 81 as of
+2026-09), which is expected. Say so up front when reporting, so the gap isn't mistaken for
+a pending migration.
 
 ## Photos: resize before converting
 
