@@ -1,4 +1,4 @@
-from fasthtml.common import fast_app, serve, Title, NotStr, Div
+from fasthtml.common import fast_app, serve, Title, NotStr, Div, Link
 from dotenv import load_dotenv
 from starlette.middleware.base import BaseHTTPMiddleware
 import os
@@ -13,9 +13,20 @@ if os.environ.get("DATABASE_URL"):
 else:
     print("Main: DATABASE_URL NOT found. Using local SQLite.")
 
-# public/photos/*.jpg is served at /photos/*.jpg; no favicon yet -- add one to
-# public/favicon.ico and an hdrs=(Link(...),) tuple here when we have real branding.
-app, rt = fast_app(static_path="public")
+# public/photos/*.webp is served at /photos/*.webp, and the icons below at the
+# root. Queen angelfish favicon: favicon.ico carries 16/32/48px (transparent
+# circle), icon-192.png is the hi-res transparent version, and
+# apple-touch-icon.png is opaque (iOS fills transparency with black) on the
+# page's own #04202e background. No web manifest -- FastHTML's static route
+# doesn't serve the .webmanifest extension.
+app, rt = fast_app(
+    static_path="public",
+    hdrs=(
+        Link(rel="icon", href="/favicon.ico", sizes="48x48"),
+        Link(rel="icon", href="/icon-192.png", type="image/png", sizes="192x192"),
+        Link(rel="apple-touch-icon", href="/apple-touch-icon.png"),
+    ),
+)
 
 # Mount the FastAPI JSON API (the migrated lustereczko custom tools) under /api.
 # FastHTML's app is Starlette-based, same as FastAPI, so a plain ASGI mount works.
