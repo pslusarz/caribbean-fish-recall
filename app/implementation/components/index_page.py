@@ -120,6 +120,7 @@ INDEX_BODY = """
     </div>
     <div id="browse-loading" style="display:none; align-items:center; justify-content:center; padding:40px 0; width:100%;"><div class="fr-spinner fr-spinner-lg"></div></div>
     <div id="browse-list" style="display:flex; flex-wrap:wrap; gap:6px;"></div>
+    <div id="browse-count" style="font-size:11px; opacity:0.55; text-align:right; margin-top:2px;"></div>
   </div>
 
   <div id="fr-error-toast" style="display:none; position:absolute; bottom:60px; left:50%; transform:translateX(-50%); background:#6b2b2b; color:#fff; padding:8px 14px; border-radius:8px; font-size:13px; box-shadow:0 4px 14px rgba(0,0,0,0.4); z-index:50; max-width:80%; text-align:center;"></div>
@@ -714,6 +715,7 @@ INDEX_BODY = """
       chip.addEventListener('click', function() { showBrowseDetail(f); });
       list.appendChild(chip);
     });
+    document.getElementById('browse-count').textContent = allFish.length + ' species';
   }
 
   function showBrowseDetail(f) {
