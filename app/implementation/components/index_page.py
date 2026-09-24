@@ -34,9 +34,12 @@ INDEX_BODY = """
 
   <div id="panel-lesson" class="panel" style="flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:10px;">
     <div id="lesson-start-screen" style="display:flex; flex-direction:column; gap:12px; align-items:center; justify-content:center; height:100%; text-align:center;">
-      <div style="font-size:16px; opacity:0.9;">Ready for a lesson?</div>
-      <div style="font-size:13px; opacity:0.7; max-width:320px;">Learn to identify fish, one lesson at a time. There are 15 questions per lesson, approximately 4 minutes.</div>
-      <div style="font-size:13px; opacity:0.7; max-width:320px;">Questions will get increasingly difficult for each fish. Continue lessons until you have advanced your recall on all fish to level 4 (see Stats tab to view your progress). Then revisit periodically to maintain your score (it will decay over time, just like your memory).</div>
+      <div id="welcome-title" style="font-size:18px; font-weight:700;">Ready for a lesson?</div>
+      <div id="welcome-body" style="display:none; flex-direction:column; gap:10px; font-size:14px; line-height:1.5; max-width:380px;"></div>
+      <div id="welcome-intro" style="display:flex; flex-direction:column; gap:12px; align-items:center;">
+        <div style="font-size:13px; opacity:0.7; max-width:320px;">Learn to identify fish, one lesson at a time. There are 15 questions per lesson, approximately 4 minutes.</div>
+        <div style="font-size:13px; opacity:0.7; max-width:320px;">Questions will get increasingly difficult for each fish. Continue lessons until you have advanced your recall on all fish to level 4 (see Stats tab to view your progress). Then revisit periodically to maintain your score (it will decay over time, just like your memory).</div>
+      </div>
       <button id="btn-start-lesson" style="padding:14px 24px; border:none; border-radius:8px; background:#2f9e6e; color:white; font-weight:700; cursor:pointer; font-size:15px;">Start Lesson</button>
     </div>
 
@@ -353,7 +356,79 @@ INDEX_BODY = """
 
   document.getElementById('btn-summary-restart').addEventListener('click', function() {
     showLessonScreen('start');
+    loadWelcome();
   });
+
+  // ---------- PERSONALIZED WELCOME (lesson start screen) ----------
+  function fmtDuration(sec) {
+    var h = sec / 3600;
+    if (h < 1) return 'less than an hour';
+    if (h < 36) { var n = Math.round(h); return n + (n === 1 ? ' hour' : ' hours'); }
+    var d = Math.round(h / 24);
+    return d + (d === 1 ? ' day' : ' days');
+  }
+
+  function fmtWindow(sec) {
+    var h = sec / 3600;
+    if (h < 24) return h + ' hours';
+    var d = h / 24;
+    return d + (d === 1 ? ' day' : ' days');
+  }
+
+  function decayExplanation(gaps) {
+    var labels = { 1: 'Level 1', 2: 'Level 2', 3: 'Level 3', 4: 'Level 4 (mastered)' };
+    var items = [1, 2, 3, 4].map(function(l) {
+      return '<li style="color:inherit; margin:0; list-style:disc;">' + labels[l] + ': ' + fmtWindow(gaps[String(l)]) + '</li>';
+    }).join('');
+    return 'Like real memory, recall fades without practice. Each fish you\\u2019ve learned has a review window that depends on its level:' +
+      '<ul style="margin:6px 0; padding-left:20px; color:inherit;">' + items + '</ul>' +
+      'Every full window that passes without reviewing a fish drops it one level, and your rank drops with it. ' +
+      'Reviewing a fish in a lesson restarts its clock.';
+  }
+
+  function renderWelcome(s) {
+    var w = s.welcome;
+    var title = document.getElementById('welcome-title');
+    var body = document.getElementById('welcome-body');
+    var intro = document.getElementById('welcome-intro');
+    if (!w || !w.has_lessons) {
+      title.textContent = 'Welcome!';
+      body.style.display = 'none';
+      intro.style.display = 'flex';
+      return;
+    }
+    title.textContent = 'Welcome back!';
+    intro.style.display = 'none';
+    var html = '<div>It\\u2019s been <b>' + fmtDuration(w.seconds_since_last_lesson) + '</b> since your last lesson.</div>';
+    var why;
+    if (w.score_lost > 0) {
+      var before = Math.round((s.score + w.score_lost) * 10) / 10;
+      html += '<div style="background:#123f56; border-left:3px solid #f4b942; padding:10px; border-radius:6px; text-align:left;">' +
+        '<div>Your rank slipped from <b>' + before + '%</b> to <b>' + s.score + '%</b> while you were away (\\u2212' + w.score_lost + ' points).</div>';
+      if (w.mastered_lost > 0) {
+        html += '<div style="margin-top:4px;">' + w.mastered_lost + ' mastered fish ' + (w.mastered_lost === 1 ? 'has' : 'have') + ' dropped out of mastery.</div>';
+      }
+      html += '</div>';
+      html += '<div style="opacity:0.85;">A lesson now starts winning it back \\u2014 the fish that slipped are due for review, so upcoming lessons will focus on them.</div>';
+      why = 'Why did my score drop?';
+    } else {
+      html += '<div>Your rank is <b>' + s.score + '%</b> and holding steady.</div>';
+      if (w.seconds_until_next_decay !== null) {
+        html += '<div style="opacity:0.85;">Your first fish will start to slip in about <b>' + fmtDuration(w.seconds_until_next_decay) + '</b>. A lesson before then keeps them fresh.</div>';
+      }
+      why = 'How does score decay work?';
+    }
+    html += '<details style="text-align:left; font-size:13px; opacity:0.85; margin:0; color:#eaf6fb;"><summary style="cursor:pointer; color:#eaf6fb; text-decoration:underline; text-underline-offset:3px;">' + why + '</summary>' +
+      '<div style="margin-top:6px; line-height:1.5;">' + decayExplanation(w.decay_gap_seconds) + '</div></details>';
+    body.innerHTML = html;
+    body.style.display = 'flex';
+  }
+
+  // Failure just leaves the generic "Ready for a lesson?" screen in place --
+  // not worth an error toast, the Start button still works.
+  function loadWelcome() {
+    fetchApi('GET', '/stats').then(renderWelcome, function() {});
+  }
 
   function renderLevelBadge(item) {
     var badge = document.getElementById('lesson-badge');
@@ -718,7 +793,14 @@ INDEX_BODY = """
 
   (function checkForClaimPath() {
     var m = window.location.pathname.match(/^\\/claim\\/(.+)$/);
-    if (m) runClaimFlow(decodeURIComponent(m[1]));
+    if (m) {
+      runClaimFlow(decodeURIComponent(m[1]));
+    } else {
+      // Not on a claim path: an early /stats call there would mint a cookie
+      // before transfer_preview runs, turning "no progress on this device"
+      // into a spurious overwrite warning.
+      loadWelcome();
+    }
   })();
 
   (function checkForWelcomeBanner() {

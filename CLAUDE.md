@@ -110,8 +110,14 @@ Lesson composition targets `TARGET_RATE = 0.70`: given the blended accuracy of e
 currently due for review, it picks a mix of new-vs-review items sized to land around a 70%
 hit rate. `REVIEW_GAP` (short-term, minutes-to-hours, cram-friendly) governs when a card
 resurfaces within lesson content; `DECAY_GAP` (day-scale) governs long-term forgetting —
-`_decay_pass()` silently drops a fish's level if it hasn't been reviewed within its decay
-window, run at the top of both `start()` and `stats()`.
+`_decay_pass()`, run at the top of both `start()` and `stats()`, drops a fish one level per
+full decay window of elapsed time (L4 away 3.5 days → L3; 5+ days → L2). It's idempotent:
+each consumed window advances `last_reviewed_at` (so that column is really "decay clock
+anchor", reset to now by a real review), and repeated calls never decay further than
+elapsed time warrants — it used to drop a level per *call*, cascading overdue fish to 0
+after a few page loads. Each pass that drops anything logs a `pre_decay` + `decay`
+`rank_history` pair at the same ts; `_welcome()` sums those pairs since the user's last
+lesson to tell them exactly how much they lost while away (the lesson-start screen).
 
 Missed items get a same-lesson "encore" retry batch once the main queue is exhausted
 (`is_retry=1`) — these update `lesson_items.status` but deliberately don't touch

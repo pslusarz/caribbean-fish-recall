@@ -16,6 +16,11 @@ WRONG_REQUEUE = 10 * 60  # bring a missed card back soon regardless of level
 # Long-term forgetting model: how long since last real review before we assume decay (day-scale)
 DECAY_GAP = {1: 12 * 3600, 2: 24 * 3600, 3: 2 * 24 * 3600, 4: 3 * 24 * 3600}
 
+# SQL expression for the decay window of a progress row's current level.
+_DECAY_GAP_CASE = "CASE level " + " ".join(
+    f"WHEN {lvl} THEN {gap}" for lvl, gap in DECAY_GAP.items()
+) + f" ELSE {DECAY_GAP[4]} END"
+
 PRIOR = {1: 0.90, 2: 0.65, 3: 0.50, 4: 0.35}
 
 # Consecutive-correct/-wrong answers needed to climb/drop a level. Flat
@@ -98,22 +103,100 @@ class SrsEngine:
         return [{"file": r["file"], "credit": r["credit"]} for r in rows]
 
     def _decay_pass(self, conn, user_id, now):
-        # Single set-based UPDATE instead of a SELECT + per-row UPDATE loop --
-        # avoids up to one extra DB round trip per species per call (this runs
-        # on every /lesson/start and /stats). See DECAY_GAP for the per-level gaps.
-        gap_case = "CASE level " + " ".join(
-            f"WHEN {lvl} THEN {gap}" for lvl, gap in DECAY_GAP.items()
-        ) + f" ELSE {DECAY_GAP[4]} END"
-        result = conn.execute(
+        """Time-based, stepwise forgetting: a fish loses one level for each
+        full DECAY_GAP window (of the level it was at) that has passed since
+        its decay clock started -- e.g. level 4 away 3.5 days -> 3, away 5+
+        days (3d + 2d) -> 2. The clock is `last_reviewed_at`, which a real
+        review resets to now; each consumed window advances it by that
+        window's length, so leftover time carries toward the next drop and
+        calling this repeatedly never decays further than elapsed time
+        warrants. (It used to drop one level per *call* without moving the
+        clock, so a few page loads after a long absence cascaded every
+        overdue fish straight to 0.)
+
+        When anything drops, the pass is bracketed by rank_history snapshots
+        -- 'pre_decay' just before, 'decay' just after, same ts -- which is
+        what lets the welcome screen report exactly how much a user lost
+        while away (see _welcome), whether their last lesson was completed
+        or abandoned mid-way.
+
+        Runs on every /lesson/start and /stats; the SELECT only returns fish
+        actually due to drop, so usually nothing else happens."""
+        due = conn.execute(
             text(
-                "UPDATE progress SET level=level-1, streak_success=0, streak_fail=0, "
-                "mastered=0, next_due_at=:now "
+                "SELECT fish_id, level, last_reviewed_at FROM progress "
                 "WHERE user_id=:uid AND level>0 AND last_reviewed_at>0 "
-                f"AND :now > last_reviewed_at + {gap_case}"
+                f"AND :now > last_reviewed_at + {_DECAY_GAP_CASE}"
             ),
             {"now": now, "uid": user_id},
-        )
-        return result.rowcount
+        ).mappings().all()
+        if not due:
+            return 0
+        self._log_rank(conn, user_id, now, "pre_decay")
+        for row in due:
+            level, anchor = row["level"], row["last_reviewed_at"]
+            while level > 0 and now > anchor + DECAY_GAP[min(level, 4)]:
+                anchor += DECAY_GAP[min(level, 4)]
+                level -= 1
+            conn.execute(
+                text(
+                    "UPDATE progress SET level=:level, last_reviewed_at=:anchor, "
+                    "streak_success=0, streak_fail=0, mastered=0, next_due_at=:now "
+                    "WHERE user_id=:uid AND fish_id=:fid"
+                ),
+                {"level": level, "anchor": anchor, "now": now, "uid": user_id, "fid": row["fish_id"]},
+            )
+        self._log_rank(conn, user_id, now, "decay")
+        return len(due)
+
+    def _welcome(self, conn, user_id, now):
+        """Data for the personalized lesson-start screen. "Away" is measured
+        from the user's most recent lesson (completed or not), not
+        users.last_login_at -- that's bumped by ensure_user() on every
+        request, so it always reads "just now" -- and practice, not visits,
+        is what drives decay anyway."""
+        last_lesson_at = conn.execute(
+            text("SELECT MAX(COALESCE(completed_at, started_at)) FROM lessons WHERE user_id=:uid"),
+            {"uid": user_id},
+        ).scalar()
+
+        # Sum every pre_decay -> decay drop logged since that lesson. Strictly
+        # after: start() decays at the same `now` it stamps on the new lesson,
+        # and that drop belongs to the *previous* absence.
+        score_lost, mastered_lost, pending = 0.0, 0, None
+        if last_lesson_at:
+            rows = conn.execute(
+                text(
+                    "SELECT score, mastered_count, reason FROM rank_history "
+                    "WHERE user_id=:uid AND ts > :since AND reason IN ('pre_decay', 'decay') "
+                    "ORDER BY id ASC"
+                ),
+                {"uid": user_id, "since": last_lesson_at},
+            ).mappings().all()
+            for r in rows:
+                if r["reason"] == "pre_decay":
+                    pending = r
+                elif pending is not None:
+                    score_lost += pending["score"] - r["score"]
+                    mastered_lost += pending["mastered_count"] - r["mastered_count"]
+                    pending = None
+
+        next_decay_at = conn.execute(
+            text(
+                f"SELECT MIN(last_reviewed_at + {_DECAY_GAP_CASE}) FROM progress "
+                "WHERE user_id=:uid AND level>0 AND last_reviewed_at>0"
+            ),
+            {"uid": user_id},
+        ).scalar()
+
+        return {
+            "has_lessons": last_lesson_at is not None,
+            "seconds_since_last_lesson": (now - last_lesson_at) if last_lesson_at else None,
+            "score_lost": round(max(score_lost, 0.0), 1),
+            "mastered_lost": max(mastered_lost, 0),
+            "seconds_until_next_decay": max(next_decay_at - now, 0) if next_decay_at else None,
+            "decay_gap_seconds": {str(lvl): gap for lvl, gap in DECAY_GAP.items()},
+        }
 
     def _compute_score(self, conn, user_id):
         weight_case = "CASE level " + " ".join(
@@ -224,9 +307,7 @@ class SrsEngine:
     def start(self, user_id):
         now = time.time()
         with self.store.engine.begin() as conn:
-            changed = self._decay_pass(conn, user_id, now)
-            if changed:
-                self._log_rank(conn, user_id, now, "decay")
+            self._decay_pass(conn, user_id, now)
 
             conn.execute(
                 text("UPDATE lessons SET status='abandoned' WHERE status='active' AND user_id=:uid"),
@@ -622,9 +703,7 @@ class SrsEngine:
     def stats(self, user_id):
         now = time.time()
         with self.store.engine.begin() as conn:
-            changed = self._decay_pass(conn, user_id, now)
-            if changed:
-                self._log_rank(conn, user_id, now, "decay")
+            self._decay_pass(conn, user_id, now)
 
             score, mastered = self._compute_score(conn, user_id)
             total = conn.execute(
@@ -686,6 +765,7 @@ class SrsEngine:
                 "top_confusions": [dict(r) for r in top_confusions],
                 "history": [{"ts": r["ts"], "score": r["score"]} for r in history],
                 "active_lesson_id": active_lesson["id"] if active_lesson else None,
+                "welcome": self._welcome(conn, user_id, now),
             }
 
     def browse(self, user_id):

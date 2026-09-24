@@ -9,12 +9,13 @@ preserved.
 """
 
 import json
+import time
 
 from fastapi.testclient import TestClient
 from sqlalchemy import text
 
 from app.implementation.api import COOKIE_NAME, create_api
-from app.implementation.srs_engine import PROMOTE_THRESHOLD
+from app.implementation.srs_engine import PROMOTE_THRESHOLD, SrsEngine
 from scripts.add_missing_species import add_missing_species
 
 
@@ -626,3 +627,95 @@ def test_transfer_preview_with_invalid_token_returns_400(client):
 def test_transfer_confirm_with_invalid_token_returns_400(client):
     resp = client.post("/account/transfer_confirm", json={"token": "not-a-real-token"})
     assert resp.status_code == 400
+
+
+# ---------- decay + welcome screen ----------
+
+DAY = 24 * 3600
+
+
+def _rig_past_lesson(store, user_id, completed_at):
+    with store.engine.begin() as conn:
+        conn.execute(
+            text(
+                "INSERT INTO lessons (user_id, started_at, completed_at, planned_size, target_rate, status) "
+                "VALUES (:uid, :t, :t, 15, 0.7, 'completed')"
+            ),
+            {"uid": user_id, "t": completed_at},
+        )
+
+
+def test_decay_is_time_based_and_does_not_cascade_across_repeated_requests(client, store, user_id):
+    # Mastered (L4) fish, 3.5 days since review: exactly one L4 window (3d)
+    # has passed, not enough for the L3 window (2d) on top of it.
+    fish_id = "banded-butterflyfish"
+    _set_progress(store, user_id, fish_id, level=4, mastered=1, last_reviewed_at=time.time() - 3.5 * DAY)
+
+    for _ in range(4):
+        client.get("/stats")
+        fish = _get_fish(store, user_id, fish_id)
+        assert fish["level"] == 3
+        assert fish["mastered"] == 0
+
+
+def test_decay_drops_one_level_per_full_window_elapsed(client, store, user_id):
+    # L4 -> L3 after 3d, L3 -> L2 after 2d more: 5.5 days lands on L2 (L1 needs 6d).
+    fish_id = "banded-butterflyfish"
+    _set_progress(store, user_id, fish_id, level=4, mastered=1, last_reviewed_at=time.time() - 5.5 * DAY)
+    client.get("/stats")
+    assert _get_fish(store, user_id, fish_id)["level"] == 2
+
+    other_id = "bar-jack"
+    _set_progress(store, user_id, other_id, level=4, mastered=1, last_reviewed_at=time.time() - 30 * DAY)
+    client.get("/stats")
+    assert _get_fish(store, user_id, other_id)["level"] == 0
+
+
+def test_welcome_for_a_brand_new_user_has_no_history(client):
+    welcome = client.get("/stats").json()["welcome"]
+    assert welcome["has_lessons"] is False
+    assert welcome["seconds_since_last_lesson"] is None
+    assert welcome["score_lost"] == 0
+    assert welcome["mastered_lost"] == 0
+
+
+def test_welcome_reports_time_away_and_decay_since_last_lesson(client, store, user_id):
+    now = time.time()
+    _rig_past_lesson(store, user_id, completed_at=now - 4 * DAY)
+    _set_progress(store, user_id, "banded-butterflyfish", level=4, mastered=1, last_reviewed_at=now - 4 * DAY)
+    _set_progress(store, user_id, "bar-jack", level=2, last_reviewed_at=now - 4 * DAY)
+    # Snapshot the score as it stood before the absence decayed anything.
+    with store.engine.begin() as conn:
+        score_before, _ = SrsEngine(store)._compute_score(conn, user_id)
+
+    stats = client.get("/stats").json()
+    welcome = stats["welcome"]
+    assert welcome["has_lessons"] is True
+    assert abs(welcome["seconds_since_last_lesson"] - 4 * DAY) < 60
+    assert welcome["mastered_lost"] == 1
+    assert welcome["score_lost"] == round(score_before - stats["score"], 1)
+    assert welcome["score_lost"] > 0
+
+    # A refresh reports the same loss (still "since your last lesson") without decaying further.
+    again = client.get("/stats").json()
+    assert again["score"] == stats["score"]
+    assert again["welcome"]["score_lost"] == welcome["score_lost"]
+
+
+def test_welcome_decay_resets_once_a_new_lesson_happens(client, store, user_id):
+    now = time.time()
+    _rig_past_lesson(store, user_id, completed_at=now - 4 * DAY)
+    _set_progress(store, user_id, "banded-butterflyfish", level=4, mastered=1, last_reviewed_at=now - 4 * DAY)
+    assert client.get("/stats").json()["welcome"]["score_lost"] > 0
+
+    client.post("/lesson/start")
+    welcome = client.get("/stats").json()["welcome"]
+    assert welcome["score_lost"] == 0
+    assert welcome["seconds_since_last_lesson"] < 60
+
+
+def test_welcome_reports_time_until_next_fish_slips(client, store, user_id):
+    # L1 window is 12h; reviewed 2h ago -> ~10h left.
+    _set_progress(store, user_id, "banded-butterflyfish", level=1, last_reviewed_at=time.time() - 2 * 3600)
+    welcome = client.get("/stats").json()["welcome"]
+    assert abs(welcome["seconds_until_next_decay"] - 10 * 3600) < 60
